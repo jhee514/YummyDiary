@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles, Box, TextField, Typography, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,13 +24,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Home = props => {
+const SignUp = props => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
       <Box className={classes.textbox}>
-      <Typography variant="h4" className={classes.title}>로그인</Typography>
+      <Typography variant="h4" className={classes.title}>회원가입</Typography>
       <TextField
         className={classes.textfield}
         label="아이디"
@@ -42,16 +41,21 @@ const Home = props => {
         label="비밀번호"
         variant="outlined"
       />
+      <TextField
+        className={classes.textfield}
+        label="성별"
+        variant="outlined"
+      />
+      <TextField
+        className={classes.textfield}
+        label="나이"
+        variant="outlined"
+      />
       <Button>
         제출
       </Button>
-      <Link to="/signup">
-        <Button>
-          SIGNUP
-        </Button>
-      </Link>
       </Box>
     </Box>
   );
 };
-export default Home;
+export default SignUp;
