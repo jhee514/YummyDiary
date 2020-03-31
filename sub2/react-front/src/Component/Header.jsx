@@ -36,11 +36,9 @@ const Header = props => {
   const setOpen = props.setOpen;
   const onMouseLeaveEvent = event => {
     setOpen(false);
-    console.log("1");
   };
   const onMouseUpEvent = event => {
     setOpen(true);
-    console.log("2");
   };
   return (
     <div className={classes.root}>
