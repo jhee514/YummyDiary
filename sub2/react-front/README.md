@@ -23,11 +23,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 사용한 라이브러리
 
-### react-router-dom
+### `react-router-dom`
 
-각 컴포넌트를 주소를 이용해 이동할 수 있게 해준다.
+각 컴포넌트를 주소를 이용해 이동할 수 있게 해준다.<br />
 
-### material-ui
+> npm install react-router-dom
 
-다양한 UI를 포함한 라이브러리
+### `@material-ui`
 
+다양한 UI를 포함한 라이브러리로 쉽게 화면을 구성할 수 있게 해준다. <br />
+
+
+> npm install @material-ui/core
+> npm install @material-ui/icons

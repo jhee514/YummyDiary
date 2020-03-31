@@ -4,13 +4,11 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Button,
   Typography,
   Avatar,
   Box
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
