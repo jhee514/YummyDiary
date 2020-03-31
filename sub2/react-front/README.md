@@ -2,23 +2,32 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+실행 가능한 스크립트 명령어
 
 ### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+개발자 모드로 실행한다<br />
+브라우저에서 다음 주소로 접속할 수 있다.(겹치는 포트 사용시 자동으로 다음 포트로 할당된다) [http://localhost:3000](http://localhost:3000).
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+수정할 때마다 다시 로드해서 변경사항을 확인할 수 있다.<br />
+콘솔에서 에러 사항을 볼 수 있다.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+배포를 위해 `build` 폴더를 생성한다.<br />
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+파일 최적화가 진행되고 파일명이 해시되어 저장된다.<br />
+
+## Used Library
+
+사용한 라이브러리
+
+### react-router-dom
+
+각 컴포넌트를 주소를 이용해 이동할 수 있게 해준다.
+
+### material-ui
+
+다양한 UI를 포함한 라이브러리
 
