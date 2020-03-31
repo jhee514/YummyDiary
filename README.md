@@ -1,4 +1,4 @@
-# SSAFY Bigdata project
+# SSAFY A103 Big Data Project
 
 ## How to Run
 
