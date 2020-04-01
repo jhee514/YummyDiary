@@ -1,44 +1,83 @@
-import React, { useState } from "react";
-import { makeStyles, AppBar, Toolbar, IconButton } from "@material-ui/core";
+import React from "react";
+import {
+  makeStyles,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Avatar,
+  Box
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#b3d4fc",
     flexGrow: 1
-  }
+  },
+  center: {
+    flexGrow: 1
+  },
+  bar: {
+    backgroundColor: "rgba(0, 0, 0, 0.1)"
+  },
+  logo: {
+    marginRight: "20px",
+    height: theme.spacing(6),
+    width: theme.spacing(21)
+  },
+
 }));
 const Header = props => {
   const classes = useStyles();
   const open = props.open;
   const setOpen = props.setOpen;
-  const onClickEvent = event => {
-    setOpen(!open);
+  const onMouseLeaveEvent = event => {
+    setOpen(false);
+  };
+  const onMouseUpEvent = event => {
+    setOpen(true);
   };
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.bar}>
         <Toolbar>
-          {open ? (
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="back"
-              onClick={onClickEvent}
-            >
-              <ArrowBackIcon />
-            </IconButton>
-          ) : (
+          <Avatar variant="square" src="/logo.png" className={classes.logo}>
+            what
+          </Avatar>
+
+          <Typography className={classes.center}></Typography>
+          <Box
+            onPointerLeave={onMouseLeaveEvent}
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+          >
+            {open ? (
+              <>
+                <Link to="/">
+                  <Box marginRight={1}>
+                    <Typography>Home</Typography>
+                  </Box>
+                </Link>
+                <Box marginRight={1}>
+                  <Link to="/signup">
+                    <Typography>Sign Up</Typography>
+                  </Link>
+                </Box>
+              </>
+            ) : (
+              <></>
+            )}
             <IconButton
               edge="start"
               color="inherit"
               aria-label="menu"
-              onClick={onClickEvent}
+              onPointerEnter={onMouseUpEvent}
             >
               <MenuIcon />
             </IconButton>
-          )}
+          </Box>
         </Toolbar>
       </AppBar>
     </div>
