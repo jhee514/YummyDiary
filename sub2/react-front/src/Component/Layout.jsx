@@ -2,17 +2,23 @@ import React, { Fragment, useState } from "react";
 import { CssBaseline, Container, makeStyles } from "@material-ui/core";
 import SideBar from "./SideBar";
 import Header from "./Header";
+import cafe from "../cafe.jpg"
 
 const useStyles = makeStyles(theme => ({
   container: {
-    height: "100vh",
     display: "flex",
-    flexDirection: "columns",
     margin: "0 auto",
-    padding: "0"
+    padding: "0",
+    backgroundImage: `url(${cafe})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height:"100%",
+    minHeight:"100vh"
   },
   content: {
-    width: "100%"
+    width: "100%",
+    height: "100%"
   }
 }));
 const Layout = props => {
@@ -23,7 +29,7 @@ const Layout = props => {
     <Fragment>
       <CssBaseline>
         <Container className={classes.container} maxWidth="xl">
-          {open ? <SideBar /> : <></>}
+          {/* {open ? <SideBar /> : <></>} */}
 
           <div className={classes.content}>
             <Header open={open} setOpen={setOpen} />

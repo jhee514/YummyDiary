@@ -7,7 +7,6 @@ import {
   Button,
   withStyles
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 const CssTextField = withStyles({
   root: {
@@ -50,13 +49,12 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: "4vw",
     //border:"2px solid #000000",
     backgroundColor: "rgba(0,0,0,0.2)",
-    width: "30%",
-    height: "100%"
+    height: "100%",
+    width: "30%"
   },
   textfield: {
     marginBottom: "1vw",
-    width: "95%",
-    height: "100%"
+    width: "95%"
   },
   title: {
     marginBottom: "2vw",
@@ -64,42 +62,49 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Home = props => {
+const SignUp = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
     a_id: "",
-    a_pw: ""
+    a_pw: "",
+    a_age: "",
+    a_gender: ""
   });
   const inputChangeEvent = event => {
-    setInput({...input,[event.target.name] : event.target.value})
-    console.log(event.target.name + " : " + event.target.value)
-  }
+    setInput({ ...input, [event.target.name]: event.target.value });
+    console.log(event.target.name + " : " + event.target.value);
+  };
   return (
     <Box className={classes.root}>
       <Box className={classes.textbox}>
         <Typography variant="h4" className={classes.title}>
-          로그인
+          회원가입
         </Typography>
         <CssTextField
           className={classes.textfield}
           label="아이디"
-          name="a_id"
           variant="outlined"
+          name="a_id"
           onChange={inputChangeEvent}
         />
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
+          variant="outlined"
           name="a_pw"
+          onChange={inputChangeEvent}
+        />
+
+        <CssTextField
+          className={classes.textfield}
+          label="나이"
           variant="outlined"
           onChange={inputChangeEvent}
         />
+        {/* 성별체크 */}
         <Button>제출</Button>
-        <Link to="/signup">
-          <Button>SIGNUP</Button>
-        </Link>
       </Box>
     </Box>
   );
 };
-export default Home;
+export default SignUp;
