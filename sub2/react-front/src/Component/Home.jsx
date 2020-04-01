@@ -7,7 +7,6 @@ import {
   Button,
   withStyles
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 const CssTextField = withStyles({
   root: {
@@ -61,6 +60,11 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginBottom: "2vw",
     color: "rgba(70,190,75,0.9)"
+  },
+  submitbutton: {
+    marginTop: "2vw",
+    width: "100%",
+    height: "100%"
   }
 }));
 
@@ -71,8 +75,12 @@ const Home = props => {
     a_pw: ""
   });
   const inputChangeEvent = event => {
-    setInput({...input,[event.target.name] : event.target.value})
-    console.log(event.target.name + " : " + event.target.value)
+    setInput({ ...input, [event.target.name]: event.target.value });
+    console.log(event.target.name + " : " + event.target.value);
+  };
+
+  const signupClickEvent = event => {
+    props.history.push("/signup")
   }
   return (
     <Box className={classes.root}>
@@ -94,10 +102,8 @@ const Home = props => {
           variant="outlined"
           onChange={inputChangeEvent}
         />
-        <Button>제출</Button>
-        <Link to="/signup">
-          <Button>SIGNUP</Button>
-        </Link>
+        <Button className={classes.submitbutton}>제출</Button>
+        <Button className={classes.submitbutton} onClick={signupClickEvent}>SIGNUP</Button>
       </Box>
     </Box>
   );
