@@ -7,6 +7,9 @@ import {
   Button,
   withStyles
 } from "@material-ui/core";
+import {
+  testlogin
+} from "../modules/dummy"
 
 const CssTextField = withStyles({
   root: {
@@ -71,7 +74,7 @@ const useStyles = makeStyles(theme => ({
 const Home = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_id: "",
+    a_email: "",
     a_pw: ""
   });
   const inputChangeEvent = event => {
@@ -82,6 +85,15 @@ const Home = props => {
   const signupClickEvent = event => {
     props.history.push("/signup")
   }
+
+  const submitClickEvent = event => {
+    const result = testlogin(input)
+    alert(result.message)
+    if(result.validation){
+      sessionStorage.setItem("id", result.data.a_email)
+    }
+  }
+
   return (
     <Box className={classes.root}>
       <Box className={classes.textbox}>
@@ -90,8 +102,8 @@ const Home = props => {
         </Typography>
         <CssTextField
           className={classes.textfield}
-          label="아이디"
-          name="a_id"
+          label="이메일"
+          name="a_email"
           variant="outlined"
           onChange={inputChangeEvent}
         />
@@ -101,8 +113,9 @@ const Home = props => {
           name="a_pw"
           variant="outlined"
           onChange={inputChangeEvent}
+          type="password"
         />
-        <Button className={classes.submitbutton}>제출</Button>
+        <Button className={classes.submitbutton} onClick={submitClickEvent}>제출</Button>
         <Button className={classes.submitbutton} onClick={signupClickEvent}>SIGNUP</Button>
       </Box>
     </Box>
