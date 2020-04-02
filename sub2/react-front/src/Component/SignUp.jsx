@@ -9,9 +9,9 @@ import {
 } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import {
-  a_IdCheck,
   a_PwCheck,
-  a_AgeCheck
+  a_AgeCheck,
+  a_EmailCheck,
 } from "../modules/regCheck"
 
 
@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 const SignUp = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_id: "",
+    a_email: "",
     a_pw: "",
     a_age: "",
     a_gender: ""
@@ -102,7 +102,7 @@ const SignUp = props => {
     //console.log(event.currentTarget.value);
   };
   const submitclickevent = event => {
-    if(a_IdCheck(input.a_id) && a_AgeCheck(input.a_age) && a_PwCheck(input.a_pw) && input.a_gender !==""){
+    if(a_EmailCheck(input.a_email) && a_AgeCheck(input.a_age) && a_PwCheck(input.a_pw) && input.a_gender !==""){
       console.log(input)
       props.history.push("/")
     }else{
@@ -117,20 +117,18 @@ const SignUp = props => {
         </Typography>
         <CssTextField
           className={classes.textfield}
-          label="아이디"
+          label="이메일"
           variant="outlined"
-          name="a_id"
+          name="a_email"
           onChange={inputChangeEvent}
           error={
-            // input.a_id가 비었으면 error false
-            //a_IdCheck가 false 면 error true
-            !(input.a_id === undefined || input.a_id === "") &&
-              (input.a_id !== undefined && !a_IdCheck(input.a_id))
+            !(input.a_email === undefined || input.a_email === "") &&
+              (input.a_email !== undefined && !a_EmailCheck(input.a_email))
           }
           helperText={
-             !(input.a_id === "" || input.a_id === undefined) &&
-                !a_IdCheck(input.a_id)
-                ? "ID는 첫째자리는 영문소문자로 시작하고 영문소문자와 숫자를 사용할 수 있으며, 3자리 이상 15자리 이하의 길이여야 합니다"
+             !(input.a_email === "" || input.a_email === undefined) &&
+                !a_EmailCheck(input.a_email)
+                ? "올바른 이메일 형식이 아닙니다"
                 : ""
           }
         />
