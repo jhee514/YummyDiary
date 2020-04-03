@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   bar: {
-    backgroundColor: "rgba(0, 0, 0, 0.1)"
+    backgroundColor: "#757570"
   },
   logo: {
     marginRight: "20px",

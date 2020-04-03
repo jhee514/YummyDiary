@@ -14,24 +14,24 @@ import {
 const CssTextField = withStyles({
   root: {
     "& label.Mui-focused": {
-      color: "rgba(70,190,75,0.9)"
+      color: "#3A3838"
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "rgba(70,190,75,0.9)"
+      borderBottomColor: "#3A3838"
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "rgba(70,190,75,0.9)"
+        borderColor: "#3A3838"
       },
       "&:hover fieldset": {
-        borderColor: "rgba(0,255,0,0.9)"
+        borderColor: "#3A3838 "
       },
       "&.Mui-focused fieldset": {
-        borderColor: "rgba(70,190,75,0.9)"
+        borderColor: "#3A3838"
       }
     },
     "& label.MuiInputLabel-outlined": {
-      color: "rgba(70,190,75,0.9)"
+      color: "#3A3838"
     }
   }
 })(TextField);
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: "4vw",
     paddingBottom: "4vw",
     //border:"2px solid #000000",
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "#FAC60E",
     width: "30%",
     height: "100%"
   },
@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     marginBottom: "2vw",
-    color: "rgba(70,190,75,0.9)"
+    color: "#3A3838"
   },
   submitbutton: {
     marginTop: "2vw",
