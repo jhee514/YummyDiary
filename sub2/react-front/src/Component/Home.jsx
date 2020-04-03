@@ -13,25 +13,11 @@ import {
 
 const CssTextField = withStyles({
   root: {
-    "& label.Mui-focused": {
-      color: "#3A3838"
+    "& .MuiFilledInput-root" :{
+      backgroundColor : "#FFFFFF"
     },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#3A3838"
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#3A3838"
-      },
-      "&:hover fieldset": {
-        borderColor: "#3A3838 "
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#3A3838"
-      }
-    },
-    "& label.MuiInputLabel-outlined": {
-      color: "#3A3838"
+    "& .MuiFilledInput-underline:after" : {
+      borderBottom : "2px solid #000000"
     }
   }
 })(TextField);
@@ -104,14 +90,14 @@ const Home = props => {
           className={classes.textfield}
           label="이메일"
           name="a_email"
-          variant="outlined"
+          variant="filled"
           onChange={inputChangeEvent}
         />
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
           name="a_pw"
-          variant="outlined"
+          variant="filled"
           onChange={inputChangeEvent}
           type="password"
         />
