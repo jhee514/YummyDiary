@@ -35,5 +35,5 @@ npm run serve
 
 **Wireframe**
 ```sh
-https://ovenapp.io/project/qfxMC5NrUIRdlrPexdxMWkboxz45zxKn#Edwc0
+OvenLink(https://ovenapp.io/project/qfxMC5NrUIRdlrPexdxMWkboxz45zxKn#Edwc0)
 ```
