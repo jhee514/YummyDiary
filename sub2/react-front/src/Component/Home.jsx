@@ -7,17 +7,15 @@ import {
   Button,
   withStyles
 } from "@material-ui/core";
-import {
-  testlogin
-} from "../modules/dummy"
+import { testlogin } from "../modules/dummy";
 
 const CssTextField = withStyles({
   root: {
-    "& .MuiFilledInput-root" :{
-      backgroundColor : "#FFFFFF"
+    "& .MuiFilledInput-root": {
+      backgroundColor: "#FFFFFF"
     },
-    "& .MuiFilledInput-underline:after" : {
-      borderBottom : "2px solid #000000"
+    "& .MuiFilledInput-underline:after": {
+      borderBottom: "2px solid #000000"
     }
   }
 })(TextField);
@@ -33,9 +31,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "1vw",
-    paddingTop: "4vw",
-    paddingBottom: "4vw",
+    padding: "5vw 2vw 4vw 2vw",
     //border:"2px solid #000000",
     backgroundColor: "#FAC60E",
     width: "30%",
@@ -46,14 +42,19 @@ const useStyles = makeStyles(theme => ({
     width: "95%",
     height: "100%"
   },
-  title: {
-    marginBottom: "2vw",
-    color: "#3A3838"
-  },
+ 
   submitbutton: {
     marginTop: "2vw",
-    width: "100%",
-    height: "100%"
+    marginBottom: "1vw",
+    width: "95%",
+    backgroundColor: "rgb(117, 122, 122)",
+    color:"white"
+  },
+  signupbutton: {
+    marginBottom: "1vw",
+    width: "95%",
+    backgroundColor: "rgb(117, 122, 122)",
+    color:"white"
   }
 }));
 
@@ -69,23 +70,20 @@ const Home = props => {
   };
 
   const signupClickEvent = event => {
-    props.history.push("/signup")
-  }
+    props.history.push("/signup");
+  };
 
   const submitClickEvent = event => {
-    const result = testlogin(input)
-    alert(result.message)
-    if(result.validation){
-      sessionStorage.setItem("id", result.data.a_email)
+    const result = testlogin(input);
+    alert(result.message);
+    if (result.validation) {
+      sessionStorage.setItem("id", result.data.a_email);
     }
-  }
+  };
 
   return (
     <Box className={classes.root}>
       <Box className={classes.textbox}>
-        <Typography variant="h4" className={classes.title}>
-          로그인
-        </Typography>
         <CssTextField
           className={classes.textfield}
           label="이메일"
@@ -101,8 +99,20 @@ const Home = props => {
           onChange={inputChangeEvent}
           type="password"
         />
-        <Button className={classes.submitbutton} onClick={submitClickEvent}>제출</Button>
-        <Button className={classes.submitbutton} onClick={signupClickEvent}>SIGNUP</Button>
+        <Button
+          className={classes.submitbutton}
+          onClick={submitClickEvent}
+          size="large"
+        >
+          제출
+        </Button>
+        <Button
+          className={classes.signupbutton}
+          onClick={signupClickEvent}
+          size="large"
+        >
+          SIGNUP
+        </Button>
       </Box>
     </Box>
   );
