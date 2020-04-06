@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Home = props => {
+const Login = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
     a_email: "",
@@ -117,4 +117,4 @@ const Home = props => {
     </Box>
   );
 };
-export default Home;
+export default Login;
