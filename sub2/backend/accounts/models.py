@@ -9,7 +9,6 @@ class User(AbstractUser):
         ('male', 'Male'),
         ('female', 'Female'),
     )
-    username = models.CharField(max_length=20, unique=True, default=False)
     email = models.CharField(max_length=100, unique=True, default=False)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=False)
     birth_year = models.CharField(max_length=4, default=datetime.datetime.now().year)
