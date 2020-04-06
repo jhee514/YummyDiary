@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 from decouple import config
+import datetime
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "api",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -91,7 +94,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '', # DB명
+        'NAME': 's02a103', # DB명
         'USER': config('DB_USER'), # 데이터베이스 계정
         'PASSWORD': config('DB_PASSWORD'), # 계정 비밀번호
         'HOST': config('DB_HOST'), # 데이테베이스 주소(IP)
@@ -132,6 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+AUTH_USER_MODEL = 'accounts.User'
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
