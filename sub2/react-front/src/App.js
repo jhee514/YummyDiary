@@ -5,6 +5,7 @@ import Layout from "./Component/Layout";
 import SignUp from "./Component/SignUp";
 import Main from "./Component/Main";
 import MyPage from "./Component/MyPage";
+import SearchResult from "./Component/SearchResult";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/mypage" component={MyPage} />
+        <Route path="/searchResult" component={SearchResult} />
       </Layout>
     </BrowserRouter>
   );
