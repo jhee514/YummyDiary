@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 
 # fmt: off
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("api.urls"))
+    path("api/", include("api.urls")),
+
+    # DRF login URLs for the browsable API.
+    path('auth/', include('rest_framework.urls')),
+    # JWT
+    path('/token/', obtain_jwt_token),
+    path('/token/verify/', verify_jwt_token),
+    path('/token/refresh/', refresh_jwt_token),
+
 ]
 # fmt: on
