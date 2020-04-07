@@ -6,8 +6,6 @@ import {
   InputBase,
   GridList,
   GridListTile,
-  Card,
-  CardContent,
 } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import SearchIcon from "@material-ui/icons/Search";
