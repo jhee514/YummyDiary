@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
+import Menulist from "../modules/Menulist"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   bar: {
-    backgroundColor: "rgba(0, 0, 0, 0.1)"
+    backgroundColor: "#FAC60E"
   },
   logo: {
     marginRight: "20px",
@@ -38,6 +39,7 @@ const Header = props => {
   const onMouseUpEvent = event => {
     setOpen(true);
   };
+  
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
@@ -55,7 +57,7 @@ const Header = props => {
           >
             {open ? (
               <>
-                <Link to="/">
+                {/* <Link to="/">
                   <Box marginRight={1}>
                     <Typography>Home</Typography>
                   </Box>
@@ -64,7 +66,8 @@ const Header = props => {
                   <Link to="/signup">
                     <Typography>Sign Up</Typography>
                   </Link>
-                </Box>
+                </Box> */}
+                <Menulist currentHistory={props.history.location.pathname}/>
               </>
             ) : (
               <></>
