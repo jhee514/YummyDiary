@@ -2,6 +2,20 @@
 
 (작성자: 윤도희)
 
+### | 프로젝트 목표
+
+협업 필터링 기법으로 구현한 추천 시스템의 결과물을 웹 서비스 형태로 만들어 제공한다. Django와 React를 활용하여 웹 서버와 클라이언트를 모두 구현하여 REST 방식으로 통신하도록 하고, 회원가입, 로그인, 리뷰 보기/작성 등 기본적인 웹 서비스 기능을 구현한다.
+
+- Javascript, Node.js 학습
+- REST(Representational State Transfer) 스타일 학습 및 적용
+- Numpy, Scipy, Scikit-learn, Surprise 라이브러리 학습 및 적용
+- Django 백엔드 학습 및 구축
+- React 프론트엔드 학습 및 구축
+- 유사도(Similarities) 학습 및 구현
+- 협업 필터링(Collaborative Filtering) 알고리즘 학습 및 구현
+
+
+
 ### | TODO List
 
 #### 200330 월
@@ -80,4 +94,23 @@
 - 와이어프레임 작성(oven으로 추가작업 - 한솔님 작업 예정)
 - 시장조사 및 아이디어 구체화
 
-#### 
+#### 200406 월
+
+[DONE]
+
+- Sequence Diagram 작성
+
+[TODO]
+
+- JIRA 할 일 추가 및 관리하기
+- Git branch 관리하기
+- 와이어프레임 작성(oven으로 추가작업 - 한솔님 작업 예정)
+- 시장조사 및 아이디어 구체화
+
+#### 200407 화
+
+[DONE]
+
+- 관련 어플 조사
+- 서비스명 브레인스토밍
+
