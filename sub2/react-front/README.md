@@ -34,5 +34,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 다양한 UI를 포함한 라이브러리로 쉽게 화면을 구성할 수 있게 해준다. <br />
 
 
-> npm install @material-ui/core
-> npm install @material-ui/icons
+> npm install @material-ui/core<br />
+> npm install @material-ui/icons <br />
+> npm install @material-ui/labs <br />

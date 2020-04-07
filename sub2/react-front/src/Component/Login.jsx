@@ -7,28 +7,15 @@ import {
   Button,
   withStyles
 } from "@material-ui/core";
+import { testlogin } from "../modules/dummy";
 
 const CssTextField = withStyles({
   root: {
-    "& label.Mui-focused": {
-      color: "rgba(70,190,75,0.9)"
+    "& .MuiFilledInput-root": {
+      backgroundColor: "#FFFFFF"
     },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "rgba(70,190,75,0.9)"
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "rgba(70,190,75,0.9)"
-      },
-      "&:hover fieldset": {
-        borderColor: "rgba(0,255,0,0.9)"
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "rgba(70,190,75,0.9)"
-      }
-    },
-    "& label.MuiInputLabel-outlined": {
-      color: "rgba(70,190,75,0.9)"
+    "& .MuiFilledInput-underline:after": {
+      borderBottom: "2px solid #000000"
     }
   }
 })(TextField);
@@ -44,11 +31,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "1vw",
-    paddingTop: "4vw",
-    paddingBottom: "4vw",
+    padding: "5vw 2vw 4vw 2vw",
     //border:"2px solid #000000",
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "#FAC60E",
     width: "30%",
     height: "100%"
   },
@@ -57,21 +42,26 @@ const useStyles = makeStyles(theme => ({
     width: "95%",
     height: "100%"
   },
-  title: {
-    marginBottom: "2vw",
-    color: "rgba(70,190,75,0.9)"
-  },
+ 
   submitbutton: {
     marginTop: "2vw",
-    width: "100%",
-    height: "100%"
+    marginBottom: "1vw",
+    width: "95%",
+    backgroundColor: "rgb(117, 122, 122)",
+    color:"white"
+  },
+  signupbutton: {
+    marginBottom: "1vw",
+    width: "95%",
+    backgroundColor: "rgb(117, 122, 122)",
+    color:"white"
   }
 }));
 
-const Home = props => {
+const Login = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_id: "",
+    a_email: "",
     a_pw: ""
   });
   const inputChangeEvent = event => {
@@ -80,32 +70,51 @@ const Home = props => {
   };
 
   const signupClickEvent = event => {
-    props.history.push("/signup")
-  }
+    props.history.push("/signup");
+  };
+
+  const submitClickEvent = event => {
+    const result = testlogin(input);
+    alert(result.message);
+    if (result.validation) {
+      sessionStorage.setItem("id", result.data.a_email);
+    }
+  };
+
   return (
     <Box className={classes.root}>
       <Box className={classes.textbox}>
-        <Typography variant="h4" className={classes.title}>
-          로그인
-        </Typography>
         <CssTextField
           className={classes.textfield}
-          label="아이디"
-          name="a_id"
-          variant="outlined"
+          label="이메일"
+          name="a_email"
+          variant="filled"
           onChange={inputChangeEvent}
         />
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
           name="a_pw"
-          variant="outlined"
+          variant="filled"
           onChange={inputChangeEvent}
+          type="password"
         />
-        <Button className={classes.submitbutton}>제출</Button>
-        <Button className={classes.submitbutton} onClick={signupClickEvent}>SIGNUP</Button>
+        <Button
+          className={classes.submitbutton}
+          onClick={submitClickEvent}
+          size="large"
+        >
+          제출
+        </Button>
+        <Button
+          className={classes.signupbutton}
+          onClick={signupClickEvent}
+          size="large"
+        >
+          SIGNUP
+        </Button>
       </Box>
     </Box>
   );
 };
-export default Home;
+export default Login;
