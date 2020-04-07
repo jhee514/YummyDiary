@@ -78,6 +78,7 @@ const Login = props => {
     alert(result.message);
     if (result.validation) {
       sessionStorage.setItem("id", result.data.a_email);
+      props.history.push("/")
     }
   };
 

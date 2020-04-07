@@ -14,3 +14,12 @@ export const testlogin = input =>{
   }
   return submitform;
 }
+
+export const carddata = [
+  {no : 1, storeName : "1번네", content : "1번음식 맛잇", rating : "4.5"},
+  {no : 2, storeName : "2번네", content : "2번음식 맛잇", rating : "3.5"},
+  {no : 3, storeName : "3번네", content : "3번음식 맛잇", rating : "2.3"},
+  {no : 4, storeName : "4번네", content : "4번음식 맛잇", rating : "5.0"},
+  {no : 5, storeName : "5번네", content : "5번음식 맛잇", rating : "4.9"},
+  {no : 6, storeName : "6번네", content : "6번음식 맛잇", rating : "3.8"},
+]

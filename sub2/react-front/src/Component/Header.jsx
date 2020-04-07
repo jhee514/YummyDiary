@@ -33,11 +33,8 @@ const Header = props => {
   const classes = useStyles();
   const open = props.open;
   const setOpen = props.setOpen;
-  const onMouseLeaveEvent = event => {
-    setOpen(false);
-  };
   const onMouseUpEvent = event => {
-    setOpen(true);
+    setOpen(!open);
   };
   
   return (
@@ -50,7 +47,6 @@ const Header = props => {
 
           <Typography className={classes.center}></Typography>
           <Box
-            onPointerLeave={onMouseLeaveEvent}
             display="flex"
             flexDirection="row"
             alignItems="center"
@@ -76,7 +72,7 @@ const Header = props => {
               edge="start"
               color="inherit"
               aria-label="menu"
-              onPointerEnter={onMouseUpEvent}
+              onClick={onMouseUpEvent}
             >
               <MenuIcon />
             </IconButton>
