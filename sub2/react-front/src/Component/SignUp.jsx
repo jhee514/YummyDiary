@@ -5,47 +5,27 @@ import {
   TextField,
   Typography,
   Button,
-  withStyles,
+  withStyles
 } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
-import {
-  a_IdCheck,
-  a_PwCheck,
-  a_AgeCheck
-} from "../modules/regCheck"
-
+import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
 
 const CssTextField = withStyles({
   root: {
-    "& label.Mui-focused": {
-      color: "rgba(70,190,75,0.9)",
+    "& .MuiFilledInput-root": {
+      backgroundColor: "#FFFFFF"
     },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "rgba(70,190,75,0.9)"
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "rgba(70,190,75,0.9)"
-      },
-      "&:hover fieldset": {
-        borderColor: "rgba(0,255,0,0.9)"
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "rgba(70,190,75,0.9)",
-        
-      }
-    },
-    "& label.MuiInputLabel-outlined": {
-      color: "rgba(70,190,75,0.9)"
+    "& .MuiFilledInput-underline:after": {
+      borderBottom: "2px solid #000000"
     }
   }
 })(TextField);
 const CssToggleButton = withStyles({
-  root:{
-    border : "none",
-    "&.MuiToggleButton-root.Mui-selected" :{
-      color: "rgba(70,190,75,0.9)",
-    },
+  root: {
+    border: "none",
+    "&.MuiToggleButton-root.Mui-selected": {
+      color: "white"
+    }
   }
 })(ToggleButton);
 
@@ -61,34 +41,30 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "1vw",
-    paddingTop: "4vw",
-    paddingBottom: "4vw",
+    padding: "5vw 2vw 4vw 2vw",
     //border:"2px solid #000000",
-    backgroundColor: "rgba(0,0,0,0.2)",
-    height: "100%",
-    width: "30%"
+    backgroundColor: "#FAC60E",
+    width: "30%",
+    height: "100%"
   },
   textfield: {
     margin: "1vw 0vw 0vw 0vw",
     width: "100%"
   },
-  title: {
-    marginBottom: "2vw",
-    color: "rgba(70,190,75,0.9)"
-  },
-  submitbutton : {
-    marginTop : "2vw",
-    width : "100%",
-    height : "100%"
 
+  submitbutton: {
+    marginTop: "2vw",
+    marginBottom: "1vw",
+    width: "100%",
+    backgroundColor: "rgb(117, 122, 122)",
+    color: "white"
   }
 }));
 
 const SignUp = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_id: "",
+    a_email: "",
     a_pw: "",
     a_age: "",
     a_gender: ""
@@ -102,42 +78,42 @@ const SignUp = props => {
     //console.log(event.currentTarget.value);
   };
   const submitclickevent = event => {
-    if(a_IdCheck(input.a_id) && a_AgeCheck(input.a_age) && a_PwCheck(input.a_pw) && input.a_gender !==""){
-      console.log(input)
-      props.history.push("/")
-    }else{
-      alert("정확히 입력해주세요")
+    if (
+      a_EmailCheck(input.a_email) &&
+      a_AgeCheck(input.a_age) &&
+      a_PwCheck(input.a_pw) &&
+      input.a_gender !== ""
+    ) {
+      console.log(input);
+      props.history.push("/");
+    } else {
+      alert("정확히 입력해주세요");
     }
-  }
+  };
   return (
     <Box className={classes.root}>
       <Box className={classes.textbox}>
-        <Typography variant="h4" className={classes.title}>
-          회원가입
-        </Typography>
         <CssTextField
           className={classes.textfield}
-          label="아이디"
-          variant="outlined"
-          name="a_id"
+          label="이메일"
+          variant="filled"
+          name="a_email"
           onChange={inputChangeEvent}
           error={
-            // input.a_id가 비었으면 error false
-            //a_IdCheck가 false 면 error true
-            !(input.a_id === undefined || input.a_id === "") &&
-              (input.a_id !== undefined && !a_IdCheck(input.a_id))
+            !(input.a_email === undefined || input.a_email === "") &&
+            input.a_email !== undefined && !a_EmailCheck(input.a_email)
           }
           helperText={
-             !(input.a_id === "" || input.a_id === undefined) &&
-                !a_IdCheck(input.a_id)
-                ? "ID는 첫째자리는 영문소문자로 시작하고 영문소문자와 숫자를 사용할 수 있으며, 3자리 이상 15자리 이하의 길이여야 합니다"
-                : ""
+            !(input.a_email === "" || input.a_email === undefined) &&
+            !a_EmailCheck(input.a_email)
+              ? "올바른 이메일 형식이 아닙니다"
+              : ""
           }
         />
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
-          variant="outlined"
+          variant="filled"
           name="a_pw"
           onChange={inputChangeEvent}
           type="password"
@@ -166,7 +142,7 @@ const SignUp = props => {
               className={classes.textfield}
               label="나이"
               name="a_age"
-              variant="outlined"
+              variant="filled"
               onChange={inputChangeEvent}
               fullWidth
               error={
@@ -187,30 +163,30 @@ const SignUp = props => {
             paddingLeft={1}
             justifyContent="space-between"
           >
-          
-              <CssToggleButton
-                value="남"
-                selected={input.a_gender === "남"}
-                onChange={checkChangeEvent}
-                size="large"
-                className={classes.toggleButton}
-              >
-                남
-              </CssToggleButton>
-            
-              <CssToggleButton
-                value="여"
-                selected={input.a_gender === "여"}
-                onChange={checkChangeEvent}
-                size="large"
-                className={classes.toggleButton}
-              >
-                여
-              </CssToggleButton>
-            
+            <CssToggleButton
+              value="남"
+              selected={input.a_gender === "남"}
+              onChange={checkChangeEvent}
+              size="large"
+              className={classes.toggleButton}
+            >
+              남
+            </CssToggleButton>
+
+            <CssToggleButton
+              value="여"
+              selected={input.a_gender === "여"}
+              onChange={checkChangeEvent}
+              size="large"
+              className={classes.toggleButton}
+            >
+              여
+            </CssToggleButton>
           </Box>
         </Box>
-        <Button className={classes.submitbutton} onClick={submitclickevent}>제출</Button>
+        <Button className={classes.submitbutton} size="large" onClick={submitclickevent}>
+          제출
+        </Button>
       </Box>
     </Box>
   );
