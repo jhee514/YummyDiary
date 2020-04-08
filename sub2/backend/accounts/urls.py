@@ -21,5 +21,5 @@ app_name = 'accounts'
 urlpatterns = [
     path('signup/', views.signup, name='signup'),
 
-    path('<int:user_id>/', views.user_page, name='user_page'),
+    path('mypage/', views.user_page, name='user_page'),
 ]

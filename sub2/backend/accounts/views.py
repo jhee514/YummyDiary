@@ -5,18 +5,12 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.response import Response #  JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated  # 회원가입은, 인증을 볼 필요가 없음.
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .serializers import UserCreationSerializer, UserSerializer
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
-
-def index(request):
-    users = User.objects.all()
-    return render(request, 'accounts/index.html', {
-        'users': users,
-    })
 
 
 @api_view(['POST'])
