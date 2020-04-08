@@ -12,12 +12,6 @@ from .serializers import UserCreationSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-def index(request):
-    users = User.objects.all()
-    return render(request, 'accounts/index.html', {
-        'users': users,
-    })
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
