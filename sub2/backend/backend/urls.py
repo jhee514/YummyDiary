@@ -25,9 +25,11 @@ urlpatterns = [
     # DRF login URLs for the browsable API.
     path('auth/', include('rest_framework.urls')),
     # JWT
-    path('/token/', obtain_jwt_token),
-    path('/token/verify/', verify_jwt_token),
-    path('/token/refresh/', refresh_jwt_token),
+    path('token/', obtain_jwt_token),
+    path('token/verify/', verify_jwt_token),
+    path('token/refresh/', refresh_jwt_token),
+
+    path('accounts/', include('accounts.urls')),
 
 ]
 # fmt: on
