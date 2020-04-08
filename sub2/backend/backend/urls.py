@@ -30,6 +30,7 @@ urlpatterns = [
     path('token/refresh/', refresh_jwt_token),
 
     path('accounts/', include('accounts.urls')),
+    path('menus/', include("menus.urls")),
 
 ]
 # fmt: on
