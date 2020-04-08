@@ -11,13 +11,14 @@ import Pagination from "@material-ui/lab/Pagination";
 import SearchIcon from "@material-ui/icons/Search";
 import { fade } from "@material-ui/core/styles";
 import { carddata } from "../modules/dummy";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-  banner: {
+  bannerbox : {
     width: "70%",
     minWidth: "80vw",
     marginTop: "2vw",
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "100%",
     maxWidth: "100%",
   },
-  recommend: {
+  recommendbox: {
     marginTop: "2vh",
     //border: "1px solid #FAC60E",
     width: "70%",
@@ -40,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     
+  },
+  searchbox:{
+    width: "70%",
+    minWidth: "80vw",
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -94,10 +99,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Main = (props) => {
   const classes = useStyles();
+  const [searchInput, setSearchInput] = useState({  
+    keyword : "",
+    related : [],
+  })
+
+  const searchChangeEvent = event => {
+    setSearchInput({
+      ...searchInput,
+      keyword : event.target.value
+    })
+    console.log(searchInput)
+  }
   return (
     <Box className={classes.root}>
       {/* 광고 및 배너 영역 */}
-      <Box className={classes.banner}>
+      <Box className={classes.bannerbox}>
         <Box display="flex" maxHeight="30vh">
           <img src="/tmpbanner.jpg" alt="banner" className={classes.image} />
         </Box>
@@ -106,7 +123,7 @@ const Main = (props) => {
         </Box>
       </Box>
       {/* 검색 바 영역 */}
-      <Box >
+      <Box className={classes.searchbox}>
         <div className={classes.search} >
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -118,11 +135,13 @@ const Main = (props) => {
               input: classes.inputInput,
             }}
             inputProps={{ "aria-label": "search" }}
+            value={searchInput.keyword}
+            onChange={searchChangeEvent}
           />
         </div>
       </Box>
       {/* 추천 */}
-      <Box className={classes.recommend} >
+      <Box className={classes.recommendbox} >
         <Typography>추천목록</Typography>
         <GridList cols={2.5} className={classes.gridList}>
           {carddata.map((data) => (

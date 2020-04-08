@@ -5,6 +5,7 @@ import Layout from "./Component/Layout";
 import SignUp from "./Component/SignUp";
 import Main from "./Component/Main";
 import MyPage from "./Component/MyPage";
+import DraggableCategories from "./Component/DraggableCategories";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Route exact path="/" component={Main} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/mypage" component={MyPage} />
+        {/* <Route path="/mypage" component={MyPage} /> */}
+        <Route path="/drag" component={DraggableCategories} />
       </Layout>
     </BrowserRouter>
   );

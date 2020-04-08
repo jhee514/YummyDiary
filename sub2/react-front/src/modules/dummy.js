@@ -23,3 +23,19 @@ export const carddata = [
   {no : 5, storeName : "5번네", content : "5번음식 맛잇", rating : "4.9"},
   {no : 6, storeName : "6번네", content : "6번음식 맛잇", rating : "3.8"},
 ]
+
+export const testSearch = {
+  categories : {
+    '관심사' : {c_no : 1, c_name : '관심사'},
+    '성별' : {c_no : 2, c_name : '성별'},
+    '나이' : {c_no : 3, c_name: '나이'},
+  },
+  columns: {
+    'column-1' : {
+      id: 'column-1',
+      title: '검색조건',
+      categoryIds: ['관심사','성별','나이']
+    },
+    columnOrder: ['column-1']
+  }
+}
