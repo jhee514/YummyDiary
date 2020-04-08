@@ -4,7 +4,7 @@ from django.db import models
 class Menu(models.Model):
     name = models.CharField(max_length=100, null=True)
     price = models.PositiveIntegerField()
-    store = models.ForeignKey('api.Store', on_delete=models.CASCADE)
+    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['name']
