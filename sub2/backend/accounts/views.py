@@ -33,9 +33,12 @@ def signup(request):
 
 
 @api_view(['GET', 'PATCH', 'DELETE'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def user_page(request):
+    print("##########################")
+    print("request :", request)
     user = request.user
+    print("request.user :", request.user)
     if request.method == 'GET':
         serializer = UserSerializer(user)
         return Response(serializer.data)
