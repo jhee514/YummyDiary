@@ -1,6 +1,7 @@
 from api import models, serializers
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
+from .models import Store
 
 
 class SmallPagination(PageNumberPagination):
