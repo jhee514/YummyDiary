@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.response import Response #  JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated  # 회원가입은, 인증을 볼 필요가 없음.
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .serializers import UserCreationSerializer, UserSerializer
 
@@ -27,12 +27,9 @@ def signup(request):
 
 
 @api_view(['GET', 'PATCH', 'DELETE'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def user_page(request):
-    print("##########################")
-    print("request :", request)
     user = request.user
-    print("request.user :", request.user)
     if request.method == 'GET':
         serializer = UserSerializer(user)
         return Response(serializer.data)
