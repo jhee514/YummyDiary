@@ -26,6 +26,24 @@
 
 
 
+#### | 맛집추천 서비스 시장조사
+
+- 다이닝코드
+- 네이버 플레이스
+- SEE HOW YOU EAT
+
+
+
+#### | 서비스 컨셉 및 개요
+
+- 서비스명: YUMMY DIARY
+- 서비스 컨셉: 맛집 추천 + 푸드 다이어리
+- 서비스 로고:
+
+![YUMMY DIARY](YUMMY DIARY.png)
+
+
+
 ### 3. Sequence Diagram
 
 ```mermaid

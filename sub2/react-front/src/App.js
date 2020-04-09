@@ -6,6 +6,7 @@ import SignUp from "./Component/SignUp";
 import Main from "./Component/Main";
 import MyPage from "./Component/MyPage";
 import SearchResult from "./Component/SearchResult";
+import Detail from "./Component/Detail";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signup" component={SignUp} />
         <Route path="/mypage" component={MyPage} />
         <Route path="/searchResult" component={SearchResult} />
+        <Route path="/detail" component={Detail} />
       </Layout>
     </BrowserRouter>
   );

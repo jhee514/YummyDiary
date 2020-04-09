@@ -114,3 +114,35 @@
 - 관련 어플 조사
 - 서비스명 브레인스토밍
 
+[TODO]
+
+- JIRA 할 일 추가 및 관리하기
+- Git branch 관리하기
+
+#### 200408 수
+
+[DONE]
+
+- 시장조사 및 서비스 기획안 작성
+- mypage 컴포넌트 생성
+- Git branch merge
+
+[TODO]
+
+- 서비스 로고 디자인
+- 메인 페이지 로고 변경
+- 서비스 기획안 수정
+- mypage 컴포넌트 세부 구현
+- JIRA 할 일 추가 및 관리하기
+- Git branch 관리하기
+
+#### 200409 목
+
+[DONE]
+
+- 서비스 로고 디자인
+- 메인 페이지 로고 변경
+- 서비스 기획안 수정
+- mypage 컴포넌트 세부 구현
+- JIRA 할 일 추가 및 관리하기
+- Git branch merge(feature - front - develop - master)

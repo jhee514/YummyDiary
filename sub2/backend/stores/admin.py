@@ -15,6 +15,8 @@ class StoreAdmin(admin.ModelAdmin):
             "latitude",
             "longitude",
             "category_list",
+            "bhour_list",
+            "review_cnt",
         ]
     search_fields = [
             "store_name",
@@ -25,4 +27,21 @@ class StoreAdmin(admin.ModelAdmin):
             "latitude",
             "longitude",
             "category_list",
+            "menus"
         ]
+
+@admin.register(models.Review)
+class RevieAdmin(admin.ModelAdmin):
+    list_display = [
+        "writer", 
+        "total_score",
+        "content",
+        "reg_time",
+    ]
+
+    search_fields = [
+        "writer", 
+        "total_score",
+        "content",
+        "reg_time",
+    ]

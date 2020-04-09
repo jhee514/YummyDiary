@@ -16,6 +16,9 @@ const Menulist = props => {
     "/login":[
       { id: 1, menuname: "home", menupath: "/" },
       { id: 2, menuname: "signup", menupath: "/signup" }
+    ],
+    "/detail":[
+      { id: 1, menuname: "home", menupath: "/" },
     ]
   };
   const currentHistory = props.currentHistory;
