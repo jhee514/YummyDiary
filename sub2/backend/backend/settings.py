@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "accounts",
     "menus",
     "stores",
+
 ]
 
 MIDDLEWARE = [
@@ -138,6 +139,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+
 AUTH_USER_MODEL = 'accounts.User'
 
 
@@ -177,4 +179,3 @@ PASSWORD_HASHERS = (
     "django.contrib.auth.hashers.MD5PasswordHasher",
     "django.contrib.auth.hashers.CryptPasswordHasher",
 )
-
