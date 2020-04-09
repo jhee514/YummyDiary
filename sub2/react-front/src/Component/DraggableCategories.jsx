@@ -11,14 +11,16 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2vh",
   },
   selectedbox: {
-    border: "1px solid #000000",
+    //border: "1px solid #000000",
     display:"flex",
     alignContent:"center",
     overflow : "auto"
 
   },
   searchbox:{
-    display:"flex"
+    display:"flex",
+    borderBottom : "1px solid #000000",
+    marginBottom : "2vh"
   },
   search: {
     position: "relative",
@@ -147,7 +149,7 @@ function DraggableCategories() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Typography>Test</Typography>
+      <Typography>검색</Typography>
       {/* 검색 바 영역 */}
       <Box className={classes.searchbox}>
         <Box width="40%">
