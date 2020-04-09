@@ -5,5 +5,5 @@ from . import models
 
 @admin.register(models.Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'store', 'price']
-    search_fields = ['name', 'store']
+    list_display = ['id', 'name', 'price']
+    search_fields = ['name']
