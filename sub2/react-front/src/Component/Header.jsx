@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   logo: {
     marginRight: "20px",
     height: theme.spacing(6),
-    width: theme.spacing(21)
+    width: theme.spacing(18)
   },
 
 }));
