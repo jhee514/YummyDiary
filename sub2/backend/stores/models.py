@@ -25,3 +25,4 @@ class Review(models.Model):
     total_score = models.IntegerField()
     content = models.TextField()
     reg_time = models.DateTimeField(default=False)
+    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE)
