@@ -65,10 +65,10 @@ const useStyles = makeStyles(theme => ({
 const SignUp = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    email: "",
-    pw: "",
-    birth_year: "",
-    gender: ""
+    "email": "",
+    "password": "",
+    "birth_year": "",
+    "gender": ""
   });
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
@@ -82,11 +82,11 @@ const SignUp = props => {
     if (
       a_EmailCheck(input.email) &&
       a_AgeCheck(input.birth_year) &&
-      a_PwCheck(input.pw) &&
+      a_PwCheck(input.password) &&
       input.gender !== ""
     ) {
       //console.log(input);
-      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',{id:"id1",birth_year:"1994",...input});
+      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input);
       console.log(result.data)
     } else {
       alert("정확히 입력해주세요");
@@ -116,16 +116,16 @@ const SignUp = props => {
           className={classes.textfield}
           label="비밀번호"
           variant="filled"
-          name="pw"
+          name="password"
           onChange={inputChangeEvent}
           type="password"
           error={
-            !(input.pw === undefined || input.pw === "") &&
-            !a_PwCheck(input.pw)
+            !(input.password === undefined || input.password === "") &&
+            !a_PwCheck(input.password)
           }
           helperText={
-            !(input.pw === undefined || input.pw === "") &&
-            !a_PwCheck(input.pw)
+            !(input.password === undefined || input.password === "") &&
+            !a_PwCheck(input.password)
               ? "패스워드는 첫째자리는 영문자로 시작하고 영문자, 숫자, 특수문자를 포함해야 하며, 3자리 이상 15자리 이하의 길이여야 합니다"
               : ""
           }
@@ -154,7 +154,7 @@ const SignUp = props => {
               helperText={
                 !(input.birth_year === undefined || input.birth_year === "") &&
                 !a_AgeCheck(input.birth_year)
-                  ? "나이는 1살이상 120살 미만으로 입력해주세요"
+                  ? "태어난 연도는 1900년 이상으로 입력해주세요!"
                   : ""
               }
             />
