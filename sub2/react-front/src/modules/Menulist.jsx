@@ -29,6 +29,7 @@ const Menulist = (props) => {
             event: () => {
               sessionStorage.removeItem("token");
               props.setOpen(false);
+              window.location.reload();
             },
           },
       token === null
