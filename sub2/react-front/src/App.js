@@ -5,6 +5,7 @@ import Layout from "./Component/Layout";
 import SignUp from "./Component/SignUp";
 import Main from "./Component/Main";
 import MyPage from "./Component/MyPage";
+import Review from "./Component/Review/Review";
 import SearchResult from "./Component/SearchResult";
 import Detail from "./Component/Detail";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/mypage" component={MyPage} />
         <Route path="/searchResult" component={SearchResult} />
         <Route path="/detail" component={Detail} />
+        <Route path="/review" component={Review} />
       </Layout>
     </BrowserRouter>
   );
