@@ -63,7 +63,7 @@ const Header = props => {
                     <Typography>Sign Up</Typography>
                   </Link>
                 </Box> */}
-                <Menulist currentHistory={props.history.location.pathname}/>
+                <Menulist currentHistory={props.history.location.pathname} open={open} setOpen={setOpen} history={props.history}/>
               </>
             ) : (
               <></>
