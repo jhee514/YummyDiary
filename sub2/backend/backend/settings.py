@@ -97,7 +97,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'temp', # DB명
+        'NAME': 'yum', # DB명
         'USER': config('DB_USER'), # 데이터베이스 계정
         'PASSWORD': config('DB_PASSWORD'), # 계정 비밀번호
         'HOST': config('DB_HOST'), # 데이테베이스 주소(IP)
