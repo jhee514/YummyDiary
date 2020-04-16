@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Store(models.Model):
-    store_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     branch = models.CharField(max_length=100, null=True)
     area = models.CharField(max_length=100, null=True)
     tel = models.CharField(max_length=30, null=True)
@@ -25,3 +25,4 @@ class Review(models.Model):
     total_score = models.IntegerField()
     content = models.TextField()
     reg_time = models.DateTimeField(default=False)
+    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE)

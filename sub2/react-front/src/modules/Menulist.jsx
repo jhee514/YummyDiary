@@ -1,35 +1,97 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const Menulist = props => {
+const Menulist = (props) => {
+  const token = sessionStorage.getItem("token");
   const menumap = {
     "/": [
-      { id: 1, menuname: "home", menupath: "/" },
-      { id: 2, menuname: "login", menupath: "/login" },
-      { id: 3, menuname: "signup", menupath: "/signup" }
+      {
+        id: 1,
+        menuname: "home",
+        event: () => {
+          props.setOpen(false);
+          props.history.push("/");
+        },
+      },
+      token === null
+        ? {
+            id: 2,
+            menuname: "login",
+            event: () => {
+              props.setOpen(false);
+              props.history.push("/login");
+            },
+          }
+        : {
+            id: 2,
+            menuname: "logout",
+            event: () => {
+              sessionStorage.removeItem("token");
+              props.setOpen(false);
+              window.location.reload();
+            },
+          },
+      token === null
+        ? {
+            id: 3,
+            menuname: "signup",
+            event: () => {
+              props.setOpen(false);
+              props.history.push("/signup");
+            },
+          }
+        : null,
     ],
     "/signup": [
-      { id: 1, menuname: "home", menupath: "/" },
-      { id: 2, menuname: "login", menupath: "/login" }
+      {
+        id: 1,
+        menuname: "home",
+        event: () => {
+          props.setOpen(false);
+          props.history.push("/");
+        },
+      },
+      {
+        id: 2,
+        menuname: "login",
+        event: () => {
+          props.setOpen(false);
+          props.history.push("/login");
+        },
+      },
     ],
-    "/login":[
-      { id: 1, menuname: "home", menupath: "/" },
-      { id: 2, menuname: "signup", menupath: "/signup" }
+    "/login": [
+      {
+        id: 1,
+        menuname: "home",
+        event: () => {
+          props.setOpen(false);
+          props.history.push("/");
+        },
+      },
+      {
+        id: 2,
+        menuname: "signup",
+        event: () => {
+          props.setOpen(false);
+          props.history.push("/signup");
+        },
+      },
     ],
-    "/detail":[
-      { id: 1, menuname: "home", menupath: "/" },
-    ]
   };
   const currentHistory = props.currentHistory;
-  console.log(currentHistory);
   return (
     <>
-      {menumap[currentHistory].map(menu => (
-        <Link to={menu.menupath} key={menu.id}>
-          <Button>{menu.menuname}</Button>
-        </Link>
-      ))}
+      {menumap[currentHistory].map((menu, index) =>
+        menu === null ? (
+          <Box key={index}></Box>
+        ) : (
+          <Button onClick={menu.event} key={index}>
+            {menu.menuname}
+          </Button>
+        )
+      )}
     </>
   );
 };

@@ -7,7 +7,7 @@ from . import models
 class StoreAdmin(admin.ModelAdmin):
     list_display = [
             "id",
-            "store_name",
+            "name",
             "branch",
             "area",
             "tel",
@@ -19,7 +19,7 @@ class StoreAdmin(admin.ModelAdmin):
             "review_cnt",
         ]
     search_fields = [
-            "store_name",
+            "name",
             "branch",
             "area",
             "tel",
