@@ -11,7 +11,7 @@ class Store(models.Model):
     latitude = models.FloatField(max_length=10, null=True)
     longitude = models.FloatField(max_length=10, null=True)
     category = models.CharField(max_length=200, null=True)
-    menus = models.ManyToManyField('menus.Menu')
+    menus = models.CharField(max_length=200, null=True)
     bhour_list = models.CharField(max_length=200, null=True)
     review_cnt = models.IntegerField()
 
