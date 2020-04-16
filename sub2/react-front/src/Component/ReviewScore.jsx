@@ -66,6 +66,7 @@ export default function CustomizedRatings() {
 
   return (
     <div className={classes.scores}>
+    {/* <div> */}
       <Box component="fieldset" mb={3} borderColor="transparent">
         <Typography component="legend">Custom empty icon</Typography>
         <Rating

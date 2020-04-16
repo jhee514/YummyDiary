@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CustomedReview() {
+export default function CustomizedReview() {
   const classes = useStyles();
 
   return(
@@ -53,7 +53,7 @@ export default function CustomedReview() {
         </h2>
         <ReviewScore className={classes.ReviewScore}/>
       </Grid>
-{/* 
+
       <Grid className={classes.subStoreScore}>
         <h2 className={classes.substoreScore_subTitle}>
           맛을 평가해주세요
@@ -67,7 +67,7 @@ export default function CustomedReview() {
           서비스를 평가해주세요
         </h2>
         <ReviewScore className={classes.ReviewScore}/>
-      </Grid> */}
+      </Grid>
     </Container>
   )
 }
