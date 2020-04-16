@@ -151,12 +151,16 @@
 
 #### 200416 목
 
-[DONE]
-
 [TODO]
+
+- [x] 페이지별 WireFrame 회의
+- [x] ERD 작성
+- [x] JIRA 생성
 
 - [ ] 백엔드 뷰 함수 2개 작성
 - [ ] JIRA 할 일 목록 생성
 - [ ] JIRA 완료 항목 관리
 - [ ] JIRA 담당자 할당
 - [ ] 가게 리뷰 데이터 기반 태그 데이터 추출(dummy data)
+- [ ] Sequence Diagram 수정
+

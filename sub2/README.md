@@ -44,7 +44,11 @@
 
 
 
-### 3. Sequence Diagram
+### 3. ERD
+
+![yummy_diary_ERD](.\yummy_diary_ERD.png)
+
+### 4. Sequence Diagram
 
 ```mermaid
 sequenceDiagram
@@ -70,6 +74,6 @@ sequenceDiagram
 
 
 
-### 4. Wireframe
+### 5. Wireframe
 
 참고링크: [OvenLink](https://ovenapp.io/project/qfxMC5NrUIRdlrPexdxMWkboxz45zxKn#Edwc0)
