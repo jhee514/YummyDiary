@@ -12,6 +12,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { fade } from "@material-ui/core/styles";
 import { carddata } from "../modules/dummy";
 import DraggableCategories from "./DraggableCategories";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -98,7 +99,7 @@ const Main = (props) => {
                   <Typography variant="h5">{data.storeName}</Typography>
                   <Typography variant="body2">{data.content}</Typography>
                   <Typography variant="h6">{data.rating}</Typography>
-
+                  {data.url? <Link to ={data.url}><Typography>상세보기</Typography></Link> : <></>}
             </GridListTile>
           ))}
         </GridList>
