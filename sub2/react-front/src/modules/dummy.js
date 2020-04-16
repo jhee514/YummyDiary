@@ -19,7 +19,7 @@ export const testlogin = (input) => {
 };
 
 export const carddata = [
-  { no: 1, storeName: "1번네", content: "1번음식 맛잇", rating: "4.5" },
+  { no: 1, storeName: "오목집", content: "광화문 최고의 맛집", rating: "4.5" , url :"/detail"},
   { no: 2, storeName: "2번네", content: "2번음식 맛잇", rating: "3.5" },
   { no: 3, storeName: "3번네", content: "3번음식 맛잇", rating: "2.3" },
   { no: 4, storeName: "4번네", content: "4번음식 맛잇", rating: "5.0" },

@@ -4,8 +4,10 @@ import { makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   map: {
+    display : "absolute",
     width: "100%",
     height: "100%",
+    marginBottom : "2vh"
   },
 }));
 const KakaoMap = (props) => {
@@ -43,7 +45,6 @@ const KakaoMap = (props) => {
   if (location.latitude !== undefined) {
     script.onload = () => {
       kakao.maps.load(() => {
-        console.log(1);
         //파라미터로 autoload=false를 줘서 v3이 모두 로드된 후, 이 콜백함수가 실행된다.
         let el = document.getElementById("map");
         let markerPosition = new kakao.maps.LatLng(
@@ -58,23 +59,27 @@ const KakaoMap = (props) => {
           position: markerPosition,
         });
         marker.setMap(map);
-
-        let polyline = new kakao.maps.Polyline({
-          map: map,
+        var polyline = new kakao.maps.Polyline({
+          /* map:map, */
           path: [
             new kakao.maps.LatLng(props.latitude, props.longitude),
             new kakao.maps.LatLng(location.latitude, location.longitude),
           ],
+          strokeWeight: 2,
+          strokeColor: "#FF00FF",
+          strokeOpacity: 0.8,
+          strokeStyle: "dashed",
         });
-        polyline.setMap(null);
-        setLocation({distance: polyline.getLength(), ...location});
+        let dl = document.getElementById("distance");
+        dl.innerHTML =
+          "현재 위치에서의 거리 : " + Math.round(polyline.getLength()) + "m";
       });
     };
   }
-
   return (
     <>
       <div id="map" className={classes.map}></div>
+      <Typography variant="h5" id="distance"></Typography>
     </>
   );
 };
