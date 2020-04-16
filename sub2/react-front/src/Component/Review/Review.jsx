@@ -20,9 +20,19 @@ const useStyles = makeStyles(theme => ({
   storeScore: {
     // width: "1000px",
     display: "flex",
-    border: "1px solid #FF233B",
+    // border: "1px solid #FF233B",
     alignItems: "center",
   },  
+  ReviewScore: {
+    // border: "1px solid black",
+    margin: "25px 500px"
+  },
+  subStoreScore: {
+    // border: "1px solid #FF223B",
+    display: "flex",
+    marginTop: "15px",
+    alignItems: "center",
+  },
   storeScore_subTitle: {
     margin: "25px 20px",
     width: "220px",
@@ -38,16 +48,6 @@ const useStyles = makeStyles(theme => ({
     padding: "20px",
     fontSizd: "15px",
     textAlign: "center"
-  },
-  ReviewScore: {
-    border: "1px solid black",
-    margin: "25px 500px"
-  },
-  subStoreScore: {
-    border: "1px solid #FF223B",
-    display: "flex",
-    marginTop: "15px",
-    alignItems: "center",
   },
   ReviewScore_taste:{
     // margin: "25px 500px"
