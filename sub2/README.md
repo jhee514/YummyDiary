@@ -46,7 +46,7 @@
 
 ### 3. ERD
 
-![yummy_diary_ERD](.\yummy_diary_ERD.png)
+![yummy_diary_ERD](yummy_diary_ERD.png)
 
 
 
