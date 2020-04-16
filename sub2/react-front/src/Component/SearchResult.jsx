@@ -89,7 +89,7 @@ export default function OutlinedCard() {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">더 보기</Button>
+                <Button size="small">상세보기</Button>
             </CardActions>
           </Card>
       ))}
@@ -121,7 +121,7 @@ export default function OutlinedCard() {
                   </Typography>
               </CardContent>
               <CardActions>
-                  <Button size="small">더 보기</Button>
+                  <Button size="small">상세보기</Button>
               </CardActions>
           </Card>
         ))}
