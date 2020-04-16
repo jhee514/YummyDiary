@@ -72,11 +72,9 @@ const SignUp = props => {
   });
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
-    console.log(event.target.name + " : " + event.target.value);
   };
   const checkChangeEvent = event => {
     setInput({ ...input, gender: event.currentTarget.value });
-    //console.log(event.currentTarget.value);
   };
   const submitclickevent = async event => {
     if (
@@ -85,9 +83,12 @@ const SignUp = props => {
       a_PwCheck(input.password) &&
       input.gender !== ""
     ) {
-      //console.log(input);
-      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input);
-      console.log(result.data)
+      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
+        alert("가입되었습니다")
+        props.history.push("/login");
+      }).catch(error=>{
+        alert("다시 입력해주세요")
+      })
     } else {
       alert("정확히 입력해주세요");
     }
