@@ -61,18 +61,18 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function CustomizedRatings() {
+function CustomizedRatings() {
     const classes = useStyles();
 
   return (
     <div className={classes.scores}>
     {/* <div> */}
       <Box component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend">Custom empty icon</Typography>
+        {/* <Typography component="legend">Custom empty icon</Typography> */}
         <Rating
           name="customized-empty"
           defaultValue={2}
-          precision={0.5}
+          precision={1}
           emptyIcon={<StarBorderIcon fontSize="inherit" />}
         />
       </Box>
@@ -89,3 +89,5 @@ export default function CustomizedRatings() {
     </div>
   );
 }
+
+export default CustomizedRatings
