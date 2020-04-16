@@ -1,6 +1,4 @@
-## Front 엔지니어
-
-### front_signup branch(작업중)
+## front_signup branch(작업중)
 
 #### SignUp - 회원 가입 페이지
 [DONE]
@@ -49,9 +47,9 @@
 
 - 로그인 시 Popup 이벤트 후 home으로 이동
 
+<br>
 
-
-### front_layout_theme branch(작업중)
+## front_layout_theme branch(작업중)
 
 #### Layout - 모든 보여지는 Component들이 부모로 갖는 outlayer Component
 
@@ -83,9 +81,9 @@
 - 메뉴 추가(mypage)
 - 로그인 / 비로그인 식별가능한 요소 추가
 
+<br>
 
-
-### front_storedetail branch(작업중)
+## front_storedetail branch(작업중)
 
 #### Detail - 가게 상세 정보 페이지
 
