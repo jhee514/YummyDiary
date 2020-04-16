@@ -8,6 +8,7 @@ import {
   withStyles
 } from "@material-ui/core";
 import { testlogin } from "../modules/dummy";
+import axios from "axios"
 
 const CssTextField = withStyles({
   root: {
@@ -61,8 +62,8 @@ const useStyles = makeStyles(theme => ({
 const Login = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_email: "",
-    a_pw: ""
+    email: "",
+    password: ""
   });
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
@@ -73,11 +74,16 @@ const Login = props => {
     props.history.push("/signup");
   };
 
-  const submitClickEvent = event => {
-    const result = testlogin(input);
-    alert(result.message);
-    if (result.validation) {
-      sessionStorage.setItem("id", result.data.a_email);
+  const submitClickEvent = async event => {
+    // const result = testlogin(input);
+    // alert(result.message);
+    // if (result.validation) {
+    //   sessionStorage.setItem("id", result.data.a_email);
+    //   props.history.push("/")
+    // }
+    const result = await axios.post("http://localhost:8000/token/",input)
+    if(result.status === 200){
+      sessionStorage.setItem("token", result.data.token);
       props.history.push("/")
     }
   };
@@ -88,14 +94,14 @@ const Login = props => {
         <CssTextField
           className={classes.textfield}
           label="이메일"
-          name="a_email"
+          name="email"
           variant="filled"
           onChange={inputChangeEvent}
         />
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
-          name="a_pw"
+          name="password"
           variant="filled"
           onChange={inputChangeEvent}
           type="password"
