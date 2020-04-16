@@ -169,7 +169,7 @@ function DraggableCategories() {
           />
         </div>
         </Box>
-        <Box width="20%">
+        <Box width="100%">
         <Droppable droppableId="droppable" direction="horizontal">
         {(provided, snapshot) => (
           <Box
