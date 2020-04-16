@@ -48,6 +48,8 @@
 
 ![yummy_diary_ERD](.\yummy_diary_ERD.png)
 
+
+
 ### 4. Sequence Diagram
 
 ```mermaid
