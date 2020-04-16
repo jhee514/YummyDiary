@@ -1,9 +1,17 @@
 import React from "react";
-import { Button, Box } from "@material-ui/core";
+import { Button, Box, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
+
+const useStyles = makeStyles((theme) => ({
+  button : {
+    color : "white"
+  }
+}));
 
 const Menulist = (props) => {
   const token = sessionStorage.getItem("token");
+  const classes = useStyles();
   const menumap = {
     "/": [
       {
@@ -24,14 +32,13 @@ const Menulist = (props) => {
             },
           }
         : {
-            id: 2,
-            menuname: "logout",
-            event: () => {
-              sessionStorage.removeItem("token");
-              props.setOpen(false);
-              window.location.reload();
-            },
+          id: 2,
+          menuname: "mypage",
+          event: () => {
+            props.setOpen(false);
+            props.history.push("/mypage");
           },
+        },
       token === null
         ? {
             id: 3,
@@ -41,7 +48,15 @@ const Menulist = (props) => {
               props.history.push("/signup");
             },
           }
-        : null,
+        : {
+          id: 3,
+          menuname: "logout",
+          event: () => {
+            sessionStorage.removeItem("token");
+            props.setOpen(false);
+            window.location.reload();
+          },
+        },
     ],
     "/signup": [
       {
@@ -87,7 +102,7 @@ const Menulist = (props) => {
         menu === null ? (
           <Box key={index}></Box>
         ) : (
-          <Button onClick={menu.event} key={index}>
+          <Button onClick={menu.event} key={index} className={classes.button}>
             {menu.menuname}
           </Button>
         )
