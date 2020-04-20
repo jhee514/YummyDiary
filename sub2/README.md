@@ -52,6 +52,8 @@
 
 ### 4. Sequence Diagram
 
+#### | 고객여정지도
+
 ```mermaid
 sequenceDiagram
 	participant main as 메인 페이지
@@ -73,6 +75,30 @@ sequenceDiagram
 	end
 	
 ```
+
+
+
+#### | 회원가입/로그인
+
+```mermaid
+sequenceDiagram
+	participant u as 사용자
+	participant f as 프론트엔드
+	participant b as 백엔드
+	participant d as DB
+	Note over u: default page
+	main ->> login : 1. 회원가입/로그인
+	login -->> main : 2. 회원가입/로그인 완료 시 메인화면으로 리턴
+	alt 3. 배너/추천 클릭 or 직접 검색
+	main ->> store : 배너 또는 추천 클릭하여 가게 상세 페이지 확인
+	else
+	main ->> search : 검색결과 페이지로 이동
+	search ->> store : 검색결과 중 클릭하면 상세페이지 또는 모달로 확인
+	end
+
+```
+
+
 
 
 
