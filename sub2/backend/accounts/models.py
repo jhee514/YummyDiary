@@ -15,11 +15,11 @@ class User(AbstractUser):
             validators=[
                 MinValueValidator(1900), 
                 MaxValueValidator(datetime.datetime.now().year)],
-            default=datetime.datetime.now().year)
+            default=False)
     
     GENDER_CHOICES = (
-        ('male', 'Male'),
-        ('female', 'Female'),
+        ('0', 'Female'),
+        ('1', 'Male'),
     )
     
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=False)
