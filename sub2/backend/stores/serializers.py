@@ -9,10 +9,10 @@ class StoreSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "branch",
-            "area",
             "tel",
             "address",
             "latitude",
             "longitude",
-            "category_list",
+            "bhour_list",
+            "tags",
         ]
