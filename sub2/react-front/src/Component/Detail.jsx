@@ -9,6 +9,7 @@ import {
 import { storedetail } from "../modules/dummy";
 import { Rating } from "@material-ui/lab";
 import { useState } from "react";
+import KakaoMap from "./KakaoMap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 2vw 0 2vw",
     display: "flex",
     width: "25%",
+    height: "40vh",
     //alignItems: "center",
   },
   map: {
@@ -52,13 +54,27 @@ const Detail = (porps) => {
   const foldEvent = (event) => {
     setUnfold(!unfold);
   };
+
   return (
     <Box className={classes.root}>
       <Box className={classes.mapbox}>
         <Box className={classes.contentbox}>
-          <Typography variant="h4">찾아 오시는 길</Typography>
-          <img src="/dummymap.png" alt="map" className={classes.map} />
+          {/* <img src="/dummymap.png" alt="map" className={classes.map} /> */}
+
+          <KakaoMap latitude={37.5718251} longitude={126.9803754} />
+
+          <Typography variant="h6">
+            <a
+              href={
+                "https://map.kakao.com/link/to/" +
+                "오목집,37.5718251,126.9803754"
+              }
+            >
+              길찾기
+            </a>
+          </Typography>
         </Box>
+        {/* 37.5718251 , 126.9803754 */}
       </Box>
       <Box className={classes.storedetail}>
         <Box className={classes.contentbox}>

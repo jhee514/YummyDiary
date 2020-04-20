@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
+import axios from "axios";
 
 const CssTextField = withStyles({
   root: {
@@ -64,28 +65,30 @@ const useStyles = makeStyles(theme => ({
 const SignUp = props => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_email: "",
-    a_pw: "",
-    a_age: "",
-    a_gender: ""
+    "email": "",
+    "password": "",
+    "birth_year": "",
+    "gender": ""
   });
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
-    console.log(event.target.name + " : " + event.target.value);
   };
   const checkChangeEvent = event => {
-    setInput({ ...input, a_gender: event.currentTarget.value });
-    //console.log(event.currentTarget.value);
+    setInput({ ...input, gender: event.currentTarget.value });
   };
-  const submitclickevent = event => {
+  const submitclickevent = async event => {
     if (
-      a_EmailCheck(input.a_email) &&
-      a_AgeCheck(input.a_age) &&
-      a_PwCheck(input.a_pw) &&
-      input.a_gender !== ""
+      a_EmailCheck(input.email) &&
+      a_AgeCheck(input.birth_year) &&
+      a_PwCheck(input.password) &&
+      input.gender !== ""
     ) {
-      console.log(input);
-      props.history.push("/");
+      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
+        alert("가입되었습니다")
+        props.history.push("/login");
+      }).catch(error=>{
+        alert("다시 입력해주세요")
+      })
     } else {
       alert("정확히 입력해주세요");
     }
@@ -97,15 +100,15 @@ const SignUp = props => {
           className={classes.textfield}
           label="이메일"
           variant="filled"
-          name="a_email"
+          name="email"
           onChange={inputChangeEvent}
           error={
-            !(input.a_email === undefined || input.a_email === "") &&
-            input.a_email !== undefined && !a_EmailCheck(input.a_email)
+            !(input.email === undefined || input.email === "") &&
+            input.email !== undefined && !a_EmailCheck(input.email)
           }
           helperText={
-            !(input.a_email === "" || input.a_email === undefined) &&
-            !a_EmailCheck(input.a_email)
+            !(input.email === "" || input.email === undefined) &&
+            !a_EmailCheck(input.email)
               ? "올바른 이메일 형식이 아닙니다"
               : ""
           }
@@ -114,16 +117,16 @@ const SignUp = props => {
           className={classes.textfield}
           label="비밀번호"
           variant="filled"
-          name="a_pw"
+          name="password"
           onChange={inputChangeEvent}
           type="password"
           error={
-            !(input.a_pw === undefined || input.a_pw === "") &&
-            !a_PwCheck(input.a_pw)
+            !(input.password === undefined || input.password === "") &&
+            !a_PwCheck(input.password)
           }
           helperText={
-            !(input.a_pw === undefined || input.a_pw === "") &&
-            !a_PwCheck(input.a_pw)
+            !(input.password === undefined || input.password === "") &&
+            !a_PwCheck(input.password)
               ? "패스워드는 첫째자리는 영문자로 시작하고 영문자, 숫자, 특수문자를 포함해야 하며, 3자리 이상 15자리 이하의 길이여야 합니다"
               : ""
           }
@@ -141,18 +144,18 @@ const SignUp = props => {
             <CssTextField
               className={classes.textfield}
               label="나이"
-              name="a_age"
+              name="birth_year"
               variant="filled"
               onChange={inputChangeEvent}
               fullWidth
               error={
-                !(input.a_age === undefined || input.a_age === "") &&
-                !a_AgeCheck(input.a_age)
+                !(input.birth_year === undefined || input.birth_year === "") &&
+                !a_AgeCheck(input.birth_year)
               }
               helperText={
-                !(input.a_age === undefined || input.a_age === "") &&
-                !a_AgeCheck(input.a_age)
-                  ? "나이는 1살이상 120살 미만으로 입력해주세요"
+                !(input.birth_year === undefined || input.birth_year === "") &&
+                !a_AgeCheck(input.birth_year)
+                  ? "태어난 연도는 1900년 이상으로 입력해주세요!"
                   : ""
               }
             />
@@ -164,8 +167,8 @@ const SignUp = props => {
             justifyContent="space-between"
           >
             <CssToggleButton
-              value="남"
-              selected={input.a_gender === "남"}
+              value="male"
+              selected={input.gender === "male"}
               onChange={checkChangeEvent}
               size="large"
               className={classes.toggleButton}
@@ -174,8 +177,8 @@ const SignUp = props => {
             </CssToggleButton>
 
             <CssToggleButton
-              value="여"
-              selected={input.a_gender === "여"}
+              value="female"
+              selected={input.gender === "female"}
               onChange={checkChangeEvent}
               size="large"
               className={classes.toggleButton}

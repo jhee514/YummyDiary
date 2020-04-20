@@ -5,27 +5,28 @@ import {
   TextField,
   Typography,
   Button,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 import { testlogin } from "../modules/dummy";
+import axios from "axios";
 
 const CssTextField = withStyles({
   root: {
     "& .MuiFilledInput-root": {
-      backgroundColor: "#FFFFFF"
+      backgroundColor: "#FFFFFF",
     },
     "& .MuiFilledInput-underline:after": {
-      borderBottom: "2px solid #000000"
-    }
-  }
+      borderBottom: "2px solid #000000",
+    },
+  },
 })(TextField);
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     marginTop: "6vw",
-    height: "100%"
+    height: "100%",
   },
   textbox: {
     display: "flex",
@@ -35,51 +36,53 @@ const useStyles = makeStyles(theme => ({
     //border:"2px solid #000000",
     backgroundColor: "#FAC60E",
     width: "30%",
-    height: "100%"
+    height: "100%",
   },
   textfield: {
     marginBottom: "1vw",
     width: "95%",
-    height: "100%"
+    height: "100%",
   },
- 
+
   submitbutton: {
     marginTop: "2vw",
     marginBottom: "1vw",
     width: "95%",
     backgroundColor: "rgb(117, 122, 122)",
-    color:"white"
+    color: "white",
   },
   signupbutton: {
     marginBottom: "1vw",
     width: "95%",
     backgroundColor: "rgb(117, 122, 122)",
-    color:"white"
-  }
+    color: "white",
+  },
 }));
 
-const Login = props => {
+const Login = (props) => {
   const classes = useStyles();
   const [input, setInput] = useState({
-    a_email: "",
-    a_pw: ""
+    email: "",
+    password: "",
   });
-  const inputChangeEvent = event => {
+  const inputChangeEvent = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
-    console.log(event.target.name + " : " + event.target.value);
   };
 
-  const signupClickEvent = event => {
+  const signupClickEvent = (event) => {
     props.history.push("/signup");
   };
 
-  const submitClickEvent = event => {
-    const result = testlogin(input);
-    alert(result.message);
-    if (result.validation) {
-      sessionStorage.setItem("id", result.data.a_email);
-      props.history.push("/")
-    }
+  const submitClickEvent = async (event) => {
+    const result = await axios
+      .post("http://localhost:8000/token/", input)
+      .then((data) => {
+        sessionStorage.setItem("token", data.token);
+        props.history.push("/");
+      })
+      .catch((error) => {
+        alert("올바르지 않은 입력입니다.");
+      });
   };
 
   return (
@@ -88,14 +91,14 @@ const Login = props => {
         <CssTextField
           className={classes.textfield}
           label="이메일"
-          name="a_email"
+          name="email"
           variant="filled"
           onChange={inputChangeEvent}
         />
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
-          name="a_pw"
+          name="password"
           variant="filled"
           onChange={inputChangeEvent}
           type="password"
