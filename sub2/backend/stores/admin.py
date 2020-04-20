@@ -3,37 +3,42 @@ from . import models
 
 # Register your models here.
 
+@admin.register(models.Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "content",
+    ]
+    search_fields = ["content"]
+
+
 @admin.register(models.Store)
 class StoreAdmin(admin.ModelAdmin):
     list_display = [
             "id",
             "name",
             "branch",
-            "area",
             "tel",
             "address",
             "latitude",
             "longitude",
             "category_list",
             "bhour_list",
-            "review_cnt",
         ]
     search_fields = [
             "name",
             "branch",
-            "area",
             "tel",
             "address",
             "latitude",
             "longitude",
-            "category_list",
-            "menus"
         ]
 
 @admin.register(models.Review)
-class RevieAdmin(admin.ModelAdmin):
+class ReviewAdmin(admin.ModelAdmin):
     list_display = [
-        "writer", 
+        "writer",
+        "store", 
         "total_score",
         "content",
         "reg_time",
@@ -41,7 +46,22 @@ class RevieAdmin(admin.ModelAdmin):
 
     search_fields = [
         "writer", 
+        "store",
         "total_score",
         "content",
         "reg_time",
+    ]
+
+
+@admin.register(models.Menu)
+class MenuAdmin(admin.ModelAdmin):
+    list_display = [
+        "name",
+        "price",
+        "store",
+    ]
+    search_fields = [
+        "name",
+        "price",
+        "store",
     ]
