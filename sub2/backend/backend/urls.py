@@ -19,7 +19,7 @@ from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh
 
 # fmt: off
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
     # path("api/", include("api.urls")),
 
     # DRF login URLs for the browsable API.
@@ -30,8 +30,9 @@ urlpatterns = [
     path('token/refresh/', refresh_jwt_token),
 
     path('accounts/', include('accounts.urls')),
-    path('stores/', include("stores.urls")),
-    path('menus/', include("menus.urls")),
+    path('stores/', include('stores.urls')),
+    path('posts/', include('posts.urls'))
+    
 
 ]
 # fmt: on
