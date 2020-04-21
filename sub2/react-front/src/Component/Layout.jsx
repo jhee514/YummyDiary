@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { CssBaseline, Container, makeStyles } from "@material-ui/core";
-import SideBar from "./SideBar";
 import Header from "./Header";
 import cafe from "../cafe.jpg"
 import { useHistory } from "react-router-dom"
@@ -32,8 +31,6 @@ const Layout = props => {
     <Fragment>
       <CssBaseline>
         <Container className={classes.container} maxWidth="xl">
-          {/* {open ? <SideBar /> : <></>} */}
-
           <div className={classes.content}>
             <Header open={open} setOpen={setOpen} history={history} />
             {props.children}
