@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { CssBaseline, Container, makeStyles } from "@material-ui/core";
 import Header from "./Header";
-import cafe from "../cafe.jpg"
 import { useHistory } from "react-router-dom"
 
 
@@ -10,10 +9,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     margin: "0 auto",
     padding: "0",
-    // backgroundImage: `url(${cafe})`,
-    //backgroundPosition: "center",
-    //backgroundSize: "cover",
-    //backgroundRepeat: "no-repeat",
     height:"100%",
     minHeight:"100vh"
   },
