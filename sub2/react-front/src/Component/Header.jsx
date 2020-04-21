@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     marginRight: "20px",
-    height: theme.spacing(6),
+    marginTop: "10px",
+    height: theme.spacing(8),
     width: theme.spacing(18)
   },
 
@@ -41,9 +42,7 @@ const Header = props => {
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
         <Toolbar>
-          <Avatar variant="square" src="/logo.png" className={classes.logo}>
-            what
-          </Avatar>
+          <a href="/"><img src="/logo.png" className={classes.logo}/></a>
 
           <Typography className={classes.center}></Typography>
           <Box

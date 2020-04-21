@@ -156,7 +156,7 @@ const SignUp = props => {
               helperText={
                 !(input.birth_year === undefined || input.birth_year === "") &&
                 !a_AgeCheck(input.birth_year)
-                  ? "태어난 연도는 1900년 이상으로 입력해주세요!"
+                  ? "태어난 연도는 1900년 이상 올해년도 이하로 입력해주세요!"
                   : ""
               }
             />

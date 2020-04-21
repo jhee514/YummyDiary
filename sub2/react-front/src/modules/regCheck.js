@@ -23,7 +23,8 @@ export const a_EmailCheck = a_email => {
 } 
 
 export const a_AgeCheck = a_age => {
-  return a_AgeReg.test(a_age) && (Number(a_age)>=1900)
+  var date = new Date();
+  return a_AgeReg.test(a_age) && (Number(a_age)>=1900) && (Number(a_age)<=date.getFullYear());
 }
 
 export const s_AmountCheck = s_amount => {

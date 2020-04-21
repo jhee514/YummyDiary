@@ -8,6 +8,7 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { testlogin } from "../modules/dummy";
+import { a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
 
 const CssTextField = withStyles({
@@ -74,6 +75,9 @@ const Login = (props) => {
   };
 
   const submitClickEvent = async (event) => {
+    if (
+      a_EmailCheck(input.email)
+    ) {
     const result = await axios
       .post("http://localhost:8000/token/", input)
       .then((data) => {
@@ -83,6 +87,9 @@ const Login = (props) => {
       .catch((error) => {
         alert("올바르지 않은 입력입니다.");
       });
+    } else {
+      alert("정확히 입력해주세요");
+    }
   };
 
   return (
@@ -94,6 +101,16 @@ const Login = (props) => {
           name="email"
           variant="filled"
           onChange={inputChangeEvent}
+          error={
+            !(input.email === undefined || input.email === "") &&
+            input.email !== undefined && !a_EmailCheck(input.email)
+          }
+          helperText={
+            !(input.email === "" || input.email === undefined) &&
+            !a_EmailCheck(input.email)
+              ? "아이디는 이메일 형식입니다."
+              : ""
+          }
         />
         <CssTextField
           className={classes.textfield}
