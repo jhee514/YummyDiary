@@ -10,6 +10,9 @@ import { storedetail } from "../modules/dummy";
 import { Rating } from "@material-ui/lab";
 import { useState } from "react";
 import KakaoMap from "./KakaoMap";
+import { usePosition } from "use-position";
+import {getDistance} from "../modules/getDistance"
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,15 +57,20 @@ const Detail = (porps) => {
   const foldEvent = (event) => {
     setUnfold(!unfold);
   };
+  const watch = true;
+  const { latitude, longitude, timestamp, accuracy, error } = usePosition(
+    watch
+  );
 
   return (
     <Box className={classes.root}>
       <Box className={classes.mapbox}>
         <Box className={classes.contentbox}>
           {/* <img src="/dummymap.png" alt="map" className={classes.map} /> */}
-
-          <KakaoMap latitude={37.5718251} longitude={126.9803754} />
-
+          {
+            latitude === undefined ?  <></>:
+          <KakaoMap target_lang={37.5718251} target_long={126.9803754} current_lang = {latitude} current_long={longitude}/>
+          }
           <Typography variant="h6">
             <a
               href={
@@ -73,6 +81,7 @@ const Detail = (porps) => {
               길찾기
             </a>
           </Typography>
+            <Typography>거리 : {getDistance(37.5718251,126.9803754,latitude,longitude)} KM</Typography>
         </Box>
         {/* 37.5718251 , 126.9803754 */}
       </Box>

@@ -11,29 +11,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const KakaoMap = (props) => {
-  const [location, setLocation] = useState({});
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      function (error) {
-        console.error(error);
-      },
-      {
-        enableHighAccuracy: false,
-        maximumAge: 0,
-        timeout: Infinity,
-      }
-    );
-  } else {
-    alert("지도 데이터를 불러올 수 없습니다");
-  }
+  console.log(props)
   const classes = useStyles();
-
   const script = document.createElement("script");
 
   script.type = "text/javascript";
@@ -42,44 +21,36 @@ const KakaoMap = (props) => {
   script.async = true;
 
   document.head.appendChild(script);
-  if (location.latitude !== undefined) {
+ 
     script.onload = () => {
       kakao.maps.load(() => {
         //파라미터로 autoload=false를 줘서 v3이 모두 로드된 후, 이 콜백함수가 실행된다.
         let el = document.getElementById("map");
-        let markerPosition = new kakao.maps.LatLng(
-          props.latitude,
-          props.longitude
+        let markerPosition_target = new kakao.maps.LatLng(
+          props.current_lang,
+          props.current_long
+        );
+        let markerPosition_cur_location = new kakao.maps.LatLng(
+          props.target_lang,
+          props.target_long
         );
         let map = new kakao.maps.Map(el, {
-          center: new kakao.maps.LatLng(props.latitude, props.longitude),
+          center: new kakao.maps.LatLng(props.target_lang, props.target_long),
           level: 3,
         });
-        let marker = new kakao.maps.Marker({
-          position: markerPosition,
+        let marker_target = new kakao.maps.Marker({
+          position: markerPosition_target,
         });
-        marker.setMap(map);
-        var polyline = new kakao.maps.Polyline({
-          /* map:map, */
-          path: [
-            new kakao.maps.LatLng(props.latitude, props.longitude),
-            new kakao.maps.LatLng(location.latitude, location.longitude),
-          ],
-          strokeWeight: 2,
-          strokeColor: "#FF00FF",
-          strokeOpacity: 0.8,
-          strokeStyle: "dashed",
-        });
-        let dl = document.getElementById("distance");
-        dl.innerHTML =
-          "현재 위치에서의 거리 : " + Math.round(polyline.getLength()) + "m";
+        marker_target.setMap(map);
+        let marker_cur_location = new kakao.maps.Marker({
+          position : markerPosition_cur_location,
+        })
+        marker_cur_location.setMap(map);
       });
     };
-  }
   return (
     <>
       <div id="map" className={classes.map}></div>
-      <Typography variant="h5" id="distance"></Typography>
     </>
   );
 };
