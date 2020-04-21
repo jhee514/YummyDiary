@@ -8,11 +8,10 @@ import {
   GridListTile,
 } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
-import SearchIcon from "@material-ui/icons/Search";
-import { fade } from "@material-ui/core/styles";
 import { carddata } from "../modules/dummy";
 import DraggableCategories from "./DraggableCategories";
 import { Link } from "react-router-dom";
+import MainBanner from "./Main/MainBanner"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     width: "70%",
     minWidth: "80vw",
     marginTop: "2vw",
-    border: "1px solid #FAC60E",
     justifyContent: "center",
     display: "flex",
     padding: "1vh 0 1vh 0",
@@ -77,8 +75,8 @@ const Main = (props) => {
     <Box className={classes.root}>
       {/* 광고 및 배너 영역 */}
       <Box className={classes.bannerbox}>
-        <Box display="flex" maxHeight="30vh">
-          <img src="/tmpbanner.jpg" alt="banner" className={classes.image} />
+        <Box display="flex" maxHeight="30vh" minWidth="100vw">
+          <MainBanner />
         </Box>
         <Box>
           <Pagination count={10} disabled />
