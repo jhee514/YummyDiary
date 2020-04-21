@@ -74,6 +74,7 @@ const SignUp = props => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
   const checkChangeEvent = event => {
+    console.log(event.currentTarget.value)
     setInput({ ...input, gender: event.currentTarget.value });
   };
   const submitclickevent = async event => {
@@ -167,8 +168,8 @@ const SignUp = props => {
             justifyContent="space-between"
           >
             <CssToggleButton
-              value="male"
-              selected={input.gender === "male"}
+              value={0}
+              selected={input.gender == 0}
               onChange={checkChangeEvent}
               size="large"
               className={classes.toggleButton}
@@ -177,8 +178,8 @@ const SignUp = props => {
             </CssToggleButton>
 
             <CssToggleButton
-              value="female"
-              selected={input.gender === "female"}
+              value={1}
+              selected={input.gender == 1}
               onChange={checkChangeEvent}
               size="large"
               className={classes.toggleButton}
