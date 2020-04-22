@@ -16,8 +16,9 @@ class Store(models.Model):
     address = models.CharField(max_length=200, null=True)
     latitude = models.FloatField(max_length=10, null=True)
     longitude = models.FloatField(max_length=10, null=True)
+    category = models.CharField(max_length=200, blank=True)
     bhour_list = models.CharField(max_length=200, null=True)
-    tags = models.ManyToManyField('stores.Tag')
+    tags = models.ManyToManyField('stores.Tag', blank=True)
 
     @property
     def category_list(self):

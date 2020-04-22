@@ -22,7 +22,7 @@ class StoreAdmin(admin.ModelAdmin):
             "address",
             "latitude",
             "longitude",
-            "category_list",
+            "category",
             "bhour_list",
         ]
     search_fields = [

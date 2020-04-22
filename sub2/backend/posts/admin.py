@@ -6,7 +6,7 @@ from . import models
 class PostAdmin(admin.ModelAdmin):
     list_display = [
         'id', 
-        'writer', 
+        'user', 
         'meal', 
         'created_at', 
         'last_modified', 
@@ -17,7 +17,7 @@ class PostAdmin(admin.ModelAdmin):
         'score',
         ]
     search_fields = [
-        'writer', 
+        'user', 
         'meal', 
         'created_at', 
         'last_modified', 

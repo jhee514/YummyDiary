@@ -3,7 +3,7 @@ from django.views.decorators.http import require_GET, require_http_methods, requ
 from django.contrib.auth import login as auth_login, logout as auth_log_out
 from django.contrib.auth.decorators import login_required
 
-from rest_framework.response import Response #  JSON 응답 생성기
+from rest_framework.response import Response  # JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 

@@ -13,6 +13,7 @@ class StoreSerializer(serializers.ModelSerializer):
             "address",
             "latitude",
             "longitude",
+            "category",
             "bhour_list",
             "tags",
         ]

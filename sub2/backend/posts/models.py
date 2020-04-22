@@ -1,7 +1,7 @@
 from django.db import models
 
 class Post(models.Model):
-    writer = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
     
     class Meal(models.IntegerChoices):
         Breakfast = 0

@@ -1,7 +1,7 @@
 from . import models, serializers
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
-# from .models import Store
+
 
 
 class SmallPagination(PageNumberPagination):
@@ -17,6 +17,6 @@ class StoreViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         name = self.request.query_params.get("name", "")
         queryset = (
-            models.Store.objects.all().filter(store_name__contains=name).order_by("id")
+            models.Store.objects.all().filter(name__contains=name).order_by("id")
         )
         return queryset
