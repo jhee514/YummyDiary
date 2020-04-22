@@ -37,3 +37,38 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 > npm install @material-ui/core<br />
 > npm install @material-ui/icons <br />
 > npm install @material-ui/labs <br />
+
+### `axios`
+
+통신 기능 제공<br/>
+
+> npm install axios<br/>
+
+### `react-slick`
+
+리액트용 Carousel component 제공<br />
+
+> npm install react-slick<br />
+
+별도의 css를 사용하기 위해 index.html 에 아래 내용을 삽입해야함<br />
+
+> ```html
+> <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+> 
+> <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+> ```
+
+### `react-beautiful-dnd`
+
+drag and drop 컴포넌트와 컨텍스트 제공<br/>
+
+> npm install react-bueatiful-dnd<br />
+
+### `use-position`
+
+현재위치를 가지고 올 수 있는 html5 제공 기능을 리액트에서 사용하기 쉬운 hooks 형태로 제공<br/>
+
+> npm install use-position<br/>
+
+
+
