@@ -146,7 +146,9 @@ function DraggableCategories() {
     }
   };
   const classes = useStyles();
-
+  const comp = () => {
+    return <Chip label="item1" />
+  }
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Typography>검색</Typography>
@@ -166,6 +168,7 @@ function DraggableCategories() {
             inputProps={{ "aria-label": "search" }}
             value={searchInput.keyword}
             onChange={searchChangeEvent}
+            endAdornment={<><Chip label={1}/><Chip label={2}/></>}
           />
         </div>
         </Box>
