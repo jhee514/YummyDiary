@@ -61,19 +61,24 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function CustomizedRatings() {
+function CustomizedRatings(props) {
     const classes = useStyles();
-
+    const {ratings,id,setRatings} = props;
   return (
     <div className={classes.scores}>
     {/* <div> */}
       <Box component="fieldset" mb={3} borderColor="transparent">
         {/* <Typography component="legend">Custom empty icon</Typography> */}
         <Rating
-          name="customized-empty"
-          defaultValue={2}
-          precision={1}
-          emptyIcon={<StarBorderIcon fontSize="inherit" />}
+          //name="customized-empty"
+          value={ratings[id].rating}
+          //precision={1}
+          //emptyIcon={<StarBorderIcon fontSize="inherit" />}
+          onChange={(event,newValue) => {
+            let newItem = JSON.parse(JSON.stringify(ratings));
+            newItem[id] = {...ratings[id],rating:newValue}
+            setRatings(newItem)
+          }}
         />
       </Box>
       {/* <Box component="fieldset" mb={3} borderColor="transparent">
