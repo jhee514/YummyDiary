@@ -32,7 +32,7 @@ class Review(models.Model):
     reg_time = models.DateTimeField(default=False)
     
     def __str__(self):
-        return '%s | %s | %s' % (self.writer, self.store)
+        return '%s | %s' % (self.writer, self.store)
 
 
 class Menu(models.Model):
