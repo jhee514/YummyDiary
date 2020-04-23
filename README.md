@@ -33,12 +33,3 @@ npm install
 npm run serve
 ```
 
-**Wireframe**
-
-[OvenLink](https://ovenapp.io/project/qfxMC5NrUIRdlrPexdxMWkboxz45zxKn#Edwc0).
-
-
-**관리자 명단**
-
-- GIT : 윤도희
-- JIRA: 오동현
