@@ -26,37 +26,71 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "6vw",
+    marginTop: "5vw",
     height: "100%",
+  },
+  title: {
+    fontSize: "20px",
+    color: "black",
+    paddingBottom: "10px",
+  },
+  subtitle: {
+    fontSize: "12px",
+    textAlign: "center"
+  },
+  line: {
+    borderColor: "#FAC60E",
+    border: "solid 1px",
+    width: "30%"
   },
   textbox: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5vw 2vw 4vw 2vw",
+    padding: "5vh 2vw 4vh 2vw",
     //border:"2px solid #000000",
     backgroundColor: "#FAC60E",
     width: "30%",
     height: "100%",
+    margin: "2vh"
+  },
+  textboxNoLine: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "0vh 2vw 0vh 2vw",
+    width: "30%",
+    height: "100%",
+    margin: "2vh"
   },
   textfield: {
     marginBottom: "1vw",
     width: "95%",
     height: "100%",
   },
-
   submitbutton: {
-    marginTop: "2vw",
+    // marginTop: "1vw",
     marginBottom: "1vw",
     width: "95%",
-    backgroundColor: "rgb(117, 122, 122)",
     color: "white",
+    borderColor: "#FBD85A",
+    border: "solid 2px",
+    '&:hover': {
+      backgroundColor: "#FBD85A",
+      color: "rgb(117, 122, 122)"
+    }
   },
   signupbutton: {
     marginBottom: "1vw",
     width: "95%",
-    backgroundColor: "rgb(117, 122, 122)",
-    color: "white",
+    color: "#FAC60E",
+    borderColor: "#FAC60E",
+    border: "solid 2px",
+    '&:hover': {
+      borderColor: "#FAC60E",
+      backgroundColor: "#FAC60E",
+      color: "white"
+    }
   },
 }));
 
@@ -94,7 +128,10 @@ const Login = (props) => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.textbox}>
+      <b className={classes.title}>LOGIN</b>
+      <hr className={classes.line}></hr>
+      <p >오늘은 어떤 식사가 기다리고 있을까요? :)</p>
+      <Box className={classes.textbox} boxShadow={3}>
         <CssTextField
           className={classes.textfield}
           label="이메일"
@@ -123,14 +160,20 @@ const Login = (props) => {
         <Button
           className={classes.submitbutton}
           onClick={submitClickEvent}
-          size="large"
+          variant="outlined"
         >
-          제출
+          login
         </Button>
+        
+      </Box>
+      <br/>
+      <b>아직 YUMMY DIARY의 회원이 아니신가요?</b>
+      <p className={classes.subtitle}>회원가입을 통해 더 많은 정보와 혜택을 받아가세요!</p>
+
+      <Box className={classes.textboxNoLine}>
         <Button
           className={classes.signupbutton}
           onClick={signupClickEvent}
-          size="large"
         >
           SIGNUP
         </Button>
