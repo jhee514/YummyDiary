@@ -1,9 +1,17 @@
-import React from "react";
-import { makeStyles, Button, Typography, Box } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import {
+  makeStyles,
+  Button,
+  Typography,
+  Box,
+  withStyles,
+} from "@material-ui/core";
 import { carddata } from "../../modules/dummy";
 import Slider from "react-slick";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import "./style.scss";
+import axios from "axios";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: "nowrap",
@@ -19,45 +27,57 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2vh",
   },
 }));
-
 const MainRecommend = (props) => {
   const classes = useStyles();
-  const PrevButton = (props) =>{
-    const { className, style, onClick } = props;
-    return <button className={className} onClick={onClick} style={{...style, display:"block"}}><ArrowBackIosIcon /></button>
-  }
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setStores(null);
+        setLoading(true);
+        const response = await axios.get(
+          "http://localhost:8000/stores/stores/"
+        );
+        setStores(response.data.results);
+      } catch (e) {
+        console.error(e);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
   const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 2,
-    prevArrow : <PrevButton />
-    
   };
   return (
     <div>
       <Typography>추천목록</Typography>
-      <Slider {...settings} className={classes.slider}>
-        {carddata.map((data) => (
-          <div key={data.no}>
-            <Typography variant="h5">{data.storeName}</Typography>
-            <Typography variant="body2">{data.content}</Typography>
-            <Typography variant="h6">{data.rating}</Typography>
-
-            {data.url ? (
-              <Button
-                onClick={(event) => {
-                  props.history.push(data.url);
-                }}
-              >
-                상세보기
-              </Button>
-            ) : (
-              <></>
-            )}
-          </div>
-        ))}
-        {/* <GridList cols={2.5} className={classes.gridList}>
+      {
+        <Slider {...settings} className={classes.slider}>
+          {loading ? (
+            <div>
+            <ScaleLoader />
+            </div>
+          ) : (
+            stores.map((store) => (
+              <div key={store.id}>
+                <img src={store.image} alt={store.name} style={{width : "16vw" , height:"12vw"}}/>
+                <Typography variant="h5">{store.name}</Typography>
+                <Typography variant="body2">{store.address}</Typography>
+                <Typography variant="h6">{store.tel}</Typography>
+                <Button
+                  onClick={(event) => props.history.push("/detail/" + store.id)}
+                >
+                  상세보기
+                </Button>
+              </div>
+            ))
+          )}
+          {/* <GridList cols={2.5} className={classes.gridList}>
           {carddata.map((data) => (
             <GridListTile key={data.no} className={classes.gridListTile}>
               <Typography variant="h5">{data.storeName}</Typography>
@@ -75,7 +95,8 @@ const MainRecommend = (props) => {
             </GridListTile>
           ))}
         </GridList> */}
-      </Slider>
+        </Slider>
+      }
     </div>
   );
 };
