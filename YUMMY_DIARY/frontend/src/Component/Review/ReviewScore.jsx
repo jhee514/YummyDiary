@@ -75,7 +75,7 @@ function CustomizedRatings(props) {
           //precision={1}
           //emptyIcon={<StarBorderIcon fontSize="inherit" />}
           onChange={(event,newValue) => {
-            let newItem = JSON.parse(JSON.stringify(ratings));
+            let newItem = JSON.parse(JSON.stringify(ratings))
             newItem[id] = {...ratings[id],rating:newValue}
             setRatings(newItem)
           }}

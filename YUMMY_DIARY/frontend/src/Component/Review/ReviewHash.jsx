@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
+import Box from '@material-ui/core/Box';
+import {taglist} from "../../modules/dummy";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +17,12 @@ const useStyles = makeStyles((theme) => ({
     //   display: "flex",
     //   alignItems: "center",
     //   alignContent: "center",
-      marginLeft: "180px"
+    width: "70%",
+    marginLeft: "30%"
+  },
+  hashChip: {
+    marginTop: "5px",
+    marginRight: "3px",
   }
 }));
 
@@ -31,17 +38,13 @@ export default function SmallOutlinedChips() {
   };
 
   return(
-      <div className={classes.hashChip_container}>
-          <Chip label="한식" onDelete={handleDelete}/>
-          <Chip label="중식" onDelete={handleDelete}/>
-          <Chip label="일식" onDelete={handleDelete}/>
-          <Chip label="양식" onDelete={handleDelete}/>
-          <Chip label="분위기 좋은" onDelete={handleDelete}/>
-          <Chip label="양 많은" onDelete={handleDelete}/>
-          <Chip label="가성비 좋은" onDelete={handleDelete}/>
-          <Chip label="저렴한" onDelete={handleDelete}/>
-          <Chip label="서비스 좋은" onDelete={handleDelete}/>
-          <Chip label="맛있는" onDelete={handleDelete}/>
-       </div>
+    // 음식점 id기반의 tag list를 불러와 반복문을 통해 label을 채워준다.
+    <div className={classes.hashChip_container}>
+      <Box alignItems="center">
+        {taglist.map((data) => 
+          <Chip label={data.tagName} className={classes.hashChip} onDelete={handleDelete}/>
+        )}
+      </Box>
+    </div>
   )
 }

@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(5),
-      width: '110ch',
+      width: '100ch',
     },
   },
   textField_container: {
@@ -15,13 +15,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MultilineTextFields() {
+export default function MultilineTextFields(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('Controlled');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  const {reviews, setReviews} = props;
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -34,6 +30,12 @@ export default function MultilineTextFields() {
           placeholder="~_~"
           variant="outlined"
           fullWidth={true}
+          value={reviews}
+          // handleChange={handleChange()}
+          onChange={(event) => {
+            setReviews(event.target.value)
+            console.log(reviews)
+          }}
         />
       </div>
     </form>

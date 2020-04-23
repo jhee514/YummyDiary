@@ -154,3 +154,16 @@ export const storedetail = {
   open: ["월-금오전 11시 - 오후 11시", "토/일오후 4시 - 오후 10시"],
   address : "서울특별시 종로구 공평동 125-1"
 };
+
+export const taglist = [
+  { tagNo: 1, tagName: "한식" },
+  { tagNo: 2, tagName: "중식" },
+  { tagNo: 3, tagName: "일식" },
+  { tagNo: 4, tagName: "양식" },
+  { tagNo: 5, tagName: "분위기 좋은" },
+  { tagNo: 6, tagName: "양 많은" },
+  { tagNo: 7, tagName: "가성비 좋은" },
+  { tagNo: 8, tagName: "저렴한" },
+  { tagNo: 9, tagName: "서비스 좋은" },
+  { tagNo: 10, tagName: "맛있는" },
+];

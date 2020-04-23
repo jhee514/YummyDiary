@@ -78,22 +78,26 @@ function CustomizedReview() {
     { id: 1, label: "가격을 평가해주세요", rating: 0, title: "가격" },
     { id: 2, label: "서비스를 평가해주세요", rating: 0, title: "서비스" },
   ]);
+
+  const [reviews, setReviews] = useState('');
+
   return (
     <Container className={classes.container}>
       <h1 className={classes.title}>Review Page</h1>
+
       {ratings.map((rating) => (
         <Grid className={classes.subStoreScore}>
-        <div className={classes.h2_Name}>
-      <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
-        </div>
-        <div>
-          <ReviewScore className={classes.ReviewScore_taste} ratings={ratings} id={rating.id} setRatings={setRatings}/>
-        </div>
-      </Grid>  
-      )
-      )}
+          <div className={classes.h2_Name}>
+            <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
+          </div>
+          <div>
+            <ReviewScore className={classes.ReviewScore_taste} ratings={ratings} id={rating.id} setRatings={setRatings}/>
+          </div>
+        </Grid>  
+      ))}
+
       <Grid className={classes.subStoreScore}>
-        <ReviewTextField />
+        <ReviewTextField reviews={reviews} setReviews={setReviews} />
       </Grid>
 
       <Grid className={classes.subStoreScore}>
