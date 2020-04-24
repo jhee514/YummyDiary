@@ -17,7 +17,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   center: {
-    flexGrow: 1
+    flexGrow: 1,
+    alignItems: "center",
+    justifyContent: "center"
   },
   bar: {
     backgroundColor: "#FAC60E"
@@ -28,10 +30,17 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(8),
     width: theme.spacing(18)
   },
+  login_signup: {
+    marginTop: "10px",
+    marginRight: "12px",
+    height: theme.spacing(8),
+    width: theme.spacing(32),
+  }
 
 }));
 const Header = props => {
   const classes = useStyles();
+  const status = props.history.location.pathname;
   const open = props.open;
   const setOpen = props.setOpen;
   const onMouseUpEvent = event => {
@@ -41,6 +50,11 @@ const Header = props => {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.bar}>
+        {status === '/login' || status === '/signup' ? (
+          <Toolbar className={classes.center}>
+            <a href="/"><img src="/logo_x_white.png" className={classes.login_signup}/></a>
+          </Toolbar>
+        ) : (
         <Toolbar>
           <a href="/"><img src="/logo.png" className={classes.logo}/></a>
 
@@ -77,6 +91,7 @@ const Header = props => {
             </IconButton>
           </Box>
         </Toolbar>
+      )}
       </AppBar>
     </div>
   );

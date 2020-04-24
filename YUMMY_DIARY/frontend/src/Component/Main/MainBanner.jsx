@@ -9,19 +9,20 @@ const MainBanner = (props) => {
     { url: "/banner3.png" },
   ];
   const settings = {
-    dots: true,
+    //dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1500
+    autoplaySpeed: 1500,
+    arrows:false
   };
   return (
-    <Slider {...settings}>
+    <Slider {...settings} >
       {images.map((img, index) => (
         <div>
-          <img src={img.url} key={index} alt={index} style={{width:"80%" ,margin :"auto"}}/>
+          <img src={img.url} key={index} alt={index} style={{width:"100%" ,margin :"auto", height:"100%"}}/>
         </div>
       ))}
     </Slider>
