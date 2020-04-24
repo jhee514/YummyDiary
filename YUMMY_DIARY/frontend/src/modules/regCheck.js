@@ -23,12 +23,8 @@ export const a_EmailCheck = a_email => {
 } 
 
 export const a_AgeCheck = a_age => {
-<<<<<<< HEAD:sub2/react-front/src/modules/regCheck.js
-  return a_AgeReg.test(a_age) && (Number(a_age)>=1900)
-=======
   var date = new Date();
   return a_AgeReg.test(a_age) && (Number(a_age)>=1900) && (Number(a_age)<=date.getFullYear());
->>>>>>> 53c840a2d77bfbfa91ab291303c8e12ef254bd79:YUMMY_DIARY/frontend/src/modules/regCheck.js
 }
 
 export const s_AmountCheck = s_amount => {

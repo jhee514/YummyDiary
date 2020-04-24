@@ -1,10 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { CssBaseline, Container, makeStyles } from "@material-ui/core";
 import Header from "./Header";
-<<<<<<< HEAD:sub2/react-front/src/Component/Layout.jsx
-import cafe from "../cafe.jpg"
-=======
->>>>>>> 53c840a2d77bfbfa91ab291303c8e12ef254bd79:YUMMY_DIARY/frontend/src/Component/Layout.jsx
 import { useHistory } from "react-router-dom"
 
 
@@ -13,13 +9,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     margin: "0 auto",
     padding: "0",
-<<<<<<< HEAD:sub2/react-front/src/Component/Layout.jsx
-    // backgroundImage: `url(${cafe})`,
-    //backgroundPosition: "center",
-    //backgroundSize: "cover",
-    //backgroundRepeat: "no-repeat",
-=======
->>>>>>> 53c840a2d77bfbfa91ab291303c8e12ef254bd79:YUMMY_DIARY/frontend/src/Component/Layout.jsx
     height:"100%",
     minHeight:"100vh"
   },

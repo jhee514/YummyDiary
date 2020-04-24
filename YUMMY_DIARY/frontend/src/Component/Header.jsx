@@ -24,12 +24,8 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     marginRight: "20px",
-<<<<<<< HEAD:sub2/react-front/src/Component/Header.jsx
-    height: theme.spacing(6),
-=======
     marginTop: "10px",
     height: theme.spacing(8),
->>>>>>> 53c840a2d77bfbfa91ab291303c8e12ef254bd79:YUMMY_DIARY/frontend/src/Component/Header.jsx
     width: theme.spacing(18)
   },
 
