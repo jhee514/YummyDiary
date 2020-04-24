@@ -22,8 +22,9 @@ class StoreAdmin(admin.ModelAdmin):
             "address",
             "latitude",
             "longitude",
-            "category_list",
-            "bhour_list",
+            "category",
+            "bhour",
+            "image"
         ]
     search_fields = [
             "name",
@@ -32,7 +33,11 @@ class StoreAdmin(admin.ModelAdmin):
             "address",
             "latitude",
             "longitude",
+            "category",
+            "bhour",
+            "image"
         ]
+
 
 @admin.register(models.Review)
 class ReviewAdmin(admin.ModelAdmin):

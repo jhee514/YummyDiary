@@ -1,9 +1,16 @@
-from django.conf.urls import url
-from rest_framework.routers import DefaultRouter
-from stores import views
+from django.conf.urls import url, include
+from django.contrib import admin
+from rest_framework import routers
+from stores.views import StoreViewSet, ReviewViewSet, MenuViewSet
 
 
-router = DefaultRouter(trailing_slash=False)
-router.register(r"stores", views.StoreViewSet, basename="stores")
+router = routers.DefaultRouter()
+router.register('stores', StoreViewSet)
+router.register('reviews', ReviewViewSet)
+router.register('menus', MenuViewSet)
 
-urlpatterns = router.urls
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
+]

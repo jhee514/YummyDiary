@@ -8,7 +8,6 @@ import datetime
 
 
 class User(AbstractUser):
-    # username = None
     username = models.CharField(max_length=20, default=False)
     email = models.EmailField(unique=True, default=False)
     birth_year = models.PositiveIntegerField(
@@ -17,12 +16,11 @@ class User(AbstractUser):
                 MaxValueValidator(datetime.datetime.now().year)],
             default=False)
     
-    GENDER_CHOICES = (
-        ('0', 'Female'),
-        ('1', 'Male'),
-    )
+    class Gender(models.IntegerChoices):
+        Female = 0
+        Male = 1
     
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=False)
+    gender = models.IntegerField(choices=Gender.choices)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
