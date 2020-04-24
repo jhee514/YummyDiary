@@ -63,6 +63,7 @@ const Detail = (props) => {
         const response = await axios.get(
           "http://localhost:8000/stores/stores/" + props.match.params.id
         );
+        console.log(response.data);
         setStore(response.data);
       } catch (e) {
         console.error(e);
@@ -104,7 +105,13 @@ const Detail = (props) => {
                 <a
                   href={
                     "https://map.kakao.com/link/to/" +
-                    "오목집,37.5718251,126.9803754"
+                    store.name +
+                    " " +
+                    store.branch +
+                    "," +
+                    store.latitude +
+                    "," +
+                    store.longitude
                   }
                 >
                   길찾기
@@ -121,14 +128,13 @@ const Detail = (props) => {
                 KM
               </Typography>
             </Box>
-            {/* 37.5718251 , 126.9803754 */}
           </Box>
           <Box className={classes.storedetail}>
             <Box className={classes.contentbox}>
               <Box className={classes.content}>
                 <Typography variant="h4">
                   {store.name}
-                  <Rating value={storedetail.rating} disabled precision="0.1" />
+                  
                 </Typography>
                 <Typography variant="h6">
                   {/* {storedetail.tags.map((tag, index) => tag + " ")} */}
@@ -139,32 +145,55 @@ const Detail = (props) => {
               <Divider variant="middle" />
               <Box className={classes.content}>
                 <Typography variant="h6">영업 시간</Typography>
-                {storedetail.open.map((time, index) => (
-                  <Typography variant="body2" key={index}>
-                    {time}
-                  </Typography>
-                ))}
+                <Typography variant="body2">
+                  {store.bhour === "" ? "정보가 없습니다" : store.bhour}
+                </Typography>
               </Box>
               <Divider variant="middle" />
               <Box className={classes.content}>
-                {storedetail.menuList.map((menu, index) =>
-                  (unfold ? 2 : storedetail.menuList.length) >= index ? (
-                    <Box display="flex" justifyContent="space-between">
-                      <Typography>{menu.menuName}</Typography>
-                      <Typography>{menu.menuPrice}원</Typography>
+                {store.menu === undefined || store.menu.length === 0 ? (
+                  <Typography>정보가 없습니다</Typography>
+                ) : (
+                  <>
+                    {store.menu.map((item, index) =>
+                      (unfold ? 2 : store.menu.length) >= index ? (
+                        <Box display="flex" justifyContent="space-between" key={index}>
+                          <Typography>{item.name}</Typography>
+                          <Typography>{item.price}원</Typography>
+                        </Box>
+                      ) : (
+                        <></>
+                      )
+                    )}
+                    <Box
+                      display="flex"
+                      justifyContent="flex-end"
+                      marginTop={1}
+                      onClick={foldEvent}
+                    >
+                      <Button variant="text">
+                        {unfold ? "더보기" : "접기"}
+                      </Button>
                     </Box>
-                  ) : (
-                    <></>
-                  )
+                  </>
                 )}
-                <Box
-                  display="flex"
-                  justifyContent="flex-end"
-                  marginTop={1}
-                  onClick={foldEvent}
-                >
-                  <Button variant="text">{unfold ? "더보기" : "접기"}</Button>
-                </Box>
+              </Box>
+              <Divider variant="middle" />
+              <Box className={classes.content}>
+                { store.review === undefined || store.review.length === 0 ? (
+                  <Typography>리뷰가 없습니다</Typography>
+                ) : (
+                  <>
+                    {store.review.map((item,index)=>
+                      <Box key={index}>
+                        <Rating value={Number(item.total_score)} disabled precision="0.1" />
+                        <Typography variant>{item.content}</Typography>
+                      </Box>
+                    )}
+                  </>
+                )
+
+                }
               </Box>
             </Box>
           </Box>
