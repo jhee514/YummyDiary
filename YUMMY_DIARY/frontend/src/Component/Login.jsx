@@ -104,10 +104,6 @@ const Login = (props) => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
 
-  const signupClickEvent = (event) => {
-    props.history.push("/signup");
-  };
-
   const submitClickEvent = async (event) => {
     if (
       a_EmailCheck(input.email)
@@ -124,6 +120,10 @@ const Login = (props) => {
     } else {
       alert("정확히 입력해주세요");
     }
+  };
+
+  const signupClickEvent = (event) => {
+    props.history.push("/signup");
   };
 
   return (
