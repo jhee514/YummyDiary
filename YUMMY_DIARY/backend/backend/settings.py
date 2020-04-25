@@ -20,7 +20,7 @@ SECRET_KEY = "$yg2c-8-8cszt%3k$b=3wwc^j1g%gn)wj%yldz)6jd(ez80u-s"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_yasg",
     "accounts",
     "stores",
     "posts",
@@ -85,9 +86,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'yum', # DB명
-        'USER': config('DB_USER'), # 데이터베이스 계정
-        'PASSWORD': config('DB_PASSWORD'), # 계정 비밀번호
-        'HOST': config('DB_HOST'), # 데이테베이스 주소(IP)
+        'USER': 'ssafy', # 데이터베이스 계정
+        'PASSWORD': 'ssafy', # 계정 비밀번호
+        'HOST': '13.125.31.78', # 데이테베이스 주소(IP)
         'PORT': '3306', # 데이터베이스 포트(보통은 3306)
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
     }
@@ -118,7 +119,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

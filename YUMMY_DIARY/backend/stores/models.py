@@ -1,4 +1,3 @@
-from django.utils import timezone
 from django.db import models
 
 
@@ -14,14 +13,12 @@ class Store(models.Model):
     branch = models.CharField(max_length=100, null=True)
     tel = models.CharField(max_length=30, null=True)
     address = models.CharField(max_length=200, null=True)
-    latitude = models.FloatField(max_length=10, null=True)
-    longitude = models.FloatField(max_length=10, null=True)
-    bhour_list = models.CharField(max_length=200, null=True)
+    latitude = models.CharField(max_length=30, null=True)
+    longitude = models.CharField(max_length=30, null=True)
+    category = models.CharField(max_length=200, null=True)
+    bhour = models.CharField(max_length=1000, null=True)
+    image = models.CharField(max_length=1000, null=True)
     tags = models.ManyToManyField('stores.Tag')
-
-    @property
-    def category_list(self):
-        return self.category.split("|") if self.category else []
 
     def __str__(self):
         return self.name
@@ -35,7 +32,7 @@ class Review(models.Model):
     reg_time = models.DateTimeField(default=False)
     
     def __str__(self):
-        return '%s | %s | %s' % (self.writer, self.store)
+        return '%s | %s' % (self.writer, self.store)
 
 
 class Menu(models.Model):
