@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     width: "75%",
     //alignItems: "center",
     justifyContent: "center",
+    padding: "0 10vw 0 10vw"
   },
   contentbox: {
     //border: "2px solid #FAC60E",
