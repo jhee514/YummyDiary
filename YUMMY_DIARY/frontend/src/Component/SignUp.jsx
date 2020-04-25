@@ -38,15 +38,38 @@ const useStyles = makeStyles(theme => ({
     marginTop: "6vw",
     height: "100%"
   },
+  title: {
+    fontSize: "20px",
+    color: "black",
+    paddingBottom: "10px",
+  },
+  subtitle: {
+    fontSize: "12px",
+    textAlign: "center"
+  },
+  line: {
+    borderColor: "#FAC60E",
+    border: "solid 1px",
+    width: "30%"
+  },
   textbox: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5vw 2vw 4vw 2vw",
-    //border:"2px solid #000000",
+    padding: "5vh 2vw 4vh 2vw",
     backgroundColor: "#FAC60E",
     width: "30%",
-    height: "100%"
+    height: "100%",
+    margin: "2vh"
+  },
+  textboxNoLine: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "0vh 2vw 0vh 2vw",
+    width: "30%",
+    height: "100%",
+    margin: "2vh"
   },
   textfield: {
     margin: "1vw 0vw 0vw 0vw",
@@ -54,12 +77,29 @@ const useStyles = makeStyles(theme => ({
   },
 
   submitbutton: {
-    marginTop: "2vw",
+    marginTop: "3vh",
     marginBottom: "1vw",
-    width: "100%",
-    backgroundColor: "rgb(117, 122, 122)",
-    color: "white"
-  }
+    width: "95%",
+    color: "white",
+    borderColor: "#FBD85A",
+    border: "solid 2px",
+    '&:hover': {
+      backgroundColor: "#FBD85A",
+      color: "rgb(117, 122, 122)"
+    }
+  },
+  loginbutton: {
+    marginBottom: "1vw",
+    width: "95%",
+    color: "#FAC60E",
+    borderColor: "#FAC60E",
+    border: "solid 2px",
+    '&:hover': {
+      borderColor: "#FAC60E",
+      backgroundColor: "#FAC60E",
+      color: "white"
+    }
+  },
 }));
 
 const SignUp = props => {
@@ -94,9 +134,17 @@ const SignUp = props => {
       alert("정확히 입력해주세요");
     }
   };
+
+  const loginClickEvent = (event) => {
+    props.history.push("/login");
+  };
+  
   return (
     <Box className={classes.root}>
-      <Box className={classes.textbox}>
+      <b className={classes.title}>SIGNUP</b>
+      <hr className={classes.line}></hr>
+      <p >회원님의 정보를 알려주세요 :)</p>
+      <Box className={classes.textbox} boxShadow={3}>
         <CssTextField
           className={classes.textfield}
           label="이메일"
@@ -190,6 +238,18 @@ const SignUp = props => {
         </Box>
         <Button className={classes.submitbutton} size="large" onClick={submitclickevent}>
           제출
+        </Button>
+      </Box>
+      <br/>
+      <b>이미 YUMMY DIARY의 회원이신가요?</b>
+      <p className={classes.subtitle}>YUMMY DIARY 회원으로 입장해주세요!</p>
+
+      <Box className={classes.textboxNoLine}>
+        <Button
+          className={classes.loginbutton}
+          onClick={loginClickEvent}
+        >
+          LOGIN
         </Button>
       </Box>
     </Box>
