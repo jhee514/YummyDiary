@@ -2,55 +2,88 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
-import {taglist} from "../../modules/dummy";
+import clsx from 'clsx';
+import Checkbox from '@material-ui/core/Checkbox';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5),
+    '&:hover': {
+      backgroundColor: 'transparent',
     },
   },
-  hashChip_container: {
-    //   display: "flex",
-    //   alignItems: "center",
-    //   alignContent: "center",
-    width: "70%",
-    marginLeft: "30%"
+  icon: {
+    borderRadius: 3,
+    width: 16,
+    height: 16,
+    boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+    backgroundColor: '#f5f8fa',
+    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
+    '$root.Mui-focusVisible &': {
+      outline: '2px auto rgba(19,124,189,.6)',
+      outlineOffset: 2,
+    },
+    'input:hover ~ &': {
+      backgroundColor: '#ebf1f5',
+    },
+    'input:disabled ~ &': {
+      boxShadow: 'none',
+      background: 'rgba(206,217,224,.5)',
+    },
   },
-  hashChip: {
-    marginTop: "5px",
-    marginRight: "3px",
-  }
-}));
+  checkedIcon: {
+    backgroundColor: '#137cbd',
+    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+    '&:before': {
+      display: 'block',
+      width: 16,
+      height: 16,
+      backgroundImage:
+        "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
+        " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
+        "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23fff'/%3E%3C/svg%3E\")",
+      content: '""',
+    },
+    'input:hover ~ &': {
+      backgroundColor: '#106ba3',
+    },
+  },
+  // tagOuterDiv: {
+  //   display: "flex"
+  // },
+  // tagName: {
+  //   marginTop: "3%",
+  // }
+});
 
-export default function SmallOutlinedChips() {
+
+// Inspired by blueprintjs
+export default function StyledCheckbox(props) {
   const classes = useStyles();
+  const {id, hashs, setHashs} = props;
 
-  const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
-
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
-
-  return(
-    // 음식점 id기반의 tag list를 불러와 반복문을 통해 label을 채워준다.
-    <div className={classes.hashChip_container}>
-      <Box alignItems="center">
-        {taglist.map((data) => 
-          <Chip 
-            label={data.tagName} 
-            className={classes.hashChip}
-            onClick={handleClick}
-            onDelete={handleDelete}
-            clickable={handleClick}
-          />
-        )}
-      </Box>
+  return (
+    <div className={classes.tagOuterDiv}>
+      <Checkbox
+        className={classes.root}
+        disableRipple
+        color="default"
+        value={hashs[id].tagName}
+        checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+        icon={<span className={classes.icon} />}
+        inputProps={{ 'aria-label': 'decorative checkbox' }}
+        {...props}
+      />
+      <div className={classes.tagName}>{hashs[id].tagName}</div>
     </div>
-  )
+  );
 }
+
+// export default function CustomizedCheckbox() {
+//   return (
+//     <div>
+//       <StyledCheckbox />
+//       {/* <StyledCheckbox defaultChecked />
+//       <StyledCheckbox disabled /> */}
+//     </div>
+//   );
+// }
