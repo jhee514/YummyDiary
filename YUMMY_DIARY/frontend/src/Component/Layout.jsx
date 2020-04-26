@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { CssBaseline, Container, makeStyles } from "@material-ui/core";
 import Header from "./Header";
 import { useHistory } from "react-router-dom"
+import Footer from "./Footer";
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,6 +32,7 @@ const Layout = props => {
           <div className={classes.content}>
             <Header open={open} setOpen={setOpen} history={history} />
             {props.children}
+            <Footer />
           </div>
         </Container>
       </CssBaseline>
