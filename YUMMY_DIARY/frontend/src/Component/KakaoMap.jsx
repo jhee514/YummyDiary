@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const KakaoMap = (props) => {
-  console.log(props)
   const classes = useStyles();
   const script = document.createElement("script");
 
