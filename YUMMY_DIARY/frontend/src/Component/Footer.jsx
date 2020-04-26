@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
     height: "20vh",
     textAlign: "center",
     flexDirection:"column",
-    justifyContent:"center"
+    justifyContent:"center",
+    marginTop :"3vh"
   },
 }));
 const Footer = () => {
