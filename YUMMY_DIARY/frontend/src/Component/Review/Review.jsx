@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { makeStyles, Container, Avatar, Grid, Paper } from "@material-ui/core";
+import { makeStyles, Container, Avatar, Grid, Paper, Box } from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
 import ReviewHash from "./ReviewHash";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: "10px 200px", // "top , left"
+    marginTop: "10px", // "top , left"
+    marginLeft: "10%"
   },
   title: {
     fontSize: "30px",
@@ -62,13 +63,20 @@ const useStyles = makeStyles((theme) => ({
     width: "500px",
     // textAlign: "center",
     // alignItems: "center",
-    marginLeft: "200px",
+    marginLeft: "20%",
   },
   divHash: {
     marginTop: "25px",
     marginBottom: "25px",
     alignItems: "center",
   },
+  subStoreScore_starPoint: {
+    display: "flex",
+    marginTop: "15px",
+    alignItems: "center",
+    marginLeft: "3%"
+    
+  }
 }));
 
 function CustomizedReview() {
@@ -82,30 +90,33 @@ function CustomizedReview() {
   const [reviews, setReviews] = useState('');
 
   return (
-    <Container className={classes.container}>
-      <h1 className={classes.title}>Review Page</h1>
+    <Box>
+      <Container className={classes.container}>
+        <h1 className={classes.title}>Review Page</h1>
+      <Box>
+        {ratings.map((rating) => (
+          <Grid className={classes.subStoreScore_starPoint}>
+            <div className={classes.h2_Name}>
+              <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
+            </div>
+            <div>
+              <ReviewScore ratings={ratings} id={rating.id} setRatings={setRatings}/>
+            </div>
+          </Grid>  
+        ))}
+      </Box>
 
-      {ratings.map((rating) => (
         <Grid className={classes.subStoreScore}>
-          <div className={classes.h2_Name}>
-            <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
-          </div>
-          <div>
-            <ReviewScore className={classes.ReviewScore_taste} ratings={ratings} id={rating.id} setRatings={setRatings}/>
-          </div>
-        </Grid>  
-      ))}
+          <ReviewTextField className={classes.ReviewTextField1} reviews={reviews} setReviews={setReviews} />
+        </Grid>
 
-      <Grid className={classes.subStoreScore}>
-        <ReviewTextField reviews={reviews} setReviews={setReviews} />
-      </Grid>
-
-      <Grid className={classes.subStoreScore}>
-        <div className={classes.divHash}>
-          <ReviewHash />
-        </div>
-      </Grid>
-    </Container>
+        <Grid className={classes.subStoreScore}>
+          <div className={classes.divHash}>
+            <ReviewHash />
+          </div>
+        </Grid>
+      </Container>
+    </Box>
   );
 }
 

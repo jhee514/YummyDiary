@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textField_container: {
       alignItems: "center",
-      marginLeft: "150px",
+      marginLeft: "22%",
   }
 }));
 

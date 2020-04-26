@@ -42,7 +42,13 @@ export default function SmallOutlinedChips() {
     <div className={classes.hashChip_container}>
       <Box alignItems="center">
         {taglist.map((data) => 
-          <Chip label={data.tagName} className={classes.hashChip} onDelete={handleDelete}/>
+          <Chip 
+            label={data.tagName} 
+            className={classes.hashChip}
+            onClick={handleClick}
+            onDelete={handleDelete}
+            clickable={handleClick}
+          />
         )}
       </Box>
     </div>

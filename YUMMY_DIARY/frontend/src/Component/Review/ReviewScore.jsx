@@ -57,7 +57,7 @@ IconContainer.propTypes = {
 const useStyles = makeStyles(theme => ({
     scores: {
         height: "40px",
-        margin: "15px 300px",
+        // margin: "15px 300px",
     }
   }));
 
