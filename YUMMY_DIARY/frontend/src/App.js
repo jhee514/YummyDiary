@@ -18,7 +18,7 @@ function App() {
         <Route path="/signup" component={SignUp} />
         <Route path="/mypage" component={MyPage} />
         <Route path="/searchResult" component={SearchResult} />
-        <Route path="/detail" component={Detail} />
+        <Route path="/detail/:id" component={Detail} />
         <Route path="/review" component={Review} />
       </Layout>
     </BrowserRouter>

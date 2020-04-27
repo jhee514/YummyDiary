@@ -5,6 +5,7 @@ import {
   Typography,
   Box,
   withStyles,
+  Link,
 } from "@material-ui/core";
 import { carddata } from "../../modules/dummy";
 import Slider from "react-slick";
@@ -60,20 +61,28 @@ const MainRecommend = (props) => {
         <Slider {...settings} className={classes.slider}>
           {loading ? (
             <div>
-            <ScaleLoader />
+              <ScaleLoader />
             </div>
           ) : (
             stores.map((store) => (
               <div key={store.id}>
-                <img src={store.image} alt={store.name} style={{width : "16vw" , height:"12vw"}}/>
+                <img
+                  src={store.image}
+                  alt={store.name}
+                  style={{ width: "16vw", height: "12vw" }}
+                />
                 <Typography variant="h5">{store.name}</Typography>
                 <Typography variant="body2">{store.address}</Typography>
                 <Typography variant="h6">{store.tel}</Typography>
-                <Button
-                  onClick={(event) => props.history.push("/detail/" + store.id)}
-                >
-                  상세보기
-                </Button>
+                <Typography variant="caption">
+                  <Link
+                    onClick={(event) =>
+                      props.history.push("/detail/" + store.id)
+                    }
+                  >
+                    상세보기
+                  </Link>
+                </Typography>
               </div>
             ))
           )}
