@@ -57,7 +57,7 @@ IconContainer.propTypes = {
 const useStyles = makeStyles(theme => ({
     scores: {
         height: "40px",
-        margin: "15px 300px",
+        // margin: "15px 300px",
     }
   }));
 
@@ -75,7 +75,7 @@ function CustomizedRatings(props) {
           //precision={1}
           //emptyIcon={<StarBorderIcon fontSize="inherit" />}
           onChange={(event,newValue) => {
-            let newItem = JSON.parse(JSON.stringify(ratings));
+            let newItem = JSON.parse(JSON.stringify(ratings))
             newItem[id] = {...ratings[id],rating:newValue}
             setRatings(newItem)
           }}
