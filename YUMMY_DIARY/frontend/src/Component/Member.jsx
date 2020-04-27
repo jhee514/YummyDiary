@@ -12,6 +12,8 @@ import Tabs from "@material-ui/core/Tabs";
 import SwipeableViews from "react-swipeable-views";
 import axios from "axios";
 import MemberUpdate from "./Member/MemberUpdate";
+import PwChange from "./Member/PwChange";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -107,7 +109,7 @@ export default function Member(props) {
             <MemberUpdate />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            Item Two
+            <PwChange />
           </TabPanel>
         </SwipeableViews>
       </div>
