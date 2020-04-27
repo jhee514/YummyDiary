@@ -38,10 +38,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "15px",
     alignItems: "center",
   },
-  storeScore_subTitle: {
-    margin: "25px 20px",
-    width: "220px",
-    textAlign: "center",
+  score_Div: {
+    marginLeft: "25vh"
   },
   substoreScore_subTitle: {
     // marginTop: "50px",
@@ -64,10 +62,13 @@ const useStyles = makeStyles((theme) => ({
     // margin: "25px 500px"
   },
   h2_Name: {
-    width: "500px",
-    // textAlign: "center",
-    // alignItems: "center",
-    marginLeft: "20%",
+    marginTop: "20px",
+    marginLeft: "25vh",
+    width: "30vh"
+  },
+  score_Box: {
+    width: "90%",
+    alignItems: "center",
   },
   divHash: {
     display: "flex",
@@ -81,7 +82,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginTop: "15px",
     alignItems: "center",
-    marginLeft: "3%"
+    marginLeft: "3%",
+    width: "100%"
     
   },
   addTag_h2: {
@@ -90,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
   sendButtonBox: {
     alignItems: "center",
     marginTop: "5vw",
-    marginLeft: "82vh"
+    marginLeft: "82vh",
   },
   outerBox: {
     marginLeft: "2vw"
@@ -126,13 +128,13 @@ function CustomizedReview() {
     <Box className={classes.outerBox}>
       <Container className={classes.container}>
         <h1 className={classes.title}>Review Page</h1>
-        <Box>
+        <Box className={classes.score_Box}>
           {ratings.map((rating) => (
             <Grid className={classes.subStoreScore_starPoint}>
               <div className={classes.h2_Name}>
                 <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
               </div>
-              <div>
+              <div className={classes.score_Div}>
                 <ReviewScore ratings={ratings} id={rating.id} setRatings={setRatings}/>
               </div>
             </Grid>  
