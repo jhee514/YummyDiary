@@ -130,7 +130,7 @@ const SignUp = props => {
     console.log(event.currentTarget.value)
     setInput({ ...input, gender: event.currentTarget.value });
   };
-  const submitclickevent = async event => {
+  const submitClickEvent = async event => {
     if (
       a_EmailCheck(input.email) &&
       a_PwCheck(input.password) &&
@@ -149,12 +149,18 @@ const SignUp = props => {
     }
   };
 
+  const pressEnter = (e) => {
+    if (e.key === 'Enter') {
+      submitClickEvent();
+    }
+  };
+
   const loginClickEvent = (event) => {
     props.history.push("/login");
   };
   
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onKeyPress={pressEnter}>
       <b className={classes.title}>SIGNUP</b>
       <p className={classes.subtitle}>회원님에 대해 알려주세요 :)</p>
       <Box className={classes.textbox} boxShadow={3}>
@@ -271,7 +277,7 @@ const SignUp = props => {
             </Box>
           </Box>
         </Box>
-        <Button className={classes.submitbutton} size="large" onClick={submitclickevent}>
+        <Button className={classes.submitbutton} size="large" onClick={submitClickEvent}>
           SIGNUP
         </Button>
       </Box>
