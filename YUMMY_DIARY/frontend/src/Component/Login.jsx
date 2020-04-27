@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px"
   },
   subtitle: {
-    fontSize: "18px",
     margin: "0vh 0vw 2vh 0vw"
   },
   textbox: {
@@ -76,9 +75,6 @@ const useStyles = makeStyles((theme) => ({
         color: '#fafafa'
       },
     },
-    // '&:hover': {
-    //   borderColor: "rgb(117, 122, 122)",
-    // }
   },
   submitbutton: {
     marginBottom: "1vw",

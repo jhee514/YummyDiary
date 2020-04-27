@@ -46,14 +46,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "10px"
   },
   subtitle: {
-    fontSize: "18px",
     margin: "0vh 0vw 2vh 0vw"
   },
-  // line: {
-  //   borderColor: "#FAC60E",
-  //   border: "solid 1px",
-  //   width: "30%"
-  // },
   textbox: {
     display: "flex",
     flexDirection: "column",
@@ -61,7 +55,6 @@ const useStyles = makeStyles(theme => ({
     padding: "5vh 2vw 4vh 2vw",
     backgroundColor: "#FAC60E",
     width: "30%",
-    // height: "100%",
     margin: "1vh",
     borderRadius: "5px"
   },
@@ -69,17 +62,12 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // padding: "0vh 2vw 0vh 2vw",
     width: "30%",
     borderTop: "solid 1px #bdbdbd",
-    // height: "100%",
-    // margin: "2vh"
     margin: "3vh 0vw",
     padding: "2vh 0vw"
   },
   textfield: {
-    // margin: "1vw 0vw 0vw 0vw",
-    // width: "100%"
     marginBottom: "1vw",
     width: "95%",
     height: "100%",
