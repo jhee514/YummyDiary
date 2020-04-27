@@ -53,10 +53,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10vh",
     marginBottom: "10vh",
     minHeight: "400px",
+    minWidth:"700px",
   },
   content: {
     backgroundColor: theme.palette.background.paper,
-    width: 500,
+    width: "70%",
+    
     "& .MuiTab-textColorPrimary.Mui-selected": {
       color: "white",
       backgroundColor: "#FAC60E",
