@@ -1,4 +1,5 @@
 from .models import Store, Tag, Review, Menu
+from accounts.serializers import UserSerializer
 from rest_framework import serializers
 
 class TagSerializer(serializers.ModelSerializer):
@@ -20,6 +21,7 @@ class MenuSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    writer = UserSerializer(read_only=True)
     class Meta:
         model = Review
         fields = [

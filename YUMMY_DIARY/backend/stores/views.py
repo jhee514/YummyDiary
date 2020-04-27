@@ -20,3 +20,4 @@ class MenuViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny, ]
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+

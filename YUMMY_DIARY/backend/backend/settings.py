@@ -12,13 +12,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# TODO : 배포시 .env에 넣을 것
-# SECRET_KEY = config('SECRET_KEY')
-SECRET_KEY = "$yg2c-8-8cszt%3k$b=3wwc^j1g%gn)wj%yldz)6jd(ez80u-s"
-
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -81,15 +78,14 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-# TODO : .env 에서 설정하거나 직접 넣거나
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yum', # DB명
-        'USER': 'ssafy', # 데이터베이스 계정
-        'PASSWORD': 'ssafy', # 계정 비밀번호
-        'HOST': '13.125.31.78', # 데이테베이스 주소(IP)
-        'PORT': '3306', # 데이터베이스 포트(보통은 3306)
+        'NAME': config('DB_NAME'), # DB명
+        'USER': config('DB_USER'), # 데이터베이스 계정
+        'PASSWORD': config('DB_PASSWORD'), # 계정 비밀번호
+        'HOST': config('DB_HOST'), # 데이테베이스 주소(IP)
+        'PORT': config('DB_PORT'), # 데이터베이스 포트(보통은 3306)
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
     }
 }
