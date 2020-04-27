@@ -11,12 +11,12 @@ class StoreViewSet(viewsets.ModelViewSet):
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
-
+    permission_classes = [permissions.AllowAny, ]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
 
 class MenuViewSet(viewsets.ModelViewSet):
-
+    permission_classes = [permissions.AllowAny, ]
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer

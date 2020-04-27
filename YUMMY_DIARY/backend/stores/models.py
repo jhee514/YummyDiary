@@ -26,7 +26,7 @@ class Store(models.Model):
 
 class Review(models.Model):
     writer = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
-    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE)
+    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE, related_name="review")
     total_score = models.FloatField(max_length=10)
     content = models.TextField()
     reg_time = models.DateTimeField(default=False)
@@ -38,7 +38,7 @@ class Review(models.Model):
 class Menu(models.Model):
     name = models.CharField(max_length=100, null=True)
     price = models.PositiveIntegerField()
-    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE)
+    store = models.ForeignKey('stores.Store', on_delete=models.CASCADE, related_name="menu")
 
     class Meta:
         ordering = ['name']
