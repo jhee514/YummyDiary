@@ -114,7 +114,7 @@ const useStyles = makeStyles(theme => ({
   },
   loginbutton: {
     marginBottom: "1vw",
-    width: "95%",
+    width: "85%",
     color: "#FAC60E",
     borderColor: "#FAC60E",
     border: "solid 2px",
@@ -131,6 +131,7 @@ const SignUp = props => {
   const [input, setInput] = useState({
     "email": "",
     "password": "",
+    "password_check": "",
     "birth_year": "",
     "gender": ""
   });
@@ -144,8 +145,9 @@ const SignUp = props => {
   const submitclickevent = async event => {
     if (
       a_EmailCheck(input.email) &&
-      a_AgeCheck(input.birth_year) &&
       a_PwCheck(input.password) &&
+      input.password === input.password_check &&
+      a_AgeCheck(input.birth_year) &&
       input.gender !== ""
     ) {
       const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
@@ -166,7 +168,7 @@ const SignUp = props => {
   return (
     <Box className={classes.root}>
       <b className={classes.title}>SIGNUP</b>
-      <p className={classes.subtitle}>회원님의 정보를 알려주세요 :)</p>
+      <p className={classes.subtitle}>회원님에 대해 알려주세요 :)</p>
       <Box className={classes.textbox} boxShadow={3}>
         <CssTextField
           className={classes.textfield}
@@ -199,10 +201,29 @@ const SignUp = props => {
           helperText={
             !(input.password === undefined || input.password === "") &&
             !a_PwCheck(input.password)
-              ? "패스워드는 첫째자리는 영문자로 시작하고 영문자, 숫자, 특수문자를 포함해야 하며, 3자리 이상 15자리 이하의 길이여야 합니다"
+              ? "패스워드는 영문자, 숫자, 특수문자를 포함하여 3자리 이상 15자리 이하의 길이여야 합니다"
               : ""
           }
+          
         />
+        {a_PwCheck(input.password) ? 
+          <CssTextField
+            className={classes.textfield}
+            label="비밀번호 재입력"
+            variant="outlined"
+            name="password_check"
+            onChange={inputChangeEvent}
+            type="password"
+            error={
+              !(input.password_check === undefined || input.password_check === "") && input.password!=input.password_check
+            }
+            helperText={
+              ((!(input.password_check === undefined || input.password_check === "") && input.password!=input.password_check)
+                ? "비밀번호가 일치하지 않습니다"
+                : "")
+            }
+          />
+        : null}
         
         <Box
           display="flex"
@@ -266,11 +287,10 @@ const SignUp = props => {
           SIGNUP
         </Button>
       </Box>
-      <br/>
-      <b>이미 YUMMY DIARY의 회원이신가요?</b>
-      <p className={classes.subtitle}>YUMMY DIARY 회원으로 입장해주세요!</p>
 
       <Box className={classes.textboxNoLine}>
+        <b>이미 YUMMY DIARY의 회원이신가요?</b>
+        <p className={classes.subtitle}>YUMMY DIARY 회원으로 입장해주세요!</p>
         <Button
           className={classes.loginbutton}
           onClick={loginClickEvent}

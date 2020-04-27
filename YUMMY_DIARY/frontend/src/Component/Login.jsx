@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
   },
   signupbutton: {
     marginBottom: "1vw",
-    width: "95%",
+    width: "85%",
     color: "#FAC60E",
     borderColor: "#FAC60E",
     border: "solid 2px",
@@ -172,14 +172,13 @@ const Login = (props) => {
           onClick={submitClickEvent}
           variant="outlined"
         >
-          login
+          LOGIN
         </Button>
         
       </Box>
       <Box className={classes.textboxNoLine}>
-      <b>아직 YUMMY DIARY의 회원이 아니신가요?</b>
-      <p className={classes.subtitle}>회원가입을 통해 더 많은 정보와 혜택을 받아가세요!</p>
-
+        <b>아직 YUMMY DIARY의 회원이 아니신가요?</b>
+        <p className={classes.subtitle}>회원가입을 통해 더 많은 정보와 혜택을 받아가세요!</p>
         <Button
           className={classes.signupbutton}
           onClick={signupClickEvent}
