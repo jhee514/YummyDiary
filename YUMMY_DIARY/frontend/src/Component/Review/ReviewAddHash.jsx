@@ -4,11 +4,12 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useState } from "react";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "48vw",
-    marginLeft: "23vh",
+    marginLeft: "27vh",
   },
 }));
 
@@ -54,7 +55,7 @@ const MainSearch = (props) => {
         noOptionsText={
           input.searchWord.charAt(0) === "#"
             ? "적절한 태그가 존재하지 않습니다"
-            : "키워드로 검색합니다"
+            : "태그로 검색합니다"
         }
         // defaultValue={[top100Tags[2]]}
         renderInput={(params) => (
@@ -62,7 +63,7 @@ const MainSearch = (props) => {
             {...params}
             variant="standard"
             label="태그 추가하기!"
-            placeholder="태그 추가시에 # 이용해서 추가해주세요"
+            placeholder="태그 추가시에 # 이용해서 추가해주세요 ex) #한식"
             value={input.searchWord === undefined ? input.searchWord : ""}
             onChange={inputChangeEvent}
           />

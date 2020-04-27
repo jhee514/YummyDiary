@@ -1,131 +1,113 @@
-import React from 'react';
-import { makeStyles, rgbToHex } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import { Box } from '@material-ui/core';
-import {storedata, hashdata} from "../modules/dummy";
+import React, { useEffect, useState } from "react";
+import {
+  makeStyles,
+  Button,
+  Typography,
+  Box,
+  withStyles,
+  Link,
+} from "@material-ui/core";
+// import { carddata } from "../../modules/dummy";
+import Slider from "react-slick";
+import "./Main/style.scss";
+import axios from "axios";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
-const useStyles = makeStyles({
-  storeSearchResult_root: {
-    minWidth: 275,
-    width:"25%",
-    marginTop: "15px"
+const useStyles = makeStyles((theme) => ({
+  gridList: {
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
   },
-  hashtagSearchResult_root:{
-    minWidth: 275,
-    width:"25%",
-    marginTop: "15px"
+  gridListTile: {
+    backgroundColor: "#FFFFFF",
+    border: "1px solid #FAC60E",
+    margin: "1px 1px 1px 1px",
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+  slider: {
+    marginTop: "2vh",
   },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  storeSearchResult_Box: {
-    marginTop: "30px",
-  },
-  hashtagSearchResult_Box: {
-    marginTop: "70px",
-  },
-  storeSearchResult_Card_Box: {
-      backgroundColor: "rgb(255,255,204)",
-      display:"flex",
-      justifyContent:"center"
-  },
-  storeSearchResult: {
-    fontSize: "40px",
-    textAlign: "center"
-  },
-  hashtagSearchResult_Card_Box: {
-    backgroundColor: "rgb(255,255,204)",
-    display:"flex",
-    justifyContent:"center"
-  },
-  hashtagSearchResult: {
-    fontSize: "40px",
-    textAlign: "center"
-  }
-});
-
-export default function OutlinedCard() {
+}));
+const MainRecommend = (props) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setStores(null);
+        setLoading(true);
+        const response = await axios.get(
+          "http://localhost:8000/stores/stores/"
+        );
+        setStores(response.data.results);
+      } catch (e) {
+        console.error(e);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+  };
   return (
-    <Box className={classes.searchResult_layout}>
-      <Box className={classes.storeSearchResult_Box}>
-        <Typography className={classes.storeSearchResult}>
-          This is "Store" Search Result
-        </Typography>
-      </Box>
-      
-      <Box className={classes.storeSearchResult_Card_Box}>
-        {storedata.map((data) => (
-          <Card className={classes.storeSearchResult_root} variant="outlined">
-            <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {data.id}
+    <div>
+      <Typography>추천목록</Typography>
+      {
+        <Slider {...settings} className={classes.slider}>
+          {loading ? (
+            <div>
+              <ScaleLoader />
+            </div>
+          ) : (
+            stores.map((store) => (
+              <div key={store.id}>
+                <img
+                  src={store.image}
+                  alt={store.name}
+                  style={{ width: "16vw", height: "12vw" }}
+                />
+                <Typography variant="h5">{store.name}</Typography>
+                <Typography variant="body2">{store.address}</Typography>
+                <Typography variant="h6">{store.tel}</Typography>
+                <Typography variant="caption">
+                  <Link
+                    onClick={(event) =>
+                      props.history.push("/detail/" + store.id)
+                    }
+                  >
+                    상세보기
+                  </Link>
                 </Typography>
-                <Typography variant="h5" component="h2">
-                  {data.storeName}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                  {data.content}
-                </Typography>
-                <Typography variant="body2" component="p">
-                  {data.rating}점
-                <br/><br/>
-                  리뷰:{data.review_cnt}개
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">상세보기</Button>
-            </CardActions>
-          </Card>
-      ))}
-      </Box>
-
-      <Box className={classes.hashtagSearchResult_Box}>
-        <Typography className={classes.hashtagSearchResult}>
-          This is "Hash Tag" Search Result
-        </Typography>
-      </Box>
-      
-      <Box className={classes.hashtagSearchResult_Card_Box}>
-        {hashdata.map((data) => (
-          <Card className={classes.hashtagSearchResult_root} variant="outlined">
-            <CardContent>
-                  <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {data.id}
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    {data.storeName}
-                  </Typography>
-                  <Typography className={classes.pos} color="textSecondary">
-                    {data.content}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    {data.rating}점
-                  <br/><br/>
-                    리뷰:{data.review_cnt}개
-                  </Typography>
-              </CardContent>
-              <CardActions>
-                  <Button size="small">상세보기</Button>
-              </CardActions>
-          </Card>
-        ))}
-      </Box>
-    </Box>
+              </div>
+            ))
+          )}
+          {/* <GridList cols={2.5} className={classes.gridList}>
+          {carddata.map((data) => (
+            <GridListTile key={data.no} className={classes.gridListTile}>
+              <Typography variant="h5">{data.storeName}</Typography>
+              <Typography variant="body2">{data.content}</Typography>
+              <Typography variant="h6">{data.rating}</Typography>
+              {data.url ? (
+                
+                  <Button onClick={(event) => {
+                    props.history.push(data.url)
+                  }}>상세보기</Button>
+                
+              ) : (
+                <></>
+              )}
+            </GridListTile>
+          ))}
+        </GridList> */}
+        </Slider>
+      }
+    </div>
   );
-}
+};
+
+export default MainRecommend;

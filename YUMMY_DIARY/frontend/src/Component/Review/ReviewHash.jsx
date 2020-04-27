@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Checkbox from '@material-ui/core/Checkbox';
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -54,7 +55,7 @@ const useStyles = makeStyles({
   tagName: {
     width: 50,
     height: 16,
-    marginTop: "10%",
+    marginTop: "6%",
     // marginRight: "2vh"
   }
 });

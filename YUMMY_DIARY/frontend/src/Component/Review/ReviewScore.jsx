@@ -12,6 +12,7 @@ import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfie
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {makeStyles, Container, Avatar, Grid, Paper} from '@material-ui/core';
+import axios from "axios";
 
 const StyledRating = withStyles({
   iconFilled: {

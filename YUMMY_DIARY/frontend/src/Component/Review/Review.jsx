@@ -6,6 +6,7 @@ import ReviewHash from "./ReviewHash";
 import ReviewAddHash from "./ReviewAddHash";
 import MainSearch from "./ReviewAddHash";
 import SendButton from "./SendButton";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "25px",
     marginBottom: "25px",
     alignItems: "center",
-    marginLeft: "17%",
+    marginLeft: "20%",
     width: "70%",
   },
   subStoreScore_starPoint: {
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     
   },
   addTag_h2: {
-    marginLeft: "23vh",
+    marginLeft: "27vh",
   },
   sendButtonBox: {
     alignItems: "center",
