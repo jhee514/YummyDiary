@@ -110,8 +110,8 @@ const Login = (props) => {
     ) {
     const result = await axios
       .post("http://localhost:8000/token/", input)
-      .then((data) => {
-        sessionStorage.setItem("token", data.token);
+      .then((resposne) => {
+        sessionStorage.setItem("token", resposne.data.token);
         props.history.push("/");
       })
       .catch((error) => {
