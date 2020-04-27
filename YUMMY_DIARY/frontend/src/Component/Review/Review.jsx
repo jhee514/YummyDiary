@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { makeStyles, Container, Avatar, Grid, Paper, Box } from "@material-ui/core";
+import { makeStyles, Container, Avatar, Grid, Paper, Box, Button } from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
 import ReviewHash from "./ReviewHash";
+import ReviewAddHash from "./ReviewAddHash";
+import MainSearch from "./ReviewAddHash";
+import SendButton from "./SendButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -70,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "25px",
     marginBottom: "25px",
     alignItems: "center",
-    marginLeft: "15%",
+    marginLeft: "17%",
     width: "70%",
   },
   subStoreScore_starPoint: {
@@ -79,6 +82,17 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginLeft: "3%"
     
+  },
+  addTag_h2: {
+    marginLeft: "23vh",
+  },
+  sendButtonBox: {
+    alignItems: "center",
+    marginTop: "5vw",
+    marginLeft: "82vh"
+  },
+  outerBox: {
+    marginLeft: "2vw"
   }
 }));
 
@@ -93,20 +107,22 @@ function CustomizedReview() {
   const [reviews, setReviews] = useState('');
 
   const [hashs, setHashs] = useState([
-    { id: 0, tagName: "한식", checkable: false },
-    { id: 1, tagName: "중식", checkable: false },
-    { id: 2, tagName: "일식", checkable: false },
-    { id: 3, tagName: "양식", checkable: false },
-    { id: 4, tagName: "분위기 좋은", checkable: false },
-    { id: 5, tagName: "양 많은", checkable: false },
-    { id: 6, tagName: "가성비 좋은", checkable: false },
-    { id: 7, tagName: "저렴한", checkable: false },
-    { id: 8, tagName: "서비스 좋은", checkable: false },
-    { id: 9, tagName: "맛있는", checkable: false },
-  ])
+    { id: 0, tagName: "한식"},
+    { id: 1, tagName: "중식"},
+    { id: 2, tagName: "일식"},
+    { id: 3, tagName: "양식"},
+    { id: 4, tagName: "분위기 좋은"},
+    { id: 5, tagName: "양 많은"},
+    { id: 6, tagName: "가성비 좋은"},
+    { id: 7, tagName: "저렴한"},
+    { id: 8, tagName: "서비스 좋은"},
+    { id: 9, tagName: "맛있는"},
+  ]);
+
+  const [add_hashs, setAdd_Hashs] = useState([]);
   
   return (
-    <Box>
+    <Box className={classes.outerBox}>
       <Container className={classes.container}>
         <h1 className={classes.title}>Review Page</h1>
         <Box>
@@ -128,15 +144,22 @@ function CustomizedReview() {
           </Grid>
         </Box>
 
-        <Grid className={classes.subStoreScore}>
-          <div className={classes.divHash}>
-            {hashs.map((hash) => (
-              <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs}/>
-            ))}
-          </div>
-        </Grid>
-
+        <Box>
+          <Grid className={classes.subStoreScore}>
+            <div className={classes.divHash}>
+              {hashs.map((hash) => (
+                <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
+                // <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} />
+              ))}
+            </div>
+          </Grid>
+            <h2 className={classes.addTag_h2}>원하는 태그가 없으면 만들어주세요!</h2>
+            <MainSearch add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
+        </Box>
       </Container>
+      <Box className={classes.sendButtonBox}>
+        <SendButton className={classes.sendButton}/>
+      </Box>
     </Box>
   );
 }

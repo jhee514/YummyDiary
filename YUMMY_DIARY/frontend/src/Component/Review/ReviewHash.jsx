@@ -1,9 +1,10 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import Box from '@material-ui/core/Box';
+import React, { useState } from 'react';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { makeStyles, Box, TextField, Button } from "@material-ui/core";
 import clsx from 'clsx';
 import Checkbox from '@material-ui/core/Checkbox';
+import parse from "autosuggest-highlight/parse";
+import match from "autosuggest-highlight/match";
 
 const useStyles = makeStyles({
   root: {
@@ -47,43 +48,54 @@ const useStyles = makeStyles({
       backgroundColor: '#106ba3',
     },
   },
-  // tagOuterDiv: {
-  //   display: "flex"
-  // },
-  // tagName: {
-  //   marginTop: "3%",
-  // }
+  tagOuterDiv: {
+    display: "flex"
+  },
+  tagName: {
+    width: 50,
+    height: 16,
+    marginTop: "10%",
+    // marginRight: "2vh"
+  }
 });
+
 
 
 // Inspired by blueprintjs
 export default function StyledCheckbox(props) {
   const classes = useStyles();
-  const {id, hashs, setHashs} = props;
+  // const {id, hashs, setHashs, add_hashs, setAdd_Hashs} = props;
+  const { id, hashs, setHashs } = props;
+  const [hashs_check, setHashs_check] = useState([
+    { id: 0, checkable: false },
+    { id: 1, checkable: false },
+    { id: 2, checkable: false },
+    { id: 3, checkable: false },
+    { id: 4, checkable: false },
+    { id: 5, checkable: false },
+    { id: 6, checkable: false },
+    { id: 7, checkable: false },
+    { id: 8, checkable: false },
+    { id: 9, checkable: false },
+  ])
 
   return (
     <div className={classes.tagOuterDiv}>
-      <Checkbox
-        className={classes.root}
-        disableRipple
-        color="default"
-        value={hashs[id].tagName}
-        checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-        icon={<span className={classes.icon} />}
-        inputProps={{ 'aria-label': 'decorative checkbox' }}
-        {...props}
-      />
+      <div className={classes.checkDiv}>
+        <Checkbox
+          className={classes.root}
+          disableRipple
+          color="default"
+          value={hashs[id].tagName}
+          checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
+          icon={<span className={classes.icon} />}
+          inputProps={{ 'aria-label': 'decorative checkbox' }}
+          {...props}
+        />
+      </div>
       <div className={classes.tagName}>{hashs[id].tagName}</div>
+      
     </div>
+    
   );
 }
-
-// export default function CustomizedCheckbox() {
-//   return (
-//     <div>
-//       <StyledCheckbox />
-//       {/* <StyledCheckbox defaultChecked />
-//       <StyledCheckbox disabled /> */}
-//     </div>
-//   );
-// }
