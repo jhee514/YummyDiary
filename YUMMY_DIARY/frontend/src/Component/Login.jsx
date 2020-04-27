@@ -129,12 +129,18 @@ const Login = (props) => {
     }
   };
 
+  const pressEnter = (e) => {
+    if (e.key === 'Enter') {
+      submitClickEvent();
+    }
+  };
+
   const signupClickEvent = (event) => {
     props.history.push("/signup");
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onKeyPress={pressEnter}>
       <b className={classes.title}>LOGIN</b>
       <p className={classes.subtitle}>오늘은 어떤 식사가 기다리고 있을까요? :)</p>
       <Box className={classes.textbox} boxShadow={3}>
