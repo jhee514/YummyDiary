@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import {
   makeStyles,
   Box,
+  Grid,
   TextField,
-  Typography,
   Button,
   withStyles
 } from "@material-ui/core";
@@ -21,6 +21,7 @@ const CssTextField = withStyles({
     }
   }
 })(TextField);
+
 const CssToggleButton = withStyles({
   root: {
     border: "none",
@@ -35,22 +36,17 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "6vw",
+    marginTop: "5vh",
     height: "100%"
   },
   title: {
-    fontSize: "20px",
+    fontSize: "25px",
     color: "black",
-    paddingBottom: "10px",
+    borderBottom: "solid 2px #FAC60E",
+    marginBottom: "10px"
   },
   subtitle: {
-    fontSize: "12px",
-    textAlign: "center"
-  },
-  line: {
-    borderColor: "#FAC60E",
-    border: "solid 1px",
-    width: "30%"
+    margin: "0vh 0vw 2vh 0vw"
   },
   textbox: {
     display: "flex",
@@ -59,25 +55,41 @@ const useStyles = makeStyles(theme => ({
     padding: "5vh 2vw 4vh 2vw",
     backgroundColor: "#FAC60E",
     width: "30%",
-    height: "100%",
-    margin: "2vh"
+    margin: "1vh",
+    borderRadius: "5px"
   },
   textboxNoLine: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "0vh 2vw 0vh 2vw",
     width: "30%",
-    height: "100%",
-    margin: "2vh"
+    borderTop: "solid 1px #bdbdbd",
+    margin: "3vh 0vw",
+    padding: "2vh 0vw"
   },
   textfield: {
-    margin: "1vw 0vw 0vw 0vw",
-    width: "100%"
+    marginBottom: "1vw",
+    width: "95%",
+    height: "100%",
+    '& label.Mui-focused': {
+      color: "#fafafa"
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        color: '#fafafa'
+      },
+      '&:hover fieldset': {
+        borderColor: "#FBD85A",
+        color: "#fafafa"
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#FBD85A',
+        color: '#fafafa'
+      },
+    },
   },
 
   submitbutton: {
-    marginTop: "3vh",
     marginBottom: "1vw",
     width: "95%",
     color: "white",
@@ -90,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   },
   loginbutton: {
     marginBottom: "1vw",
-    width: "95%",
+    width: "85%",
     color: "#FAC60E",
     borderColor: "#FAC60E",
     border: "solid 2px",
@@ -107,6 +119,7 @@ const SignUp = props => {
   const [input, setInput] = useState({
     "email": "",
     "password": "",
+    "password_check": "",
     "birth_year": "",
     "gender": ""
   });
@@ -120,8 +133,9 @@ const SignUp = props => {
   const submitclickevent = async event => {
     if (
       a_EmailCheck(input.email) &&
-      a_AgeCheck(input.birth_year) &&
       a_PwCheck(input.password) &&
+      input.password === input.password_check &&
+      a_AgeCheck(input.birth_year) &&
       input.gender !== ""
     ) {
       const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
@@ -142,13 +156,12 @@ const SignUp = props => {
   return (
     <Box className={classes.root}>
       <b className={classes.title}>SIGNUP</b>
-      <hr className={classes.line}></hr>
-      <p >회원님의 정보를 알려주세요 :)</p>
+      <p className={classes.subtitle}>회원님에 대해 알려주세요 :)</p>
       <Box className={classes.textbox} boxShadow={3}>
         <CssTextField
           className={classes.textfield}
           label="이메일"
-          variant="filled"
+          variant="outlined"
           name="email"
           onChange={inputChangeEvent}
           error={
@@ -165,7 +178,7 @@ const SignUp = props => {
         <CssTextField
           className={classes.textfield}
           label="비밀번호"
-          variant="filled"
+          variant="outlined"
           name="password"
           onChange={inputChangeEvent}
           type="password"
@@ -176,25 +189,43 @@ const SignUp = props => {
           helperText={
             !(input.password === undefined || input.password === "") &&
             !a_PwCheck(input.password)
-              ? "패스워드는 첫째자리는 영문자로 시작하고 영문자, 숫자, 특수문자를 포함해야 하며, 3자리 이상 15자리 이하의 길이여야 합니다"
+              ? "패스워드는 영문자, 숫자, 특수문자를 포함하여 3자리 이상 15자리 이하의 길이여야 합니다"
               : ""
           }
+          
         />
+        {a_PwCheck(input.password) ? 
+          <CssTextField
+            className={classes.textfield}
+            label="비밀번호 재입력"
+            variant="outlined"
+            name="password_check"
+            onChange={inputChangeEvent}
+            type="password"
+            error={
+              !(input.password_check === undefined || input.password_check === "") && input.password!=input.password_check
+            }
+            helperText={
+              ((!(input.password_check === undefined || input.password_check === "") && input.password!=input.password_check)
+                ? "비밀번호가 일치하지 않습니다"
+                : "")
+            }
+          />
+        : null}
+        
         <Box
           display="flex"
           margin={0}
-          flexDirection="row"
           justifyContent="flex-start"
-          alignItems="flex-end"
-          width="100%"
+          width="95%"
           flexWrap="wrap"
         >
-          <Box width="60%">
+          <Box width="70%">
             <CssTextField
               className={classes.textfield}
-              label="나이"
+              label="출생 연도"
               name="birth_year"
-              variant="filled"
+              variant="outlined"
               onChange={inputChangeEvent}
               fullWidth
               error={
@@ -211,40 +242,43 @@ const SignUp = props => {
           </Box>
           <Box
             display="flex"
-            width="40%"
+            width="30%"
             paddingLeft={1}
             justifyContent="space-between"
+            alignItems="flex"
           >
-            <CssToggleButton
-              value={0}
-              selected={input.gender == 0}
-              onChange={checkChangeEvent}
-              size="large"
-              className={classes.toggleButton}
-            >
-              남
-            </CssToggleButton>
-
-            <CssToggleButton
-              value={1}
-              selected={input.gender == 1}
-              onChange={checkChangeEvent}
-              size="large"
-              className={classes.toggleButton}
-            >
-              여
-            </CssToggleButton>
+            <Box>
+              <CssToggleButton
+                value={0}
+                selected={input.gender == 0}
+                onChange={checkChangeEvent}
+                size="large"
+                className={classes.toggleButton}
+              >
+                남
+              </CssToggleButton>
+            </Box>
+            <Box>
+              <CssToggleButton
+                value={1}
+                selected={input.gender == 1}
+                onChange={checkChangeEvent}
+                size="large"
+                className={classes.toggleButton}
+              >
+                여
+              </CssToggleButton>
+            </Box>
           </Box>
         </Box>
         <Button className={classes.submitbutton} size="large" onClick={submitclickevent}>
-          제출
+          SIGNUP
         </Button>
       </Box>
-      <br/>
-      <b>이미 YUMMY DIARY의 회원이신가요?</b>
-      <p className={classes.subtitle}>YUMMY DIARY 회원으로 입장해주세요!</p>
 
       <Box className={classes.textboxNoLine}>
+        <b>이미 YUMMY DIARY의 회원이신가요?</b>
+        <p className={classes.subtitle}>YUMMY DIARY 회원으로 입장해주세요!</p>
         <Button
           className={classes.loginbutton}
           onClick={loginClickEvent}

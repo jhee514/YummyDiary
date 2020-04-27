@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  makeStyles,
-  Button,
-  Typography,
-  Box,
-  withStyles,
-  Link,
-} from "@material-ui/core";
-import { carddata } from "../../modules/dummy";
+import { makeStyles, Typography, Link } from "@material-ui/core";
 import Slider from "react-slick";
 import "./style.scss";
 import axios from "axios";
@@ -86,24 +78,6 @@ const MainRecommend = (props) => {
               </div>
             ))
           )}
-          {/* <GridList cols={2.5} className={classes.gridList}>
-          {carddata.map((data) => (
-            <GridListTile key={data.no} className={classes.gridListTile}>
-              <Typography variant="h5">{data.storeName}</Typography>
-              <Typography variant="body2">{data.content}</Typography>
-              <Typography variant="h6">{data.rating}</Typography>
-              {data.url ? (
-                
-                  <Button onClick={(event) => {
-                    props.history.push(data.url)
-                  }}>상세보기</Button>
-                
-              ) : (
-                <></>
-              )}
-            </GridListTile>
-          ))}
-        </GridList> */}
         </Slider>
       }
     </div>

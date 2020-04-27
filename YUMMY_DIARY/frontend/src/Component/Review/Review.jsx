@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { makeStyles, Container, Avatar, Grid, Paper } from "@material-ui/core";
+import { makeStyles, Container, Avatar, Grid, Paper, Box, Button } from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
 import ReviewHash from "./ReviewHash";
+import ReviewAddHash from "./ReviewAddHash";
+import MainSearch from "./ReviewAddHash";
+import SendButton from "./SendButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: "10px 200px", // "top , left"
+    marginTop: "10px", // "top , left"
+    marginLeft: "10%"
   },
   title: {
     fontSize: "30px",
@@ -62,13 +66,34 @@ const useStyles = makeStyles((theme) => ({
     width: "500px",
     // textAlign: "center",
     // alignItems: "center",
-    marginLeft: "200px",
+    marginLeft: "20%",
   },
   divHash: {
+    display: "flex",
     marginTop: "25px",
     marginBottom: "25px",
     alignItems: "center",
+    marginLeft: "17%",
+    width: "70%",
   },
+  subStoreScore_starPoint: {
+    display: "flex",
+    marginTop: "15px",
+    alignItems: "center",
+    marginLeft: "3%"
+    
+  },
+  addTag_h2: {
+    marginLeft: "23vh",
+  },
+  sendButtonBox: {
+    alignItems: "center",
+    marginTop: "5vw",
+    marginLeft: "82vh"
+  },
+  outerBox: {
+    marginLeft: "2vw"
+  }
 }));
 
 function CustomizedReview() {
@@ -78,30 +103,64 @@ function CustomizedReview() {
     { id: 1, label: "가격을 평가해주세요", rating: 0, title: "가격" },
     { id: 2, label: "서비스를 평가해주세요", rating: 0, title: "서비스" },
   ]);
-  return (
-    <Container className={classes.container}>
-      <h1 className={classes.title}>Review Page</h1>
-      {ratings.map((rating) => (
-        <Grid className={classes.subStoreScore}>
-        <div className={classes.h2_Name}>
-      <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
-        </div>
-        <div>
-          <ReviewScore className={classes.ReviewScore_taste} ratings={ratings} id={rating.id} setRatings={setRatings}/>
-        </div>
-      </Grid>  
-      )
-      )}
-      <Grid className={classes.subStoreScore}>
-        <ReviewTextField />
-      </Grid>
 
-      <Grid className={classes.subStoreScore}>
-        <div className={classes.divHash}>
-          <ReviewHash />
-        </div>
-      </Grid>
-    </Container>
+  const [reviews, setReviews] = useState('');
+
+  const [hashs, setHashs] = useState([
+    { id: 0, tagName: "한식"},
+    { id: 1, tagName: "중식"},
+    { id: 2, tagName: "일식"},
+    { id: 3, tagName: "양식"},
+    { id: 4, tagName: "분위기 좋은"},
+    { id: 5, tagName: "양 많은"},
+    { id: 6, tagName: "가성비 좋은"},
+    { id: 7, tagName: "저렴한"},
+    { id: 8, tagName: "서비스 좋은"},
+    { id: 9, tagName: "맛있는"},
+  ]);
+
+  const [add_hashs, setAdd_Hashs] = useState([]);
+  
+  return (
+    <Box className={classes.outerBox}>
+      <Container className={classes.container}>
+        <h1 className={classes.title}>Review Page</h1>
+        <Box>
+          {ratings.map((rating) => (
+            <Grid className={classes.subStoreScore_starPoint}>
+              <div className={classes.h2_Name}>
+                <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
+              </div>
+              <div>
+                <ReviewScore ratings={ratings} id={rating.id} setRatings={setRatings}/>
+              </div>
+            </Grid>  
+          ))}
+        </Box>
+
+        <Box>
+          <Grid className={classes.subStoreScore}>
+            <ReviewTextField className={classes.ReviewTextField1} reviews={reviews} setReviews={setReviews} />
+          </Grid>
+        </Box>
+
+        <Box>
+          <Grid className={classes.subStoreScore}>
+            <div className={classes.divHash}>
+              {hashs.map((hash) => (
+                <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
+                // <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} />
+              ))}
+            </div>
+          </Grid>
+            <h2 className={classes.addTag_h2}>원하는 태그가 없으면 만들어주세요!</h2>
+            <MainSearch add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
+        </Box>
+      </Container>
+      <Box className={classes.sendButtonBox}>
+        <SendButton className={classes.sendButton}/>
+      </Box>
+    </Box>
   );
 }
 
