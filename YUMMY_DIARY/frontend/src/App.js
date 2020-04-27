@@ -8,6 +8,7 @@ import MyPage from "./Component/MyPage";
 import Review from "./Component/Review/Review";
 import SearchResult from "./Component/SearchResult";
 import Detail from "./Component/Detail";
+import Member from"./Component/Member";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/searchResult" component={SearchResult} />
         <Route path="/detail/:id" component={Detail} />
         <Route path="/review" component={Review} />
+        <Route path="/member" component={Member} />
       </Layout>
     </BrowserRouter>
   );
