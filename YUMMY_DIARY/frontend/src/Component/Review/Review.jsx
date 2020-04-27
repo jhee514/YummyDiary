@@ -96,7 +96,14 @@ const useStyles = makeStyles((theme) => ({
   },
   outerBox: {
     marginLeft: "2vw"
-  }
+  },
+  line: {
+    marginTop: "4vw",
+    marginLeft: "27vh",
+    borderColor: "#FAC60E",
+    border: "solid 1px",
+    width: "68%"
+  },
 }));
 
 function CustomizedReview() {
@@ -148,6 +155,7 @@ function CustomizedReview() {
         </Box>
 
         <Box>
+            <h2 className={classes.addTag_h2}>원하는 태그를 골라주세요!</h2>
           <Grid className={classes.subStoreScore}>
             <div className={classes.divHash}>
               {hashs.map((hash) => (
@@ -156,6 +164,7 @@ function CustomizedReview() {
               ))}
             </div>
           </Grid>
+            <hr className={classes.line}></hr>
             <h2 className={classes.addTag_h2}>원하는 태그가 없으면 만들어주세요!</h2>
             <MainSearch add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
         </Box>

@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
   slider: {
     marginTop: "2vh",
   },
+  searchName: {
+    marginLeft: "68vh"
+  },
+  searchResult_Box: {
+    alignItems: "center",
+  },
+  
 }));
 
 const MainRecommend = (props) => {
@@ -58,7 +65,7 @@ const MainRecommend = (props) => {
   return (
     <Box className={classes.searchResult_Box}>
       <div>
-        <Typography>추천목록</Typography>
+        <h2 className={classes.searchName}>추천목록</h2>
         {
           <Slider {...settings} className={classes.slider}>
             {loading ? (
@@ -109,6 +116,7 @@ const MainRecommend = (props) => {
           </Slider>
         }
       </div>
+      
     </Box>
   );
 };

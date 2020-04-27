@@ -8,7 +8,7 @@ import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "48vw",
+    width: "68%",
     marginLeft: "27vh",
   },
 }));
@@ -21,7 +21,7 @@ const MainSearch = (props) => {
     searchTags: [],
   });
 
-  const {add_hashs, setAdd_Hashs} = props;
+  const {add_hashs, setAdd_Hashs} = props; // 사용자가 만든 해쉬태그 넣어줄 리스트
 
   const inputChangeEvent = (event) => {
     let word = event.currentTarget.value;
