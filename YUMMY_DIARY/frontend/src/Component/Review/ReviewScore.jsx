@@ -78,6 +78,12 @@ function CustomizedRatings(props) {
           onChange={(event,newValue) => {
             let newItem = JSON.parse(JSON.stringify(ratings))
             newItem[id] = {...ratings[id],rating:newValue}
+            console.log("id: 0 / rating: "+newItem[0].rating);
+            console.log("id: 1 / rating: "+newItem[1].rating);
+            console.log("id: 2 / rating: "+newItem[2].rating);
+            // console.log("id : "+id+"  rating : " +newItem[id].rating);
+            // let num = (13/3.0).toFixed(1);
+            // console.log(num);
             setRatings(newItem)
           }}
         />

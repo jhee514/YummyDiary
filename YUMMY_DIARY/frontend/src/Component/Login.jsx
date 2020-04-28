@@ -109,7 +109,7 @@ const Login = (props) => {
       a_EmailCheck(input.email)
     ) {
     const result = await axios
-      .post("http://localhost:8000/token/", input)
+      .post("http://i02a103.p.ssafy.io:8000/token/", input)
       .then((data) => {
         sessionStorage.setItem("token", data.token);
         props.history.push("/");

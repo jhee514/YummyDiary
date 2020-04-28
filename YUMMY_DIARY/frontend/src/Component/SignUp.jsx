@@ -124,7 +124,7 @@ const SignUp = props => {
       a_PwCheck(input.password) &&
       input.gender !== ""
     ) {
-      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
+      const result = await axios.post('http://i02a103.p.ssafy.io:8000/accounts/signup/',input).then(data=>{
         alert("가입되었습니다")
         props.history.push("/login");
       }).catch(error=>{

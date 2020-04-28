@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Box, TextField, Button } from "@material-ui/core";
+import { makeStyles, Box, TextField, Button, Input } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useState } from "react";
 import parse from "autosuggest-highlight/parse";
@@ -21,7 +21,7 @@ const MainSearch = (props) => {
     searchTags: [],
   });
 
-  const {add_hashs, setAdd_Hashs} = props; // 사용자가 만든 해쉬태그 넣어줄 리스트
+  const {custom_hashs, setCustom_Hashs} = props; // 사용자가 만든 해쉬태그 넣어줄 리스트
 
   const inputChangeEvent = (event) => {
     let word = event.currentTarget.value;
@@ -33,7 +33,11 @@ const MainSearch = (props) => {
     { tag: "안주" },
     { tag: "커플" },
     { tag: "달달한" },
-    { tag: "가성비" },
+    { tag: "가성비" },{ tag: "카페" },{ tag: "칼국수" },{ tag: "맛없는" },{ tag: "훠궈" },{ tag: "마라탕" },{ tag: "마라샹궈" },
+    { tag: "대창" },{ tag: "곱창" },{ tag: "순대" },{ tag: "떡볶이" },{ tag: "순대국" },{ tag: "치킨" },{ tag: "피자" },
+    { tag: "막창" },{ tag: "맥주" },{ tag: "소주" },{ tag: "혼술" },{ tag: "삼겹살" },{ tag: "돼지갈비" },{ tag: "갈비" },
+    { tag: "빵" },{ tag: "시카고피자" },{ tag: "꽃등심" },{ tag: "안주" },{ tag: "수제비" },{ tag: "칼국수" },{ tag: "국밥" },
+    { tag: "맥주마시기 좋은" },{ tag: "소주마시기 좋은" },{ tag: "와인" },{ tag: "와인마시기 좋은" },{ tag: "감바스" },{ tag: "아이스크림" },{ tag: "엄마는 외계인" }
   ];
 
   return (
@@ -42,15 +46,22 @@ const MainSearch = (props) => {
         multiple
         id="tags-standard"
         options={input.searchWord.charAt(0) === "#" ? top100Tags : []}
+        options={top100Tags}
         getOptionLabel={(option) => "#" + option.tag}
         onChange={(event, value, reason) => {
+          let temp = custom_hashs;
           if (reason === "select-option") {
             setInput({ searchWord: "", searchTags: value });
+            temp.push(event.target.value);
           } else if (reason === "remove-option") {
             setInput({ searchWord: "", searchTags: value });
+            temp.splice(temp.indexOf(event.target.value), 1)
           } else if (reason === "clear") {
             setInput({ searchWord: "", searchTags: [] });
+            temp = [];
           }
+          // console.log(temp);
+          setCustom_Hashs(temp);
         }}
         noOptionsText={
           input.searchWord.charAt(0) === "#"

@@ -90,9 +90,20 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "27vh",
   },
   sendButtonBox: {
+    width: "10vh",
     alignItems: "center",
     marginTop: "5vw",
     marginLeft: "82vh",
+  },
+  sendButton: {
+    backgroundColor: "#FAC60E",
+    border: "solid 2px",
+    borderColor: "#FBD85A",
+    '&:hover': {
+      borderColor: "#FAC60E",
+      backgroundColor: "#FAC60E",
+      color: "white"
+    }
   },
   outerBox: {
     marginLeft: "2vw"
@@ -105,6 +116,7 @@ const useStyles = makeStyles((theme) => ({
     width: "68%"
   },
 }));
+
 
 function CustomizedReview() {
   const classes = useStyles();
@@ -130,11 +142,40 @@ function CustomizedReview() {
   ]);
 
   const [add_hashs, setAdd_Hashs] = useState([]);
-  
+  const [custom_hashs, setCustom_Hashs] = useState([]);
+  const [reviewList, setReviewList] = useState({
+    id: "",
+    user_id: "",
+    store_id: "",
+    contents: "",
+    score: "",
+    tags: "",
+  });
+
+  const SendReviewData = (event) => { // 통신보낼 데이터 리스트 작업공간
+    // console.log("거 좀 누르지 마쇼");
+    let score1 = ratings[0].rating, score2 = ratings[1].rating, score3 = ratings[2].rating
+    let total_avg_score = ((score1 + score2 + score3)/3.0).toFixed(1)
+    let review_Text = reviews;
+    
+    //예외처리
+    if(score1 == 0 || score2 == 0 || score3 == 0){ // reviewScore 예외처리
+      alert('모든 항목의 별점을 부여해주세요')
+    } else if(review_Text === ''){
+      alert('리뷰 내용을 적어주세요.')
+    }
+
+    // else { // reviewScore 예외처리 완료
+    //   alert('문제없음 ~!~!')
+    //   console.log(total_avg_score);
+    // }
+  }
   return (
     <Box className={classes.outerBox}>
       <Container className={classes.container}>
+
         <h1 className={classes.title}>Review Page</h1>
+
         <Box className={classes.score_Box}>
           {ratings.map((rating) => (
             <Grid className={classes.subStoreScore_starPoint}>
@@ -166,11 +207,16 @@ function CustomizedReview() {
           </Grid>
             <hr className={classes.line}></hr>
             <h2 className={classes.addTag_h2}>원하는 태그가 없으면 만들어주세요!</h2>
-            <MainSearch add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
+            <MainSearch custom_hashs={custom_hashs} setCustom_Hashs={setCustom_Hashs} />
         </Box>
       </Container>
       <Box className={classes.sendButtonBox}>
-        <SendButton className={classes.sendButton}/>
+        <Button 
+          className={classes.sendButton}
+          onClick={SendReviewData}
+        >
+        리뷰 올리기
+        </Button>
       </Box>
     </Box>
   );

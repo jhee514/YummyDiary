@@ -38,7 +38,8 @@ const MainRecommend = (props) => {
         setStores(null);
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:8000/stores/stores/"
+          // "http://localhost:8000/stores/stores/"
+          "http://i02a103.p.ssafy.io:8000//stores/stores/"
         );
         setStores(response.data.results);
       } catch (e) {
