@@ -5,7 +5,7 @@ class Tag(models.Model):
     content = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.content
+        return '%d: %s' % (self.id, self.content)
 
 
 class Store(models.Model):
