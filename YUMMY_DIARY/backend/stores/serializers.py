@@ -1,14 +1,8 @@
-from .models import Store, Tag, Review, Menu
-from accounts.serializers import UserSerializer
+from .models import Store, Review, Menu
+from accounts.serializers import UserSerializer, TagSerializer
 from rest_framework import serializers
 
 
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = [
-            "content",
-        ]
 
 
 class MenuSerializer(serializers.ModelSerializer):
