@@ -25,12 +25,13 @@ def signup(request):
         user = serializer.save()
         user.set_password(user.password)
         user.save()
-        for tag_input in request.data["tags"]:
-            tag = get_object_or_404(Tag, id=tag_input)
+        print(request.data.getlist("tags"))
+        for tags in request.data.getlist("tags"):
+            tag = get_object_or_404(Tag, id=tags)
             user_tag = UserTagSerializer(data=request.data)
             if user_tag.is_valid():
                 user_tag.save(user=user, tag=tag)
-                return Response(status=200, data={'message': '회원가입 성공'})
+        return Response(status=200, data={'message': '회원가입 성공'})
     return Response(status=400, data=serializer.errors)
 
 
