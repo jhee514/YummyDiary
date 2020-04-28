@@ -17,7 +17,6 @@ User = get_user_model()
 @permission_classes([AllowAny])
 def signup(request):
     serializer = UserCreationSerializer(data=request.data)
-    print(request)
     if serializer.is_valid():
         user = serializer.save()
         user.set_password(user.password)

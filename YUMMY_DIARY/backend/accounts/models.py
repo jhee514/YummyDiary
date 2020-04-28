@@ -20,6 +20,7 @@ class User(AbstractUser):
         Male = 1
     
     gender = models.IntegerField(choices=Gender.choices)
+    tags = models.ManyToManyField('stores.Tag', through='UserTag')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -70,3 +71,9 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
+class UserTag(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag = models.ForeignKey('stores.Tag', on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table='accounts_user_tag'
