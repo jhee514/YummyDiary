@@ -1,3 +1,4 @@
+from .models import UserTag
 from stores.models import Tag
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
@@ -5,16 +6,20 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class TagSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Tag
         fields = [
+            "id",
             "content",
         ]
 
 
 
 class UserCreationSerializer(serializers.ModelSerializer):
+    tags = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = User
@@ -29,8 +34,8 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True, read_only=True)
-    
+    tags = serializers.StringRelatedField(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = [
@@ -39,4 +44,16 @@ class UserSerializer(serializers.ModelSerializer):
             'gender', 
             'birth_year',
             'tags',
+        ]
+
+
+class UserTagSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    tag = TagSerializer(read_only=True)
+
+    class Meta:
+        model = UserTag
+        fields = [
+            'user', 
+            'tag',
         ]

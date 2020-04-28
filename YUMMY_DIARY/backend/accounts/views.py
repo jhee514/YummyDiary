@@ -7,7 +7,9 @@ from rest_framework.response import Response  # JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from .serializers import UserCreationSerializer, UserSerializer
+from stores.models import Tag
+from .serializers import UserCreationSerializer, UserSerializer, UserTagSerializer
+
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -17,11 +19,18 @@ User = get_user_model()
 @permission_classes([AllowAny])
 def signup(request):
     serializer = UserCreationSerializer(data=request.data)
+    print(request.data)
+
     if serializer.is_valid():
         user = serializer.save()
         user.set_password(user.password)
         user.save()
-        return Response(status=200, data={'message': '회원가입 성공'})
+        for tag_input in request.data["tags"]:
+            tag = get_object_or_404(Tag, id=tag_input)
+            user_tag = UserTagSerializer(data=request.data)
+            if user_tag.is_valid():
+                user_tag.save(user=user, tag=tag)
+                return Response(status=200, data={'message': '회원가입 성공'})
     return Response(status=400, data=serializer.errors)
 
 
