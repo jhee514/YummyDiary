@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "./style.scss";
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import {url} from "../../modules/config"
 
 const useStyles = makeStyles((theme) => ({
   gridList: {
@@ -30,7 +31,7 @@ const MainRecommend = (props) => {
         setStores(null);
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:8000/stores/stores/"
+          url+"/stores/stores/"
         );
         setStores(response.data.results);
       } catch (e) {

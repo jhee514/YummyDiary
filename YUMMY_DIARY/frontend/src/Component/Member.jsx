@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   makeStyles,
@@ -13,6 +13,7 @@ import SwipeableViews from "react-swipeable-views";
 import axios from "axios";
 import MemberUpdate from "./Member/MemberUpdate";
 import PwChange from "./Member/PwChange";
+import { url } from "../modules/config";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -75,7 +76,21 @@ export default function Member(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(()=>{
+    const fetchUser = async() => {
+      setLoading(true);
+      try{
+        const response =  await axios(url+"/accounts/mypage/",{headers:{authorization : "jwt "+sessionStorage.getItem("token")}})
+        setUser(response.data);
+      }catch(e){
+        console.error(e)
+      }
+      setLoading(false);    
+    }
+    fetchUser();
+  },[])
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -106,10 +121,10 @@ export default function Member(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <MemberUpdate />
+          {loading? <></> : <MemberUpdate user={user} setUser={setUser} />}
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <PwChange />
+            <PwChange user={user} />
           </TabPanel>
         </SwipeableViews>
       </div>

@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import {
-  Box,
-  makeStyles,
-  Typography,
-  GridList,
-  GridListTile,
-} from "@material-ui/core";
+import React from "react";
+import { Box, makeStyles } from "@material-ui/core";
 import MainBanner from "./Main/MainBanner";
 import MainSearch from "./Main/MainSearch";
 import MainRecommend from "./Main/MainRecommend";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,22 +38,10 @@ const useStyles = makeStyles((theme) => ({
     width: "70%",
     minWidth: "80vw",
   },
-  
 }));
 const Main = (props) => {
   const classes = useStyles();
-  const [searchInput, setSearchInput] = useState({
-    keyword: "",
-    related: [],
-  });
 
-  const searchChangeEvent = (event) => {
-    setSearchInput({
-      ...searchInput,
-      keyword: event.target.value,
-    });
-    console.log(searchInput);
-  };
   return (
     <Box className={classes.root}>
       {/* 검색 바 영역 */}

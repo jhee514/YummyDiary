@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { a_PwCheck } from "../../modules/regCheck";
 import axios from "axios";
+import { url } from "../../modules/config";
 
 const CssTextField = withStyles({
   root: {
@@ -89,10 +90,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PwChange(props) {
   const classes = useStyles();
-  const [input, setInput] = useState({
+  const initState = {
     password: "",
     password_check: "",
-  });
+  };
+  const [input, setInput] = useState(initState);
+  const user = props.user;
   const pressEnter = (e) => {
     if (e.key === "Enter") {
       submitClickEvent();
@@ -114,15 +117,18 @@ export default function PwChange(props) {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
   const submitClickEvent = async (event) => {
-    const user = await axios.get("http://localhost:8000/accounts/mypage/", {
-      headers: { authorization: "jwt " + sessionStorage.token },
-    });
-    const response = await axios.patch(
-      "http://localhost:8000/accounts/mypage/",
-      { ...user.data, password: input.password },
-      { headers: { authorization: "jwt " + sessionStorage.token } }
-    );
-    console.log(response);
+    try {
+      const response = await axios.patch(
+        url + "/accounts/mypage/",
+        { ...user, password: input.password },
+        { headers: { authorization: "jwt " + sessionStorage.token } }
+      );
+      alert("비밀번호가 변경되었습니다.");
+      setInput(initState)
+    } catch (e) {
+      console.error(e);
+      alert("비밀번호 변경에 실패했습니다.");
+    }
   };
   return (
     <Box className={classes.root} onKeyPress={pressEnter}>
@@ -135,6 +141,7 @@ export default function PwChange(props) {
           name="password"
           onChange={inputChangeEvent}
           type="password"
+          value={input.password}
           error={validatePassword}
           helperText={
             validatePassword
@@ -150,6 +157,7 @@ export default function PwChange(props) {
           name="password_check"
           onChange={inputChangeEvent}
           type="password"
+          value={input.password_check}
           error={validatePasswordCheck}
           helperText={
             validatePasswordCheck ? "비밀번호가 일치하지 않습니다" : ""

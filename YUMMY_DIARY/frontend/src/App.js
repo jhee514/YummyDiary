@@ -12,7 +12,7 @@ import Member from"./Component/Member";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter url={process.env.REACT_APP_BACK_DOMAIN}>
       <Layout>
         <Route exact path="/" component={Main} />
         <Route path="/login" component={Login} />

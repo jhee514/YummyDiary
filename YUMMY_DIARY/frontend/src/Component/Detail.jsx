@@ -62,7 +62,7 @@ const Detail = (props) => {
         setStore({});
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:8000/stores/stores/" + props.match.params.id
+          "http://i02a103.p.ssafy.io/stores/stores/" + props.match.params.id
         );
         console.log(response.data);
         setStore(response.data);
