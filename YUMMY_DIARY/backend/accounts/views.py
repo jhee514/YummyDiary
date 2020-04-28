@@ -17,7 +17,6 @@ User = get_user_model()
 @permission_classes([AllowAny])
 def signup(request):
     serializer = UserCreationSerializer(data=request.data)
-    print(request)
     if serializer.is_valid():
         user = serializer.save()
         user.set_password(user.password)
@@ -37,7 +36,12 @@ def user_page(request):
     if request.method == 'PATCH':
         serializer = UserSerializer(instance=user, data=request.data, partial=True)
         if serializer.is_valid():
-            serializer.save()
+            if 'password' in request.data:
+                new_user = serializer.save()
+                new_user.set_password(request.data["password"])
+                new_user.save()
+            else:
+                serializer.save()
             return Response(serializer.data)
         return Response(status=400, data=serializer.errors)
 
