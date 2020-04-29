@@ -33,14 +33,12 @@ urlpatterns = [
     # DRF login URLs for the browsable API.
     path('auth/', include('rest_framework.urls')),
     # JWT
-    path('token/', obtain_jwt_token),
-    path('token/verify/', verify_jwt_token),
-    path('token/refresh/', refresh_jwt_token),
+    path('api/token/', obtain_jwt_token),
+    path('api/token/verify/', verify_jwt_token),
+    path('api/token/refresh/', refresh_jwt_token),
     # apps
-    path('accounts/', include('accounts.urls')),
-    path('stores/', include('stores.urls')),
-    path('posts/', include('posts.urls')),
+    path('api/accounts/', include('accounts.urls')),
+    path('api/stores/', include('stores.urls')),
+    path('api/posts/', include('posts.urls')),
 
 ]
-
-# fmt: on

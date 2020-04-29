@@ -1,14 +1,6 @@
-from .models import Store, Tag, Review, Menu
-from accounts.serializers import UserSerializer
+from .models import Store, Review, Menu, Hashtag
+from accounts.serializers import UserSerializer, TagSerializer
 from rest_framework import serializers
-
-
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = [
-            "content",
-        ]
 
 
 class MenuSerializer(serializers.ModelSerializer):
@@ -21,8 +13,19 @@ class MenuSerializer(serializers.ModelSerializer):
         ]
 
 
+class HashtagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Hashtag
+        fields = [
+            "id",
+            "content",
+            "review",
+        ]
+
+
 class ReviewSerializer(serializers.ModelSerializer):
     writer = UserSerializer(read_only=True)
+    hashtag = HashtagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Review
@@ -32,6 +35,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "total_score",
             "content",
             "reg_time",
+            "hashtag",
         ]
 
 
@@ -56,4 +60,17 @@ class StoreSerializer(serializers.ModelSerializer):
             "tags",
             "review",
             "menu",
+        ]
+
+
+class ReviewPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = [
+            "id",
+            "total_score",
+            "content",
+            "reg_time",
+            "store",
+            "writer",
         ]
