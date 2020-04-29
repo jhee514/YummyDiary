@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions
 from .serializers import StoreSerializer, ReviewSerializer, MenuSerializer, ReviewPostSerializer, HashtagSerializer
 from .models import Store, Review, Menu
+from accounts.models import UserTag
 
 from rest_framework.response import Response  # JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
@@ -62,3 +63,9 @@ def reviewcreate(request):
                 print("태그 등록 성공")
         return Response(status=200, data={'message': '리뷰등록 성공'})
     return Response(status=400, data=serializer.errors)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def Recommend_User(request):
+    user = request.user
