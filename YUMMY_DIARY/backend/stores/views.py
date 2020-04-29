@@ -78,7 +78,7 @@ def Recommend_User(request):
     if user.tags.count() > 0:
         for tag in user.tags.all():
             temp = tag.content # temp: tags[]에 담겨있는 카테고리
-            result = Store.objects.filter(category__contains=temp)[:5]
+            result = Store.objects.filter(category__contains=temp)[:10]
             list["category_name"].append(temp)
             list["store_list"].append(result.values())
         return Response(status=200, data={'Recommand_Store': list, "validation": True})
@@ -99,7 +99,7 @@ def search_store(request):
         "validation": False
     }
     if store_name_data != "":
-        name_data = Store.objects.filter(name__contains=store_name_data)[:5]
+        name_data = Store.objects.filter(name__contains=store_name_data)[:10]
         if name_data.count() > 0:
             ntemp_data["validation"] = True
             ntemp_data["store_by_name"].append(name_data.values())
@@ -120,7 +120,7 @@ def search_store(request):
             "validation": False
         }
         temp_data["tag_name"] = tag
-        tag_data = Store.objects.filter(category__contains=tag)[:5]
+        tag_data = Store.objects.filter(category__contains=tag)[:10]
         if tag_data.count() > 0:
             temp_data["validation"] = True
             temp_data["store_by_tag"] = tag_data.values()
