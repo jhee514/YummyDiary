@@ -25,9 +25,9 @@ class Store(models.Model):
 
 
 class Review(models.Model):
-    writer = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
+    writer = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name="review")
     store = models.ForeignKey('stores.Store', on_delete=models.CASCADE, related_name="review")
-    total_score = models.FloatField(max_length=10)
+    total_score = models.FloatField(max_length=10, null=False)
     content = models.TextField()
     reg_time = models.DateTimeField(default=False)
     
@@ -49,3 +49,7 @@ class Menu(models.Model):
     def __str__(self):
         return '%s | %s' % (self.name, self.store)
 
+
+class Hashtag(models.Model):
+    content = models.CharField(max_length=100)
+    review = models.ForeignKey('stores.Review', on_delete=models.CASCADE, related_name="hashtag")

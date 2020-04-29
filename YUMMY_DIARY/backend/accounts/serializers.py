@@ -17,7 +17,6 @@ class TagSerializer(serializers.ModelSerializer):
         ]
 
 
-
 class UserCreationSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(read_only=True)
 
@@ -35,7 +34,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     tags = serializers.StringRelatedField(many=True, read_only=True)
-
+    
     class Meta:
         model = User
         fields = [

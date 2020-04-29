@@ -6,5 +6,16 @@ from . import models
 
 @admin.register(models.User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'email', 'gender', 'birth_year', 'last_login', 'date_joined']
-    search_fields = ['email', 'gender', 'birth_year']
+    list_display = [
+        'id', 
+        'email', 
+        'gender', 
+        'birth_year', 
+        'last_login', 
+        'date_joined',
+        ]
+    search_fields = [
+        'email', 
+        'gender', 
+        'birth_year',
+        ]
