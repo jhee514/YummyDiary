@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from "react";
-import {
-  makeStyles,
-  Box,
-  TextField,
-  Typography,
-  Button,
-  withStyles,
-} from "@material-ui/core";
+import React, { useState, useMemo } from "react";
+import { makeStyles, Box, Button, withStyles } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
-import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../../modules/regCheck";
+import { a_AgeCheck, a_EmailCheck } from "../../modules/regCheck";
 import axios from "axios";
 
-const CssTextField = withStyles({
-  root: {
-    "& .MuiFilledInput-root": {
-      backgroundColor: "#FFFFFF",
-    },
-    "& .MuiFilledInput-underline:after": {
-      borderBottom: "2px solid #000000",
-    },
-  },
-})(TextField);
+import { url } from "../../modules/config";
+import InputText from "./InputText";
+
 const CssToggleButton = withStyles({
   root: {
     border: "none",
@@ -35,22 +21,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "6vw",
+    marginTop: "5vh",
     height: "100%",
   },
-  title: {
-    fontSize: "20px",
-    color: "black",
-    paddingBottom: "10px",
-  },
   subtitle: {
-    fontSize: "12px",
-    textAlign: "center",
-  },
-  line: {
-    borderColor: "#FAC60E",
-    border: "solid 1px",
-    width: "30%",
+    margin: "0vh 0vw 2vh 0vw",
   },
   textbox: {
     display: "flex",
@@ -58,26 +33,42 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "5vh 2vw 4vh 2vw",
     backgroundColor: "#FAC60E",
-    width: "30%",
-    height: "100%",
-    margin: "2vh",
+    width: "50%",
+    margin: "1vh",
+    borderRadius: "5px",
   },
   textboxNoLine: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "0vh 2vw 0vh 2vw",
     width: "30%",
-    height: "100%",
-    margin: "2vh",
+    borderTop: "solid 1px #bdbdbd",
+    margin: "3vh 0vw",
+    padding: "2vh 0vw",
   },
   textfield: {
-    margin: "1vw 0vw 0vw 0vw",
-    width: "100%",
+    marginBottom: "1vw",
+    width: "95%",
+    height: "100%",
+    "& label.Mui-focused": {
+      color: "#fafafa",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        color: "#fafafa",
+      },
+      "&:hover fieldset": {
+        borderColor: "#FBD85A",
+        color: "#fafafa",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#FBD85A",
+        color: "#fafafa",
+      },
+    },
   },
 
   submitbutton: {
-    marginTop: "3vh",
     marginBottom: "1vw",
     width: "95%",
     color: "white",
@@ -88,188 +79,167 @@ const useStyles = makeStyles((theme) => ({
       color: "rgb(117, 122, 122)",
     },
   },
-  loginbutton: {
-    marginBottom: "1vw",
-    width: "95%",
-    color: "#FAC60E",
-    borderColor: "#FAC60E",
-    border: "solid 2px",
-    "&:hover": {
-      borderColor: "#FAC60E",
-      backgroundColor: "#FAC60E",
-      color: "white",
-    },
-  },
 }));
 
 const MemberUpdate = (props) => {
   const classes = useStyles();
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-    birth_year: "",
-    gender: "",
-  });
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get("http://localhost:8000/accounts/mypage/", {
-          headers: { authorization: "jwt " + sessionStorage.getItem("token") },
-        });
-        setInput(response.data);
-      } catch (e) {
-        console.error(e);
-      }
-      setLoading(false);
-    };
-    fetchUser();
-  }, []);
+
+  const { user, setUser } = props;
   const inputChangeEvent = (event) => {
-    setInput({ ...input, [event.target.name]: event.target.value });
+    setUser({ ...user, [event.target.name]: event.target.value });
+    console.log(user);
   };
   const checkChangeEvent = (event) => {
-    console.log(event.currentTarget.value);
-    setInput({ ...input, gender: event.currentTarget.value });
+    setUser({ ...user, gender: event.currentTarget.value });
   };
-  const submitclickevent = async (event) => {
-    if (
-      a_EmailCheck(input.email) &&
-      a_AgeCheck(input.birth_year) &&
-      a_PwCheck(input.password) &&
-      input.gender !== ""
-    ) {
-      const result = await axios
-        .post("http://127.0.0.1:8000/accounts/signup/", input)
-        .then((data) => {
-          alert("가입되었습니다");
-          props.history.push("/login");
-        })
-        .catch((error) => {
-          alert("다시 입력해주세요");
+  const submitClickEvent = async (event) => {
+    if (a_AgeCheck(user.birth_year) && user.gender !== "") {
+      try {
+        const response = await axios.post(url + "/token/", {
+          email: user.email,
+          password: user.password,
         });
+      } catch (e) {
+        alert("올바른 비밀 번호를 입력해주세요");
+      }
+      try {
+        const result = await axios.patch(
+          url + "/accounts/mypage/",
+          {
+            email: user.email,
+            gender: user.gender,
+            birth_year: user.birth_year,
+          },
+          {
+            headers: {
+              authorization: "jwt " + sessionStorage.getItem("token"),
+            },
+          }
+        );
+        setUser(result.data);
+      } catch (e) {
+        alert(
+          "입력된 정보를 수정하는 중 오류가 발생했습니다 잠시후에 다시 시도해주세요"
+        );
+      }
+      alert("수정되었습니다");
     } else {
       alert("정확히 입력해주세요");
     }
   };
 
-  const loginClickEvent = (event) => {
-    props.history.push("/login");
+  const pressEnter = (e) => {
+    if (e.key === "Enter") {
+      submitClickEvent();
+    }
   };
-
+  const validatePasswordCheck = useMemo(
+    () =>
+      !(user.password_check === undefined || user.password_check === "") &&
+      user.password != user.password_check,
+    [user]
+  );
   return (
-    <Box className={classes.root}>
-      {loading ? (
-        <></>
-      ) : (
-        <>
-          <b className={classes.title}>SIGNUP</b>
-          <hr className={classes.line}></hr>
-          <p>회원님의 정보를 알려주세요 :)</p>
-          <Box className={classes.textbox} boxShadow={3}>
-            <CssTextField
-              className={classes.textfield}
-              label="이메일"
-              variant="filled"
-              name="email"
-              onChange={inputChangeEvent}
-              value={input.email === undefined ? "" : input.email}
-            />
-            <CssTextField
-              className={classes.textfield}
-              label="비밀번호"
-              variant="filled"
-              name="password"
-              onChange={inputChangeEvent}
-              type="password"
-              // error={
-              //   !(input.password === undefined || input.password === "") &&
-              //   !a_PwCheck(input.password)
-              // }
-              // helperText={
-              //   !(input.password === undefined || input.password === "") &&
-              //   !a_PwCheck(input.password)
-              //     ? "패스워드는 첫째자리는 영문자로 시작하고 영문자, 숫자, 특수문자를 포함해야 하며, 3자리 이상 15자리 이하의 길이여야 합니다"
-              //     : ""
-              // }
-            />
-            <Box
-              display="flex"
-              margin={0}
-              flexDirection="row"
-              justifyContent="flex-start"
-              alignItems="flex-end"
-              width="100%"
-              flexWrap="wrap"
-            >
-              <Box width="60%">
-                <CssTextField
-                  className={classes.textfield}
-                  label="출생 연도"
-                  name="birth_year"
-                  variant="filled"
-                  onChange={inputChangeEvent}
-                  fullWidth
-                  // error={
-                  //   !(
-                  //     input.birth_year === undefined || input.birth_year === ""
-                  //   ) && !a_AgeCheck(input.birth_year)
-                  // }
-                  // helperText={
-                  //   !(
-                  //     input.birth_year === undefined || input.birth_year === ""
-                  //   ) && !a_AgeCheck(input.birth_year)
-                  //     ? "태어난 연도는 1900년 이상 올해년도 이하로 입력해주세요!"
-                  //     : ""
-                  // }
-                />
-              </Box>
-              <Box
-                display="flex"
-                width="40%"
-                paddingLeft={1}
-                justifyContent="space-between"
-              >
-                <CssToggleButton
-                  value={0}
-                  selected={input.gender ?input.gender == 0:false}
-                  onChange={checkChangeEvent}
-                  size="large"
-                  className={classes.toggleButton}
-                >
-                  남
-                </CssToggleButton>
+    <Box className={classes.root} onKeyPress={pressEnter}>
+      <p className={classes.subtitle}>회원님의 정보를 수정해주세요 :)</p>
+      <Box className={classes.textbox} boxShadow={3}>
+        <InputText
+          classes={classes.textfield}
+          label="이메일"
+          variant="outlined"
+          disabled
+          value={user.email}
+          name="email"
+          onChange={inputChangeEvent}
+        />
 
-                <CssToggleButton
-                  value={1}
-                  selected={input.gender !==undefined? input.gender == 1 : false}
-                  onChange={checkChangeEvent}
-                  size="large"
-                  className={classes.toggleButton}
-                >
-                  여
-                </CssToggleButton>
-              </Box>
+        <Box
+          display="flex"
+          margin={0}
+          justifyContent="flex-start"
+          width="95%"
+          flexWrap="wrap"
+        >
+          <Box width="70%">
+            <InputText
+              classes={classes.textfield}
+              label="출생 연도"
+              name="birth_year"
+              value={user.birth_year}
+              variant="outlined"
+              onChange={inputChangeEvent}
+              fullWidth
+              error={
+                !(user.birth_year === undefined || user.birth_year === "") &&
+                !a_AgeCheck(user.birth_year)
+              }
+              helperText={
+                !(user.birth_year === undefined || user.birth_year === "") &&
+                !a_AgeCheck(user.birth_year)
+                  ? "태어난 연도는 1900년 이상 올해년도 이하로 입력해주세요!"
+                  : ""
+              }
+            />
+          </Box>
+          <Box
+            display="flex"
+            width="30%"
+            paddingLeft={1}
+            justifyContent="space-between"
+            alignItems="flex"
+          >
+            <Box>
+              <CssToggleButton
+                value={0}
+                selected={user.gender == 0}
+                onChange={checkChangeEvent}
+                size="large"
+                className={classes.toggleButton}
+              >
+                남
+              </CssToggleButton>
             </Box>
-            <Button
-              className={classes.submitbutton}
-              size="large"
-              onClick={submitclickevent}
-            >
-              제출
-            </Button>
+            <Box>
+              <CssToggleButton
+                value={1}
+                selected={user.gender == 1}
+                onChange={checkChangeEvent}
+                size="large"
+                className={classes.toggleButton}
+              >
+                여
+              </CssToggleButton>
+            </Box>
           </Box>
-          <br />
-          <b>이미 YUMMY DIARY의 회원이신가요?</b>
-          <p className={classes.subtitle}>YUMMY DIARY 회원으로 입장해주세요!</p>
-          <Box className={classes.textboxNoLine}>
-            <Button className={classes.loginbutton} onClick={loginClickEvent}>
-              LOGIN
-            </Button>
-          </Box>
-        </>
-      )}
+        </Box>
+        <InputText
+          classes={classes.textfield}
+          label="비밀번호"
+          value={user.password === undefined ? "" : user.password}
+          name="password"
+          type="password"
+          onChange={inputChangeEvent}
+        />
+        <InputText
+          classes={classes.textfield}
+          label="비밀번호 재입력"
+          value={user.password_check === undefined ? "" : user.password_check}
+          name="password_check"
+          type="password"
+          onChange={inputChangeEvent}
+          error={validatePasswordCheck}
+          helperText={
+            validatePasswordCheck ? "비밀번호가 일치하지 않습니다" : ""
+          }
+        />
+        <Button
+          className={classes.submitbutton}
+          size="large"
+          onClick={submitClickEvent}
+        >
+          수정
+        </Button>
+      </Box>
     </Box>
   );
 };

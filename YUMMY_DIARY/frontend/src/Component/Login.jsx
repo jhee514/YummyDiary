@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
+import { url } from "../modules/config";
 
 const CssTextField = withStyles({
   root: {
@@ -116,7 +117,7 @@ const Login = (props) => {
       a_EmailCheck(input.email)
     ) {
     const result = await axios
-      .post("http://localhost:8000/token/", input)
+      .post(url+"/token/", input)
       .then((resposne) => {
         sessionStorage.setItem("token", resposne.data.token);
         props.history.push("/");

@@ -9,6 +9,7 @@ import {
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
+import { url } from "../modules/config";
 
 const CssTextField = withStyles({
   root: {
@@ -148,7 +149,7 @@ const SignUp = props => {
       a_AgeCheck(input.birth_year) &&
       input.gender !== ""
     ) {
-      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
+      const result = await axios.post(url+'/accounts/signup/',input).then(data=>{
         alert("가입되었습니다")
         props.history.push("/login");
       }).catch(error=>{
