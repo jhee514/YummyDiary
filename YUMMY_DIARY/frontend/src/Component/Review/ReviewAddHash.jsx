@@ -33,7 +33,8 @@ const MainSearch = (props) => {
     { tag: "안주" },
     { tag: "커플" },
     { tag: "달달한" },
-    { tag: "가성비" },{ tag: "카페" },{ tag: "칼국수" },{ tag: "맛없는" },{ tag: "훠궈" },{ tag: "마라탕" },{ tag: "마라샹궈" },
+    { tag: "가성비" },
+    { tag: "카페" },{ tag: "칼국수" },{ tag: "맛없는" },{ tag: "훠궈" },{ tag: "마라탕" },{ tag: "마라샹궈" },
     { tag: "대창" },{ tag: "곱창" },{ tag: "순대" },{ tag: "떡볶이" },{ tag: "순대국" },{ tag: "치킨" },{ tag: "피자" },
     { tag: "막창" },{ tag: "맥주" },{ tag: "소주" },{ tag: "혼술" },{ tag: "삼겹살" },{ tag: "돼지갈비" },{ tag: "갈비" },
     { tag: "빵" },{ tag: "시카고피자" },{ tag: "꽃등심" },{ tag: "안주" },{ tag: "수제비" },{ tag: "칼국수" },{ tag: "국밥" },
@@ -46,21 +47,23 @@ const MainSearch = (props) => {
         multiple
         id="tags-standard"
         options={input.searchWord.charAt(0) === "#" ? top100Tags : []}
-        options={top100Tags}
+        // options={top100Tags}
         getOptionLabel={(option) => "#" + option.tag}
         onChange={(event, value, reason) => {
           let temp = custom_hashs;
           if (reason === "select-option") {
             setInput({ searchWord: "", searchTags: value });
-            temp.push(event.target.value);
+            // temp.push(event.target.value);
+            temp.push(value)
           } else if (reason === "remove-option") {
             setInput({ searchWord: "", searchTags: value });
-            temp.splice(temp.indexOf(event.target.value), 1)
+            // temp.splice(temp.indexOf(event.target.value), 1)
+            temp.splice(temp.indexOf(value),1)
           } else if (reason === "clear") {
             setInput({ searchWord: "", searchTags: [] });
             temp = [];
           }
-          // console.log(temp);
+          console.log(temp);
           setCustom_Hashs(temp);
         }}
         noOptionsText={
