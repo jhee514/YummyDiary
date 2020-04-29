@@ -172,7 +172,6 @@ const Login = (props) => {
         <Button
           className={classes.submitbutton}
           onClick={submitClickEvent}
-          variant="outlined"
         >
           LOGIN
         </Button>

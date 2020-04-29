@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   makeStyles,
   Box,
-  Grid,
   TextField,
   Button,
   withStyles
@@ -121,8 +120,17 @@ const SignUp = props => {
     "password": "",
     "password_check": "",
     "birth_year": "",
-    "gender": ""
+    "gender": "",
+    "tags": [],
   });
+
+  const tag_choice = {
+    5963: "카페", 5897:"치킨", 5992:"커피", 3764:"술집",
+    3060:"삼겹살", 5410:"족발", 1763:"떡볶이", 6430:"피자",
+    6897:"횟집", 5581:"짬뽕", 1493:"돈까스", 6241:"파스타",
+    6528:"한우", 349:"고기집", 5972:"칼국수", 5481:"중국집", 2041:"맥주"
+  }
+
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
@@ -131,6 +139,8 @@ const SignUp = props => {
     setInput({ ...input, gender: event.currentTarget.value });
   };
   const submitClickEvent = async event => {
+    console.log("input")
+    console.log(input)
     if (
       a_EmailCheck(input.email) &&
       a_PwCheck(input.password) &&
@@ -277,7 +287,10 @@ const SignUp = props => {
             </Box>
           </Box>
         </Box>
-        <Button className={classes.submitbutton} size="large" onClick={submitClickEvent}>
+        <Button
+          className={classes.submitbutton}
+          onClick={submitClickEvent}
+        >
           SIGNUP
         </Button>
       </Box>
