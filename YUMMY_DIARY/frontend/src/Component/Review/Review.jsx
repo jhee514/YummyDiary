@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, Container, Avatar, Grid, Paper, Box, Button } from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function CustomizedReview() {
+function CustomizedReview(props) {
   const classes = useStyles();
   const [ratings, setRatings] = useState([
     { id: 0, label: "맛을 평가해주세요", rating: 0, title: "맛" },
@@ -151,7 +151,11 @@ function CustomizedReview() {
     score: "",
     tags: "",
   });
-
+  useEffect(()=>{
+    if(sessionStorage.getItem("token") === undefined || null){
+      props.history.push("/")
+    } 
+  },[])
   const SendReviewData = (event) => { // 통신보낼 데이터 리스트 작업공간
     // console.log("거 좀 누르지 마쇼");
     let score1 = ratings[0].rating, score2 = ratings[1].rating, score3 = ratings[2].rating

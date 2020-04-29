@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     width: "75%",
     //alignItems: "center",
     justifyContent: "center",
-    padding: "0 10vw 0 10vw"
+    padding: "0 10vw 0 10vw",
   },
   contentbox: {
     //border: "2px solid #FAC60E",
@@ -63,7 +63,7 @@ const Detail = (props) => {
         setStore({});
         setLoading(true);
         const response = await axios.get(
-          url+"/stores/stores/" + props.match.params.id
+          url + "/stores/stores/" + props.match.params.id
         );
         console.log(response.data);
         setStore(response.data);
@@ -83,7 +83,6 @@ const Detail = (props) => {
   const { latitude, longitude, timestamp, accuracy, error } = usePosition(
     watch
   );
-
   return (
     <>
       {loading ? (
@@ -134,10 +133,20 @@ const Detail = (props) => {
           <Box className={classes.storedetail}>
             <Box className={classes.contentbox}>
               <Box className={classes.content}>
-                <Typography variant="h4">
-                  {store.name}
-                  
-                </Typography>
+                {sessionStorage.token ? (
+                  <Typography
+                    variant="subtitle2"
+                    style={{ textAlign: "end" }}
+                    onClick={() => {
+                      props.history.push("/review");
+                    }}
+                  >
+                    리뷰작성 ->
+                  </Typography>
+                ) : (
+                  <></>
+                )}
+                <Typography variant="h4">{store.name}</Typography>
                 <Typography variant="h6">
                   {/* {storedetail.tags.map((tag, index) => tag + " ")} */}
                   {store.category}
@@ -159,7 +168,11 @@ const Detail = (props) => {
                   <>
                     {store.menu.map((item, index) =>
                       (unfold ? 2 : store.menu.length) >= index ? (
-                        <Box display="flex" justifyContent="space-between" key={index}>
+                        <Box
+                          display="flex"
+                          justifyContent="space-between"
+                          key={index}
+                        >
                           <Typography>{item.name}</Typography>
                           <Typography>{item.price}원</Typography>
                         </Box>
@@ -182,20 +195,22 @@ const Detail = (props) => {
               </Box>
               <Divider variant="middle" />
               <Box className={classes.content}>
-                { store.review === undefined || store.review.length === 0 ? (
+                {store.review === undefined || store.review.length === 0 ? (
                   <Typography>리뷰가 없습니다</Typography>
                 ) : (
                   <>
-                    {store.review.map((item,index)=>
+                    {store.review.map((item, index) => (
                       <Box key={index}>
-                        <Rating value={Number(item.total_score)} disabled precision="0.1" />
+                        <Rating
+                          value={Number(item.total_score)}
+                          disabled
+                          precision="0.1"
+                        />
                         <Typography variant>{item.content}</Typography>
                       </Box>
-                    )}
+                    ))}
                   </>
-                )
-
-                }
+                )}
               </Box>
             </Box>
           </Box>
