@@ -68,7 +68,7 @@ def reviewcreate(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def Recommend_User(request):
     list = {
         "category_name": [],
