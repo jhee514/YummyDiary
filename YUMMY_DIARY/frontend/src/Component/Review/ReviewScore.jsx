@@ -1,48 +1,48 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Rating from '@material-ui/lab/Rating';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
-import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
-import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
-import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import {makeStyles, Container, Avatar, Grid, Paper} from '@material-ui/core';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Rating from "@material-ui/lab/Rating";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
+import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
+import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
+import SentimentSatisfiedAltIcon from "@material-ui/icons/SentimentSatisfiedAltOutlined";
+import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import { makeStyles, Container, Avatar, Grid, Paper } from "@material-ui/core";
 import axios from "axios";
 
 const StyledRating = withStyles({
   iconFilled: {
-    color: '#ff6d75',
+    color: "#ff6d75",
   },
   iconHover: {
-    color: '#ff3d47',
+    color: "#ff3d47",
   },
 })(Rating);
 
 const customIcons = {
   1: {
     icon: <SentimentVeryDissatisfiedIcon />,
-    label: 'Very Dissatisfied',
+    label: "Very Dissatisfied",
   },
   2: {
     icon: <SentimentDissatisfiedIcon />,
-    label: 'Dissatisfied',
+    label: "Dissatisfied",
   },
   3: {
     icon: <SentimentSatisfiedIcon />,
-    label: 'Neutral',
+    label: "Neutral",
   },
   4: {
     icon: <SentimentSatisfiedAltIcon />,
-    label: 'Satisfied',
+    label: "Satisfied",
   },
   5: {
     icon: <SentimentVerySatisfiedIcon />,
-    label: 'Very Satisfied',
+    label: "Very Satisfied",
   },
 };
 
@@ -55,51 +55,36 @@ IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-const useStyles = makeStyles(theme => ({
-    scores: {
-        height: "40px",
-        // margin: "15px 300px",
-    }
-  }));
+const useStyles = makeStyles((theme) => ({
+  scores: {
+    height: "40px",
+    // margin: "15px 300px",
+  },
+}));
 
 function CustomizedRatings(props) {
-    const classes = useStyles();
-    const {ratings,id,setRatings} = props;
+  const classes = useStyles();
+  const { rating, id, setReviewList, reviewList } = props;
   return (
     <div className={classes.scores}>
-    {/* <div> */}
+      {/* <div> */}
       <Box component="fieldset" mb={3} borderColor="transparent">
         {/* <Typography component="legend">Custom empty icon</Typography> */}
         <Rating
-          //name="customized-empty"
-          value={ratings[id].rating}
+          name={rating.title}
+          value={rating.rating}
           //precision={1}
           //emptyIcon={<StarBorderIcon fontSize="inherit" />}
-          onChange={(event,newValue) => {
-            let newItem = JSON.parse(JSON.stringify(ratings))
-            newItem[id] = {...ratings[id],rating:newValue}
-            console.log("id: 0 / rating: "+newItem[0].rating);
-            console.log("id: 1 / rating: "+newItem[1].rating);
-            console.log("id: 2 / rating: "+newItem[2].rating);
-            // console.log("id : "+id+"  rating : " +newItem[id].rating);
-            // let num = (13/3.0).toFixed(1);
-            // console.log(num);
-            setRatings(newItem)
+          onChange={(event, newValue) => {
+            let tmpList = JSON.parse(JSON.stringify(reviewList));
+            let newItem = { ...rating, rating: Number(newValue) };
+            tmpList.scores[id] = newItem;
+            setReviewList({ ...tmpList });
           }}
         />
       </Box>
-      {/* <Box component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend">Custom icon and color</Typography>
-        <StyledRating
-          name="customized-color"
-          defaultValue={2}
-          getLabelText={(value) => `${value} Heart${value !== 1 ? 's' : ''}`}
-          precision={1}
-          icon={<FavoriteIcon fontSize="inherit" />}
-        />
-      </Box> */}
     </div>
   );
 }
 
-export default CustomizedRatings
+export default CustomizedRatings;

@@ -65,7 +65,6 @@ const Detail = (props) => {
         const response = await axios.get(
           url + "/stores/stores/" + props.match.params.id
         );
-        console.log(response.data);
         setStore(response.data);
       } catch (e) {
         console.error(e);
@@ -83,6 +82,7 @@ const Detail = (props) => {
   const { latitude, longitude, timestamp, accuracy, error } = usePosition(
     watch
   );
+  const date = new Date();
   return (
     <>
       {loading ? (
@@ -138,7 +138,7 @@ const Detail = (props) => {
                     variant="subtitle2"
                     style={{ textAlign: "end" }}
                     onClick={() => {
-                      props.history.push("/review");
+                      props.history.push("/review/" + store.id);
                     }}
                   >
                     리뷰작성 ->
@@ -201,12 +201,20 @@ const Detail = (props) => {
                   <>
                     {store.review.map((item, index) => (
                       <Box key={index}>
-                        <Rating
-                          value={Number(item.total_score)}
-                          disabled
-                          precision="0.1"
-                        />
-                        <Typography variant>{item.content}</Typography>
+                        <Box display="flex">
+                          {/* <Typography>
+                            {item.writer.gender === 0 ? "남" : "여"} {date.getFullYear()-item.writer.birth_year} 세
+                          </Typography> */}
+                          <Rating
+                            name={index + ""}
+                            value={Number(item.total_score)}
+                            disabled
+                            precision={0.1}
+                            size="small"
+                          />
+                          <Typography>{item.reg_time.substring(0,4)+"년 " + item.reg_time.substring(5,7)+"월 " + item.reg_time.substring(8,10)+ "일"}</Typography>
+                        </Box>
+                        <Typography>{item.content}</Typography>
                       </Box>
                     ))}
                   </>
