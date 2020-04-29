@@ -8,6 +8,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+User = get_user_model()
 
 class StoreViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny, ]
@@ -68,4 +71,21 @@ def reviewcreate(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def Recommend_User(request):
-    user = request.user
+    tag = request.tag
+    list = {
+        "category_name": [],
+        "store_list": []
+    }
+    user = get_object_or_404(User, id=request.user.id)
+    if len(user.tags) != 0:
+        for tag in range(len(user.tags)):
+            temp = tag.content # temp: tags[]에 담겨있는 카테고리
+            result = Store.objects.filter(category__contains=temp).order_by('id').head(8)
+            list["categoty_name"].append(temp)
+            list["store_list"].append(result)
+            if tag == len(user.tags)-1:
+                return Response(status=200, data={'Recommand_Store': store_list, "validation": True})
+    else:
+        return Response(statue=200, data={'msg': 'tag를 정해주세연~', "validation": False})
+
+        
