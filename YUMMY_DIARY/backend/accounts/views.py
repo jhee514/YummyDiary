@@ -54,11 +54,12 @@ def user_page(request):
                 if user_tags:
                     for user_tag in user_tags:
                         user_tag.delete()
-                for new_user_tag in request.data.getlist("tags"):
-                    new_tag = get_object_or_404(Tag, id=new_user_tag)
-                    new_user_tag_serializer = UserTagSerializer(data=request.data)
-                    if new_user_tag_serializer.is_valid():
-                        new_user_tag_serializer.save(user=user, tag=new_tag)
+                if request.data.getlist("tags")[0] != '':
+                    for new_user_tag in request.data.getlist("tags"):
+                        new_tag = get_object_or_404(Tag, id=new_user_tag)
+                        new_user_tag_serializer = UserTagSerializer(data=request.data)
+                        if new_user_tag_serializer.is_valid():
+                            new_user_tag_serializer.save(user=user, tag=new_tag)
             serializer.save()
             return Response(serializer.data)
         return Response(status=400, data=serializer.errors)
