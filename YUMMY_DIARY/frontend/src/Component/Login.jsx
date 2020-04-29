@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
+import { url } from "../modules/config";
 
 const CssTextField = withStyles({
   root: {
@@ -116,7 +117,7 @@ const Login = (props) => {
       a_EmailCheck(input.email)
     ) {
     const result = await axios
-      .post("http://localhost:8000/token/", input)
+      .post(url+"/token/", input)
       .then((resposne) => {
         sessionStorage.setItem("token", resposne.data.token);
         props.history.push("/");
@@ -129,12 +130,18 @@ const Login = (props) => {
     }
   };
 
+  const pressEnter = (e) => {
+    if (e.key === 'Enter') {
+      submitClickEvent();
+    }
+  };
+
   const signupClickEvent = (event) => {
     props.history.push("/signup");
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onKeyPress={pressEnter}>
       <b className={classes.title}>LOGIN</b>
       <p className={classes.subtitle}>오늘은 어떤 식사가 기다리고 있을까요? :)</p>
       <Box className={classes.textbox} boxShadow={3}>
@@ -166,7 +173,6 @@ const Login = (props) => {
         <Button
           className={classes.submitbutton}
           onClick={submitClickEvent}
-          variant="outlined"
         >
           LOGIN
         </Button>

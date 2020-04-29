@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import {
   makeStyles,
   Box,
-  Grid,
   TextField,
   Button,
-  withStyles
+  withStyles,
+  Chip
 } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
+import { url } from "../modules/config";
 
 const CssTextField = withStyles({
   root: {
@@ -121,8 +122,31 @@ const SignUp = props => {
     "password": "",
     "password_check": "",
     "birth_year": "",
-    "gender": ""
+    "gender": "",
+    "tags": [],
   });
+
+  const [tag_choices, setTagChoices] = useState([
+    {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
+    {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
+    {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
+    {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
+    {tag_id:6528, content:"한우", state:0}, {tag_id:349, content:"고기집", state:0}, {tag_id:5972, content:"칼국수", state:0},
+    {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
+  ])
+  // const [tag_choices, setTagChoices] = useState([
+  //   {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
+  //   {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
+  //   {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
+  //   {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
+  //   {tag_id:6528, content:"한우", state:0}, {tag_id:349, content:"고기집", state:0}, {tag_id:5972, content:"칼국수", state:0},
+  //   {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
+  // ])
+
+  const handleTagClick = (tag_id) => {
+    console.info('You clicked the Chip.');
+  };
+
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
@@ -130,7 +154,9 @@ const SignUp = props => {
     console.log(event.currentTarget.value)
     setInput({ ...input, gender: event.currentTarget.value });
   };
-  const submitclickevent = async event => {
+  const submitClickEvent = async event => {
+    console.log("input")
+    console.log(input)
     if (
       a_EmailCheck(input.email) &&
       a_PwCheck(input.password) &&
@@ -138,7 +164,7 @@ const SignUp = props => {
       a_AgeCheck(input.birth_year) &&
       input.gender !== ""
     ) {
-      const result = await axios.post('http://127.0.0.1:8000/accounts/signup/',input).then(data=>{
+      const result = await axios.post(url+'/accounts/signup/',input).then(data=>{
         alert("가입되었습니다")
         props.history.push("/login");
       }).catch(error=>{
@@ -149,12 +175,18 @@ const SignUp = props => {
     }
   };
 
+  const pressEnter = (e) => {
+    if (e.key === 'Enter') {
+      submitClickEvent();
+    }
+  };
+
   const loginClickEvent = (event) => {
     props.history.push("/login");
   };
   
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onKeyPress={pressEnter}>
       <b className={classes.title}>SIGNUP</b>
       <p className={classes.subtitle}>회원님에 대해 알려주세요 :)</p>
       <Box className={classes.textbox} boxShadow={3}>
@@ -271,7 +303,26 @@ const SignUp = props => {
             </Box>
           </Box>
         </Box>
-        <Button className={classes.submitbutton} size="large" onClick={submitclickevent}>
+        <Box
+          display="flex"
+          margin={0}
+          justifyContent="flex-start"
+          width="95%"
+          flexWrap="wrap"
+        >
+          {tag_choices.map((choice) => 
+            <Chip
+              variant={choice.state?"default":"outlined"}
+              label={choice.content}
+              id={choice.tag_id}
+              onClick={handleTagClick(choice.tag_id)}
+              margin="10px"/>
+          )}
+        </Box>
+        <Button
+          className={classes.submitbutton}
+          onClick={submitClickEvent}
+        >
           SIGNUP
         </Button>
       </Box>
