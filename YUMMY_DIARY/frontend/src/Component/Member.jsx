@@ -83,7 +83,7 @@ export default function Member(props) {
     const fetchUser = async() => {
       setLoading(true);
       try{
-        const response =  await axios(url+"/accounts/mypage/",{headers:{authorization : "jwt "+sessionStorage.getItem("token")}})
+        const response =  await axios.get(url+"/accounts/mypage/",{headers:{authorization : "jwt "+sessionStorage.getItem("token")}})
         setUser(response.data);
       }catch(e){
         props.history.push("/")

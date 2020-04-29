@@ -12,6 +12,7 @@ import KakaoMap from "./KakaoMap";
 import { usePosition } from "use-position";
 import { getDistance } from "../modules/getDistance";
 import axios from "axios";
+import { url } from "../modules/config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +63,7 @@ const Detail = (props) => {
         setStore({});
         setLoading(true);
         const response = await axios.get(
-          "http://i02a103.p.ssafy.io/stores/stores/" + props.match.params.id
+          url+"/stores/stores/" + props.match.params.id
         );
         console.log(response.data);
         setStore(response.data);
