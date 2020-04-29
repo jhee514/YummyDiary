@@ -34,6 +34,7 @@ const Menulist = (props) => {
       event: () => {
         sessionStorage.removeItem("token");
         props.setOpen(false);
+        alert("로그아웃 되었습니다")
         window.location.reload();
       },
     },

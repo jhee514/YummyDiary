@@ -79,13 +79,14 @@ export default function Member(props) {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(()=>{
+
     const fetchUser = async() => {
       setLoading(true);
       try{
         const response =  await axios(url+"/accounts/mypage/",{headers:{authorization : "jwt "+sessionStorage.getItem("token")}})
         setUser(response.data);
       }catch(e){
-        console.error(e)
+        props.history.push("/")
       }
       setLoading(false);    
     }
