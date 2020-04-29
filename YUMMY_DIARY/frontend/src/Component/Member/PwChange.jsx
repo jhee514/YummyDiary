@@ -9,17 +9,8 @@ import {
 import { a_PwCheck } from "../../modules/regCheck";
 import axios from "axios";
 import { url } from "../../modules/config";
+import InputText from "./InputText";
 
-const CssTextField = withStyles({
-  root: {
-    "& .MuiFilledInput-root": {
-      backgroundColor: "#FFFFFF",
-    },
-    "& .MuiFilledInput-underline:after": {
-      borderBottom: "2px solid #000000",
-    },
-  },
-})(TextField);
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -91,7 +82,8 @@ const useStyles = makeStyles((theme) => ({
 export default function PwChange(props) {
   const classes = useStyles();
   const initState = {
-    password: "",
+    newPassword: "",
+    oldPassword: "",
     password_check: "",
   };
   const [input, setInput] = useState(initState);
@@ -103,14 +95,14 @@ export default function PwChange(props) {
   };
   const validatePassword = useMemo(
     () =>
-      !(input.password === undefined || input.password === "") &&
-      !a_PwCheck(input.password),
+      !(input.newPassword === undefined || input.newPassword === "") &&
+      !a_PwCheck(input.newPassword),
     [input]
   );
   const validatePasswordCheck = useMemo(
     () =>
       !(input.password_check === undefined || input.password_check === "") &&
-      input.password != input.password_check,
+      input.newPassword != input.password_check,
     [input]
   );
   const inputChangeEvent = (event) => {
@@ -118,30 +110,46 @@ export default function PwChange(props) {
   };
   const submitClickEvent = async (event) => {
     try {
-      const response = await axios.patch(
-        url + "/accounts/mypage/",
-        { ...user, password: input.password },
-        { headers: { authorization: "jwt " + sessionStorage.token } }
-      );
-      alert("비밀번호가 변경되었습니다.");
-      setInput(initState)
+      const check = await axios.post(url + "/token/", {
+        email: user.email,
+        password: input.oldPassword,
+      });
+      try {
+        const response = await axios.patch(
+          url + "/accounts/mypage/",
+          { ...user, password: input.newPassword },
+          { headers: { authorization: "jwt " + sessionStorage.token } }
+        );
+        setInput(initState);
+        alert("비밀번호가 변경되었습니다.");
+      } catch (e) {
+        alert("비밀번호 변경에 실패했습니다.");
+      }
     } catch (e) {
-      console.error(e);
-      alert("비밀번호 변경에 실패했습니다.");
+      alert("현재 비밀번호가 일치하지 않습니다");
     }
   };
   return (
     <Box className={classes.root} onKeyPress={pressEnter}>
       <p className={classes.subtitle}>회원님의 정보를 수정해주세요 :)</p>
       <Box className={classes.textbox} boxShadow={3}>
-        <CssTextField
-          className={classes.textfield}
-          label="비밀번호"
-          variant="outlined"
-          name="password"
+        <InputText
+          value={input.oldPassword}
+          classes={classes.textfield}
+          disabled={false}
+          label="현재 비밀번호"
           onChange={inputChangeEvent}
+          name="oldPassword"
           type="password"
-          value={input.password}
+        />
+        <InputText
+          value={input.newPassword}
+          classes={classes.textfield}
+          disabled={false}
+          label="새 비밀번호"
+          onChange={inputChangeEvent}
+          name="newPassword"
+          type="password"
           error={validatePassword}
           helperText={
             validatePassword
@@ -149,9 +157,8 @@ export default function PwChange(props) {
               : ""
           }
         />
-
-        <CssTextField
-          className={classes.textfield}
+        <InputText
+          classes={classes.textfield}
           label="비밀번호 재입력"
           variant="outlined"
           name="password_check"

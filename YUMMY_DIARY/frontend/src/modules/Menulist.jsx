@@ -54,20 +54,33 @@ const Menulist = (props) => {
         props.history.push("/signup");
       },
     },
+    {
+      id: 5,
+      menuname: "myinfo",
+      event: () => {
+        props.setOpen(false);
+        props.history.push("/member");
+      },
+    },
   ];
 
   const menumap = {
-    "/": token === null ? [0, 1, 4] : [0, 3, 2],
+    "/": token === null ? [0, 1, 4] : [0, 3, 5, 2],
     "/signup": [0, 1],
     "/login": [0, 4],
-    "/detail": token === null ? [0, 1, 4] : [0, 3, 2],
-    "/mypage": [0,2]
+    "/detail": token === null ? [0, 1, 4] : [0, 3, 5, 2],
+    "/mypage": [0, 2],
+    "/member": [0, 3, 2],
   };
-  const currentHistory = '/'+props.currentHistory.split("/")[1];
+  const currentHistory = "/" + props.currentHistory.split("/")[1];
   return (
     <>
       {menumap[currentHistory].map((num, index) => (
-        <Button onClick={buttonlist[num].event} key={index} className={classes.button}>
+        <Button
+          onClick={buttonlist[num].event}
+          key={index}
+          className={classes.button}
+        >
           {buttonlist[num].menuname}
         </Button>
       ))}
