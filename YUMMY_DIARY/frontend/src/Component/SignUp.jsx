@@ -4,7 +4,8 @@ import {
   Box,
   TextField,
   Button,
-  withStyles
+  withStyles,
+  Chip
 } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
@@ -125,12 +126,26 @@ const SignUp = props => {
     "tags": [],
   });
 
-  const tag_choice = {
-    5963: "카페", 5897:"치킨", 5992:"커피", 3764:"술집",
-    3060:"삼겹살", 5410:"족발", 1763:"떡볶이", 6430:"피자",
-    6897:"횟집", 5581:"짬뽕", 1493:"돈까스", 6241:"파스타",
-    6528:"한우", 349:"고기집", 5972:"칼국수", 5481:"중국집", 2041:"맥주"
-  }
+  const [tag_choices, setTagChoices] = useState([
+    {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
+    {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
+    {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
+    {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
+    {tag_id:6528, content:"한우", state:0}, {tag_id:349, content:"고기집", state:0}, {tag_id:5972, content:"칼국수", state:0},
+    {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
+  ])
+  // const [tag_choices, setTagChoices] = useState([
+  //   {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
+  //   {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
+  //   {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
+  //   {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
+  //   {tag_id:6528, content:"한우", state:0}, {tag_id:349, content:"고기집", state:0}, {tag_id:5972, content:"칼국수", state:0},
+  //   {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
+  // ])
+
+  const handleTagClick = (tag_id) => {
+    console.info('You clicked the Chip.');
+  };
 
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
@@ -287,6 +302,22 @@ const SignUp = props => {
               </CssToggleButton>
             </Box>
           </Box>
+        </Box>
+        <Box
+          display="flex"
+          margin={0}
+          justifyContent="flex-start"
+          width="95%"
+          flexWrap="wrap"
+        >
+          {tag_choices.map((choice) => 
+            <Chip
+              variant={choice.state?"default":"outlined"}
+              label={choice.content}
+              id={choice.tag_id}
+              onClick={handleTagClick(choice.tag_id)}
+              margin="10px"/>
+          )}
         </Box>
         <Button
           className={classes.submitbutton}
