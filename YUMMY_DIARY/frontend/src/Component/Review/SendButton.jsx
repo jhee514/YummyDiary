@@ -11,7 +11,13 @@ const useStyles = makeStyles((theme) => ({
   },
   SendButton: {
     backgroundColor: "#FAC60E",
-    
+    border: "solid 2px",
+    borderColor: "#FBD85A",
+    '&:hover': {
+      borderColor: "#FAC60E",
+      backgroundColor: "#FAC60E",
+      color: "white"
+    }
   }
 }));
 

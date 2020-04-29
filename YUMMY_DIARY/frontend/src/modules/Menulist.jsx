@@ -72,6 +72,8 @@ const Menulist = (props) => {
     "/detail": token === null ? [0, 1, 4] : [0, 3, 5, 2],
     "/mypage": [0, 2],
     "/member": [0, 3, 2],
+    "/review": [0, 3, 2],
+    "/searchResult": token === null ? [0, 1, 4] : [0, 3, 2],
   };
   const currentHistory = "/" + props.currentHistory.split("/")[1];
   return (

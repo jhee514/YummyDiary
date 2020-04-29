@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Checkbox from '@material-ui/core/Checkbox';
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -54,7 +55,7 @@ const useStyles = makeStyles({
   tagName: {
     width: 50,
     height: 16,
-    marginTop: "10%",
+    marginTop: "6%",
     // marginRight: "2vh"
   }
 });
@@ -64,8 +65,8 @@ const useStyles = makeStyles({
 // Inspired by blueprintjs
 export default function StyledCheckbox(props) {
   const classes = useStyles();
-  // const {id, hashs, setHashs, add_hashs, setAdd_Hashs} = props;
-  const { id, hashs, setHashs } = props;
+  const {id, hashs, setHashs, add_hashs, setAdd_Hashs} = props;
+  // const { id, hashs, add_hashs, setAdd_Hashs } = props;
   const [hashs_check, setHashs_check] = useState([
     { id: 0, checkable: false },
     { id: 1, checkable: false },
@@ -79,6 +80,24 @@ export default function StyledCheckbox(props) {
     { id: 9, checkable: false },
   ])
 
+  const changeHandler = (event) => {
+    // console.log('변화감지!');
+
+    // if(hashs_check[id].checkable === false){
+      let temp = add_hashs
+      let current_value = event.target.value
+      if(temp.includes(current_value)){
+        temp.splice(temp.indexOf(current_value), 1)
+        // temp = temp.filter((hash) => hash !== current_value)
+      } else {
+        temp.push(current_value);
+      }
+      setAdd_Hashs(temp)
+      console.log(add_hashs);
+
+    // }
+  }
+
   return (
     <div className={classes.tagOuterDiv}>
       <div className={classes.checkDiv}>
@@ -91,10 +110,12 @@ export default function StyledCheckbox(props) {
           icon={<span className={classes.icon} />}
           inputProps={{ 'aria-label': 'decorative checkbox' }}
           {...props}
-        />
+          // checked={changeHandler}
+          // checked={add_hashs.includes(hashs[id].tagName)}
+          onChange={changeHandler}
+          />
       </div>
       <div className={classes.tagName}>{hashs[id].tagName}</div>
-      
     </div>
     
   );
