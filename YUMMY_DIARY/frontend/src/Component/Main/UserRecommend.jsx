@@ -41,27 +41,21 @@ const MainRecommend = (props) => {
         setRecommends(null);
         setLoading(true);
         const response = await axios.get(
-          //   url+"/stores/recommand/", {headers:{authorization : "jwt "+sessionStorage.getItem("token")}}
-          // url + "/stores/recommand/", { headers: { authorization: "jwt " + token } }
-          "http://127.0.0.1:8000/api/stores/recommand/",
-          { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
+        // 배포할때 아래 주석 풀어주어야함...
+        //   url + "/stores/recommand/", 
+        //   { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
+
+        // 로컬환경은 아래 주석 풀어주어야함...
+            "http://127.0.0.1:8000/api/stores/recommand/",
+            { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
         );
         // console.log(response)
         if (response.data.validation) {
-          // console.log(response.data.Recommand_Store);
-          //   let tmp = [];
-          //   response.data.Recommand_Store.forEach((item) => {
-          //     console.log(JSON.parse(JSON.stringify(item.store_list)));
-          //     tmp.push({
-          //       store_list: JSON.stringify(item.store_list),
-          //       category_name: item.category_name,
-          //     });
-          //   });
-          //   console.log(tmp);
           setRecommends(response.data.Recommand_Store);
           setDatavalidate(true);
         } else {
           alert(response.data.msg);
+          // 한식 , 중식, 일식 dummydata 만들기!
         }
       } catch (e) {
         console.error(e);

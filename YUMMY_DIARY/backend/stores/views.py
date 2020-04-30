@@ -71,8 +71,8 @@ def reviewcreate(request):
 
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
+# @permission_classes([AllowAny])
 def Recommend_User(request):
     list = {
         
@@ -94,6 +94,6 @@ def Recommend_User(request):
             array.append(copy.deepcopy(list))
         return Response(status=200, data={'Recommand_Store': array, "validation": True})
     else:
-        return Response(status=200, data={'msg': 'tag를 정해주세연~', "validation": False})
+        return Response(status=200, data={'msg': '로그인을 하시면 더 자세한 정보를 받으실 수 있습니다.', "validation": False})
 
         
