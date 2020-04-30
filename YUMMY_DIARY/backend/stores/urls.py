@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     path('reviewcreate/', views.reviewcreate, name='reviewcreate'),
     path('recommand/', views.Recommend_User, name='recommand'),
+    path('recommandMain/', views.recommend_Main, name='recommandMain'),
     path('search/', views.search_store, name='serach')
 ]

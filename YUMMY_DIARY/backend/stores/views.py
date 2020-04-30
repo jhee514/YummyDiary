@@ -83,7 +83,24 @@ def Recommend_User(request):
             list["store_list"].append(result.values())
         return Response(status=200, data={'Recommand_Store': list, "validation": True})
     else:
-        return Response(statue=200, data={'msg': '선호하는 tag를 정해주세요~', "validation": False})
+        return Response(status=200, data={'msg': '선호하는 tag를 정해주세요~', "validation": False})
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def recommend_Main(request):
+    res_data = {
+        "category_name": [
+            "카페", "치킨", "커피", "술집", "삼겹살"
+        ],
+        "store_list": [],
+        "validation": True
+    }
+    for cate in res_data["category_name"]:
+        stores = Store.objects.filter(category__contains=cate)[:10]
+        res_data["store_list"].append(stores.values())
+
+    return Response(status=200, data=res_data)
 
 
 @api_view(['POST'])
