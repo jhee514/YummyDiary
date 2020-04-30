@@ -38,7 +38,6 @@ const SearchResult = (props) => {
           url + "/stores/search/",
           getWord(props.match.params.values)
         );
-        console.log(response.data);
         setSearchData(response.data);
       } catch (e) {
         console.error(e);
@@ -73,7 +72,6 @@ const SearchResult = (props) => {
                 stores={searchData.store_by_name.store_by_name[0]}
               />
             )}
-            {/* {console.log(searchData.store_by_tag)} */}
             {searchData.store_by_tag.map((tagstore)=>{
               return(
                 <>

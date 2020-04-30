@@ -56,7 +56,6 @@ const MainSearch = (props) => {
       let temp = customHashs;
       const matched = (tag) => tag.content === newValue;
       const matchedTagNumber = temp.findIndex(matched);
-      console.log(reviewList)
       const matchedOldTag = reviewList.hashtag.findIndex(matched);
       if (matchedTagNumber == -1 && matchedOldTag == -1) {
         temp.push({ content: newValue });

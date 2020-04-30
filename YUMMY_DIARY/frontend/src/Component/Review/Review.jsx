@@ -2,18 +2,14 @@ import React, { useState, useEffect } from "react";
 import {
   makeStyles,
   Container,
-  Avatar,
   Grid,
-  Paper,
   Box,
   Button,
 } from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
 import ReviewHash from "./ReviewHash";
-import ReviewAddHash from "./ReviewAddHash";
 import MainSearch from "./ReviewAddHash";
-import SendButton from "./SendButton";
 import axios from "axios";
 import { url } from "../../modules/config";
 
