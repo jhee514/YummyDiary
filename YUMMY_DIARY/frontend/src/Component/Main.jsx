@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  searchbox: {
-    width: "70%",
-    minWidth: "80vw",
-  },
 }));
 const Main = (props) => {
   const classes = useStyles();
@@ -43,7 +39,7 @@ const Main = (props) => {
       {/* 검색 바 영역 */}
       <Box width="80%" marginTop={1}>
         {/* <DraggableCategories /> */}
-        <MainSearch />
+        <MainSearch history={props.history}/>
       </Box>
       {/* 광고 및 배너 영역 */}
       <Box className={classes.bannerbox}>
