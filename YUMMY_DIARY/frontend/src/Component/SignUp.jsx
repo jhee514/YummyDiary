@@ -7,7 +7,6 @@ import {
   withStyles,
   Chip
 } from "@material-ui/core";
-import {grey, yellow} from '@material-ui/core/colors';
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
@@ -49,6 +48,11 @@ const useStyles = makeStyles(theme => ({
   },
   subtitle: {
     margin: "0vh 0vw 2vh 0vw"
+  },
+  question: {
+    margin: "0vh 0vw 0vh 0vw",
+    color:"#7A6107",
+    textAlign: "center"
   },
   textbox: {
     display: "flex",
@@ -117,15 +121,16 @@ const useStyles = makeStyles(theme => ({
   // chip css 조정
   chip : {
     // outlined 일 때 css
-    "&.MuiChip-outlinedPrimary":{
-      backgroundColor:"white",
-      color :"black"
+    "&.MuiChip-colorPrimary":{
+      color : "#7A6107",
+      border: "1px solid #BA940B"
     },
     // default 일 때 css
     "&.MuiChip-colorSecondary":{
-      backgroundColor : "green",
-      color : "black"
-    }
+      backgroundColor : "#FBD85A",
+      color : "#3B2F04",
+      border: "1px solid #3B2F04"
+    },
   }
 }));
 
@@ -141,13 +146,6 @@ const SignUp = props => {
   });
 
   const [tag_choices, setTagChoices] = useState([
-  // const tag_choices = [
-    // [5963, "카페", true], [5897, "치킨", true], [5992, "커피", false], 
-    // [3764, "술집", false], [3060, "삼겹살", false], [5410, "족발", false],
-    // [1763, "떡볶이", false], [6430, "피자", false], [6897, "횟집", false], 
-    // [5581, "짬뽕", false], [1493, "돈까스", false], [6241, "파스타", false],
-    // [6528, "한우", false], [349, "고기집", false], [5972, "칼국수", false],
-    // [5481, "중국집", false], [2041, "맥주", false]
     {tag_id: 5963, content: "카페"}, {tag_id:5897, content:"치킨"}, {tag_id:5992, content:"커피"}, 
     {tag_id:3764, content:"술집"}, {tag_id:3060, content:"삼겹살"}, {tag_id:5410, content:"족발"},
     {tag_id:1763, content:"떡볶이"}, {tag_id:6430, content:"피자"}, {tag_id: 6897, content:"횟집"}, 
@@ -155,42 +153,25 @@ const SignUp = props => {
     {tag_id:6528, content:"한우"}, {tag_id:349, content:"고기집"}, {tag_id:5972, content:"칼국수"},
     {tag_id:5481, content:"중국집"}, {tag_id:2041, content:"맥주"}
   ])
-  // const [tag_choices, setTagChoices] = useState([
-  //   {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
-  //   {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
-  //   {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
-  //   {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
-  //   {tag_id:6528, content:"한우", state:0}, {tag_id:349, content:"고기집", state:0}, {tag_id:5972, content:"칼국수", state:0},
-  //   {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
-  // ])
 
   const handleTagClick = (newTag)=>() => {
     let temp = input.tags;
-    const matched = (tag) => tag.content === newTag.content;
+    const matched = (tag) => tag === newTag.tag_id;
     const matchedIndex = temp.findIndex(matched);
-    
+
     if(matchedIndex == -1){
-      temp.push(newTag)
+      if (temp.length === 5) {
+        alert("태그는 최대 5개까지만 선택 가능합니다")
+      } else {
+        temp.push(newTag.tag_id)
+      }
     }else{
       temp.splice(matchedIndex,1)
     }
     setInput({...input,tags : temp})
-    // for (let choice of tag_choices) {
-    //   if (choice[0] === tag_id) {
-    //     choice[2] = !choice[2]
-    //   }
-    //   temp += choice
-    // }
-
-    // for (let choice of tag_choices) {
-    //   if (choice.tag_id === tag_id) {
-    //     choice.state = !choice.state
-    //   }
-    //   temp += choice
-    // }
-    // console.log("temp")
-    // console.log(temp)
-    // setTagChoices({ ...tag_choices, temp});
+    // console.log("input.tags")
+    // console.log(input.tags)
+    // console.log(input)
   };
 
   const inputChangeEvent = event => {
@@ -201,14 +182,13 @@ const SignUp = props => {
     setInput({ ...input, gender: event.currentTarget.value });
   };
   const submitClickEvent = async event => {
-    console.log("input")
-    console.log(input)
     if (
       a_EmailCheck(input.email) &&
       a_PwCheck(input.password) &&
       input.password === input.password_check &&
       a_AgeCheck(input.birth_year) &&
-      input.gender !== ""
+      input.gender !== "" &&
+      input.tags.length>=2
     ) {
       const result = await axios.post(url+'/accounts/signup/',input).then(data=>{
         alert("가입되었습니다")
@@ -217,7 +197,7 @@ const SignUp = props => {
         alert("다시 입력해주세요")
       })
     } else {
-      alert("정확히 입력해주세요");
+      alert("각 항목을 정확히 입력해주세요");
     }
   };
 
@@ -275,7 +255,7 @@ const SignUp = props => {
         {a_PwCheck(input.password) ? 
           <CssTextField
             className={classes.textfield}
-            label="비밀번호 재입력"
+            label="비밀번호 확인"
             variant="outlined"
             name="password_check"
             onChange={inputChangeEvent}
@@ -349,6 +329,7 @@ const SignUp = props => {
             </Box>
           </Box>
         </Box>
+        <p className={classes.question}>다음 중 좋아하는 카테고리를 선택해주세요<br/>(최소 2개 이상 최대 5개 이하)</p>
         <Box
           display="flex"
           margin={1}
@@ -358,16 +339,9 @@ const SignUp = props => {
         >
           {tag_choices.map((choice) => 
             <Box margin="3px">
-              {/* <Chip
-                variant={choice[2]?"default":"outlined"}
-                color="primary"
-                label={choice[1]}
-                id={choice[0]}
-                onClick={handleTagClick(choice[0])}
-              /> */}
               <Chip
-                variant={input.tags.findIndex((tag)=>tag.content === choice.content) != -1 ? "default":"outlined"}
-                color={input.tags.findIndex((tag)=>tag.content === choice.content) != -1 ? "secondary":"primary"}
+                variant={input.tags.findIndex((tag)=>tag === choice.tag_id) != -1 ? "default":"outlined"}
+                color={input.tags.findIndex((tag)=>tag === choice.tag_id) != -1 ? "secondary":"primary"}
                 label={choice.content}
                 id={choice.tag_id}
                 onClick={handleTagClick(choice)}
