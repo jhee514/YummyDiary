@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { makeStyles, Container, Avatar, Grid, Paper, Box, Button } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import {
+  makeStyles,
+  Container,
+  Avatar,
+  Grid,
+  Paper,
+  Box,
+  Button,
+} from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
 import ReviewHash from "./ReviewHash";
@@ -7,11 +15,12 @@ import ReviewAddHash from "./ReviewAddHash";
 import MainSearch from "./ReviewAddHash";
 import SendButton from "./SendButton";
 import axios from "axios";
+import { url } from "../../modules/config";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: "10px", // "top , left"
-    marginLeft: "10%"
+    marginLeft: "10%",
   },
   title: {
     fontSize: "30px",
@@ -39,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   score_Div: {
-    marginLeft: "25vh"
+    marginLeft: "25vh",
   },
   substoreScore_subTitle: {
     // marginTop: "50px",
@@ -64,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   h2_Name: {
     marginTop: "20px",
     marginLeft: "25vh",
-    width: "30vh"
+    width: "30vh",
   },
   score_Box: {
     width: "90%",
@@ -83,8 +92,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "15px",
     alignItems: "center",
     marginLeft: "3%",
-    width: "100%"
-    
+    width: "100%",
   },
   addTag_h2: {
     marginLeft: "27vh",
@@ -99,123 +107,155 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#FAC60E",
     border: "solid 2px",
     borderColor: "#FBD85A",
-    '&:hover': {
+    "&:hover": {
       borderColor: "#FAC60E",
       backgroundColor: "#FAC60E",
-      color: "white"
-    }
+      color: "white",
+    },
   },
   outerBox: {
-    marginLeft: "2vw"
+    marginLeft: "2vw",
   },
   line: {
     marginTop: "4vw",
     marginLeft: "27vh",
     borderColor: "#FAC60E",
     border: "solid 1px",
-    width: "68%"
+    width: "68%",
   },
 }));
 
-
-function CustomizedReview() {
+function CustomizedReview(props) {
   const classes = useStyles();
-  const [ratings, setRatings] = useState([
-    { id: 0, label: "맛을 평가해주세요", rating: 0, title: "맛" },
-    { id: 1, label: "가격을 평가해주세요", rating: 0, title: "가격" },
-    { id: 2, label: "서비스를 평가해주세요", rating: 0, title: "서비스" },
-  ]);
-
-  const [reviews, setReviews] = useState('');
-
   const [hashs, setHashs] = useState([
-    { id: 0, tagName: "한식"},
-    { id: 1, tagName: "중식"},
-    { id: 2, tagName: "일식"},
-    { id: 3, tagName: "양식"},
-    { id: 4, tagName: "분위기 좋은"},
-    { id: 5, tagName: "양 많은"},
-    { id: 6, tagName: "가성비 좋은"},
-    { id: 7, tagName: "저렴한"},
-    { id: 8, tagName: "서비스 좋은"},
-    { id: 9, tagName: "맛있는"},
+    { id: 0, tagName: "한식" },
+    { id: 1, tagName: "중식" },
+    { id: 2, tagName: "일식" },
+    { id: 3, tagName: "양식" },
+    { id: 4, tagName: "분위기 좋은" },
+    { id: 5, tagName: "양 많은" },
+    { id: 6, tagName: "가성비 좋은" },
+    { id: 7, tagName: "저렴한" },
+    { id: 8, tagName: "서비스 좋은" },
+    { id: 9, tagName: "맛있는" },
   ]);
-
-  const [add_hashs, setAdd_Hashs] = useState([]);
-  const [custom_hashs, setCustom_Hashs] = useState([]);
+  const store = props.match.params.store;
+  const [customHashs, setCustomHashs] = useState([]);
   const [reviewList, setReviewList] = useState({
-    id: "",
-    user_id: "",
-    store_id: "",
+    store: store,
     contents: "",
-    score: "",
-    tags: "",
+    scores: [
+      { id: 0, label: "맛을 평가해주세요", rating: 0, title: "맛" },
+      { id: 1, label: "가격을 평가해주세요", rating: 0, title: "가격" },
+      { id: 2, label: "서비스를 평가해주세요", rating: 0, title: "서비스" },
+    ],
+    hashtag: [],
   });
-
-  const SendReviewData = (event) => { // 통신보낼 데이터 리스트 작업공간
-    // console.log("거 좀 누르지 마쇼");
-    let score1 = ratings[0].rating, score2 = ratings[1].rating, score3 = ratings[2].rating
-    let total_avg_score = ((score1 + score2 + score3)/3.0).toFixed(1)
-    let review_Text = reviews;
-    
-    //예외처리
-    if(score1 == 0 || score2 == 0 || score3 == 0){ // reviewScore 예외처리
-      alert('모든 항목의 별점을 부여해주세요')
-    } else if(review_Text === ''){
-      alert('리뷰 내용을 적어주세요.')
+  useEffect(() => {
+    if (sessionStorage.getItem("token") === null) {
+      props.history.push("/");
     }
-
-    // else { // reviewScore 예외처리 완료
-    //   alert('문제없음 ~!~!')
-    //   console.log(total_avg_score);
-    // }
-  }
+  }, []);
+  const SendReviewData = async (event) => {
+    // 통신보낼 데이터 리스트 작업공간
+    let score1 = reviewList.scores[0].rating,
+      score2 = reviewList.scores[1].rating,
+      score3 = reviewList.scores[2].rating;
+    let total_avg_score = ((score1 + score2 + score3) / 3.0).toFixed(1);
+    //예외처리
+    if (score1 == 0 || score2 == 0 || score3 == 0) {
+      // reviewScore 예외처리
+      alert("모든 항목의 별점을 부여해주세요");
+    } else if (reviewList.contents === "") {
+      alert("리뷰 내용을 적어주세요.");
+    } else {
+      try {
+        const response = await axios.post(
+          url + "/stores/reviewcreate/",
+          {
+            content: reviewList.contents,
+            store: reviewList.store,
+            hashtag: reviewList.hashtag.concat(customHashs),
+            total_score: total_avg_score,
+          },
+          {
+            headers: {
+              authorization: "jwt " + sessionStorage.getItem("token"),
+            },
+          }
+        );
+        alert("등록완료!");
+        props.history.push("/detail/" + store);
+      } catch (e) {
+        console.error(e);
+        alert("잘못된 정보입니다!");
+      }
+    }
+  };
   return (
     <Box className={classes.outerBox}>
       <Container className={classes.container}>
-
         <h1 className={classes.title}>Review Page</h1>
 
         <Box className={classes.score_Box}>
-          {ratings.map((rating) => (
-            <Grid className={classes.subStoreScore_starPoint}>
+          {reviewList.scores.map((rating) => (
+            <Grid className={classes.subStoreScore_starPoint} key={rating.id}>
               <div className={classes.h2_Name}>
                 <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
               </div>
               <div className={classes.score_Div}>
-                <ReviewScore ratings={ratings} id={rating.id} setRatings={setRatings}/>
+                <ReviewScore
+                  rating={rating}
+                  id={rating.id}
+                  reviewList={reviewList}
+                  setReviewList={setReviewList}
+                />
               </div>
-            </Grid>  
+            </Grid>
           ))}
         </Box>
 
         <Box>
           <Grid className={classes.subStoreScore}>
-            <ReviewTextField className={classes.ReviewTextField1} reviews={reviews} setReviews={setReviews} />
+            <ReviewTextField
+              className={classes.ReviewTextField1}
+              reviewList={reviewList}
+              setReviewList={setReviewList}
+            />
           </Grid>
         </Box>
 
         <Box>
-            <h2 className={classes.addTag_h2}>원하는 태그를 골라주세요!</h2>
+          <h2 className={classes.addTag_h2}>원하는 태그를 골라주세요!</h2>
           <Grid className={classes.subStoreScore}>
             <div className={classes.divHash}>
-              {hashs.map((hash) => (
-                <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} add_hashs={add_hashs} setAdd_Hashs={setAdd_Hashs} />
+              {hashs.map((hash, index) => (
+                <ReviewHash
+                  id={hash.id}
+                  hashs={hashs}
+                  reviewList={reviewList}
+                  setReviewList={setReviewList}
+                  customHashs={customHashs}
+                  key={index}
+                />
                 // <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} />
               ))}
             </div>
           </Grid>
-            <hr className={classes.line}></hr>
-            <h2 className={classes.addTag_h2}>원하는 태그가 없으면 만들어주세요!</h2>
-            <MainSearch custom_hashs={custom_hashs} setCustom_Hashs={setCustom_Hashs} />
+          <hr className={classes.line}></hr>
+          <h2 className={classes.addTag_h2}>
+            원하는 태그가 없으면 만들어주세요!
+          </h2>
+          <MainSearch
+            customHashs={customHashs}
+            setCustomHashs={setCustomHashs}
+            reviewList={reviewList}
+          />
         </Box>
       </Container>
       <Box className={classes.sendButtonBox}>
-        <Button 
-          className={classes.sendButton}
-          onClick={SendReviewData}
-        >
-        리뷰 올리기
+        <Button className={classes.sendButton} onClick={SendReviewData}>
+          리뷰 올리기
         </Button>
       </Box>
     </Box>

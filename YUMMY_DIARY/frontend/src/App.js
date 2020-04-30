@@ -20,7 +20,7 @@ function App() {
         <Route path="/mypage" component={MyPage} />
         <Route path="/searchResult" component={SearchResult} />
         <Route path="/detail/:id" component={Detail} />
-        <Route path="/review" component={Review} />
+        <Route path="/review/:store" component={Review} />
         <Route path="/member" component={Member} />
       </Layout>
     </BrowserRouter>

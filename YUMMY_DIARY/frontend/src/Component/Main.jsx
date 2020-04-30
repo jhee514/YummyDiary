@@ -12,15 +12,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   bannerbox: {
-    width: "35%",
+    width: "80%",
     minWidth: "20vw",
     minHeight: "20vh",
     marginTop: "4vh",
     marginBottom: "4vh",
-    // justifyContent: "center",
-    padding: "1vh 0 1vh 0",
-    // flexDirection: "column",
-    // alignItems: "center",
   },
   image: {
     maxHeight: "100%",
