@@ -30,8 +30,8 @@ const MainRecommend = (props) => {
   const [storenames, setStorenames] = useState([]);
   const [datavalidate, setDatavalidate] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const token = sessionStorage.getItem("token");
-  const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NTAzNzksInVzZXJuYW1lIjoiYmFjazFAc3NhZnkuY29tIiwiZXhwIjoxNTg4NzY0MTQyLCJlbWFpbCI6ImJhY2sxQHNzYWZ5LmNvbSIsIm9yaWdfaWF0IjoxNTg4MTU5MzQyfQ.ypQbBJdU_ZMG16GPEC4heSly9jXLwk7XhbpsaJNAd8k`;
+//   const token = sessionStorage.getItem("token");
+//   const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NTAzNzksInVzZXJuYW1lIjoiYmFjazFAc3NhZnkuY29tIiwiZXhwIjoxNTg4NzY0MTQyLCJlbWFpbCI6ImJhY2sxQHNzYWZ5LmNvbSIsIm9yaWdfaWF0IjoxNTg4MTU5MzQyfQ.ypQbBJdU_ZMG16GPEC4heSly9jXLwk7XhbpsaJNAd8k`;
   //   console.log(token);
 
   useEffect(() => {
@@ -44,21 +44,21 @@ const MainRecommend = (props) => {
           //   url+"/stores/recommand/", {headers:{authorization : "jwt "+sessionStorage.getItem("token")}}
           // url + "/stores/recommand/", { headers: { authorization: "jwt " + token } }
           "http://127.0.0.1:8000/api/stores/recommand/",
-          { headers: { authorization: "jwt " + token } }
+          { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
         );
         // console.log(response)
         if (response.data.validation) {
           // console.log(response.data.Recommand_Store);
-        //   let tmp = [];
-        //   response.data.Recommand_Store.forEach((item) => {
-        //     console.log(JSON.parse(JSON.stringify(item.store_list)));
-        //     tmp.push({
-        //       store_list: JSON.stringify(item.store_list),
-        //       category_name: item.category_name,
-        //     });
-        //   });
-        //   console.log(tmp);
-          setRecommends( response.data.Recommand_Store);
+          //   let tmp = [];
+          //   response.data.Recommand_Store.forEach((item) => {
+          //     console.log(JSON.parse(JSON.stringify(item.store_list)));
+          //     tmp.push({
+          //       store_list: JSON.stringify(item.store_list),
+          //       category_name: item.category_name,
+          //     });
+          //   });
+          //   console.log(tmp);
+          setRecommends(response.data.Recommand_Store);
           setDatavalidate(true);
         } else {
           alert(response.data.msg);
@@ -73,40 +73,28 @@ const MainRecommend = (props) => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
+    slidesToShow: 4,
+    slidesToScroll: 10,
   };
+  console.log();
 
   return (
     <div>
-      <Typography>사용자 기반 추천 목록</Typography>
-      {
-        <Slider {...settings} className={classes.slider}>
-          {loading ? (
-            <div>
-              <ScaleLoader />
+      <Typography variant="h5">사용자 기반 추천 목록</Typography>
+      {loading ? (
+        <div>정보를 불러오는 중입니다.....</div>
+      ) : (
+        <div>
+          {recommends.map((recommend) => (
+            <div key={recommend.category_name}>
+              <Typography variant="h6">
+                category : {recommend.category_name}
+              </Typography>
+              <SliderRecommend recommend={recommend} />
             </div>
-          ) : (
-            <>
-              {datavalidate ? (
-                <div>
-                  {recommends.map((recommend, index, array) => {
-                    return (
-                      <SliderRecommend
-                        index={index}
-                        recommend={recommend}
-                        array={array}
-                      ></SliderRecommend>
-                    );
-                  })}
-                </div>
-              ) : (
-                <></>
-              )}
-            </>
-          )}
-        </Slider>
-      }
+          ))}
+        </div>
+      )}
     </div>
   );
 };

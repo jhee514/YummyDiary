@@ -49,7 +49,7 @@ const MainRecommend = (props) => {
   };
   return (
     <div>
-      <Typography>추천목록</Typography>
+      <Typography variant="h5">추천목록</Typography>
       {
         <Slider {...settings} className={classes.slider}>
           {loading ? (
@@ -59,7 +59,7 @@ const MainRecommend = (props) => {
           ) : (
             stores.map((store) => (
               <div key={store.id}>
-                {console.log(store)}
+                {/* {console.log(store)} */}
                 <img
                   src={store.image}
                   alt={store.name}
