@@ -12,14 +12,33 @@ const CssTextField = withStyles({
   },
 })(TextField);
 const InputText = (props) => {
-  const { value, onChange, disabled, label, name ,classes,type, error, helperText} = props
+  const {
+    value,
+    onChange,
+    disabled,
+    label,
+    name,
+    variant,
+    classes,
+    type,
+    error,
+    helperText,
+    multiline,
+    placeholder,
+    rows,
+    fullWidth,
+  } = props;
   return (
     <CssTextField
       className={classes}
       label={label}
-      variant="outlined"
-      type={type===undefined? "text":type}
-      disabled ={disabled===undefined? false : disabled}
+      rows={rows}
+      variant={variant === undefined ? "outlined" : variant}
+      type={type === undefined ? "text" : type}
+      disabled={disabled === undefined ? false : disabled}
+      multiline={multiline === undefined ? false : multiline}
+      fullWidth={fullWidth === undefined ? false : fullWidth}
+      placeholder={placeholder}
       value={value}
       name={name}
       onChange={onChange}
