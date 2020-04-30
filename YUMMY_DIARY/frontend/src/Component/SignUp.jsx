@@ -169,9 +169,9 @@ const SignUp = props => {
       temp.splice(matchedIndex,1)
     }
     setInput({...input,tags : temp})
-    console.log("input.tags")
-    console.log(input.tags)
-    console.log(input)
+    // console.log("input.tags")
+    // console.log(input.tags)
+    // console.log(input)
   };
 
   const inputChangeEvent = event => {
