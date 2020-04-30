@@ -78,7 +78,7 @@ def user_page(request):
 @permission_classes([IsAuthenticated])
 def user_posts(request):
     user = request.user
-    posts = Post.objects.filter(user=user.id)
+    posts = Post.objects.filter(user=user.id).order_by('-created_at')
     from django.core import serializers
     from django.http import HttpResponse
     user_posts = serializers.serialize('json', posts)
