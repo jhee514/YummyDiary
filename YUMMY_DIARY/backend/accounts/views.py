@@ -1,18 +1,21 @@
-from django.contrib.auth import login as auth_login, logout as auth_log_out
+from django.core import serializers
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_log_out
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-
-from rest_framework.response import Response  # JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response  # JSON 응답 생성기
 
-from .models import UserTag
-from .serializers import UserCreationSerializer, UserSerializer, UserTagSerializer
 from posts.models import Post
 from posts.serializers import PostSerializer
 from stores.models import Tag
 
-from django.contrib.auth import get_user_model
+from .models import UserTag
+from .serializers import (UserCreationSerializer, UserSerializer,
+                          UserTagSerializer)
+
 User = get_user_model()
 
 
@@ -41,7 +44,12 @@ def user_page(request):
     user = request.user
     if request.method == 'GET':
         serializer = UserSerializer(user)
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        posts = Post.objects.filter(user=user.id)
+        user_posts = serializers.serialize('json', posts)
+        user_with_posts = serializer.data
+        user_with_posts["posts"] = user_posts
+        return HttpResponse(user_posts, content_type="text/json-comment-filtered")
 
 
     if request.method == 'PATCH':
@@ -70,14 +78,3 @@ def user_page(request):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=204)
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def user_posts(request):
-    user = request.user
-    posts = Post.objects.filter(user=user.id)
-    from django.core import serializers
-    from django.http import HttpResponse
-    user_posts = serializers.serialize('json', posts)
-    return HttpResponse(user_posts, content_type="text/json-comment-filtered")
