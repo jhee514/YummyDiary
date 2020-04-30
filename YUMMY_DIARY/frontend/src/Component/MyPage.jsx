@@ -3,6 +3,7 @@ import { makeStyles, Container,Typography, Avatar, Grid, Box,Paper } from "@mate
 import axios from "axios";
 import MyPageScore from "./MyPage/MyPageScore";
 import Slider from "react-slick";
+import { url } from "../modules/config";
 
 const useStyles = makeStyles((theme) => ({
     recommendbox:{
@@ -44,13 +45,8 @@ const MyPage = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        // 배포할때 아래 주석 풀어주어야함...
-        //   url + "/accounts/myposts/",
-        //   { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
-
-        // 로컬환경은 아래 주석 풀어주어야함...
-        "http://localhost:8000/api/accounts/myposts/",
-        { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
+          url + "/accounts/myposts/",
+          { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
       );
       console.log(response.data);
       setPosts(response.data);

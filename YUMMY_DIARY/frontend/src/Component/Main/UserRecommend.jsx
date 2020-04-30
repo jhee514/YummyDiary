@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const MainRecommend = (props) => {
-  const {history} = props;
+  const { history } = props;
   const classes = useStyles();
   const [recommends, setRecommends] = useState([]);
   const [storenames, setStorenames] = useState([]);
   const [datavalidate, setDatavalidate] = useState(false);
   const [loading, setLoading] = useState(true);
-//   const token = sessionStorage.getItem("token");
-//   const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NTAzNzksInVzZXJuYW1lIjoiYmFjazFAc3NhZnkuY29tIiwiZXhwIjoxNTg4NzY0MTQyLCJlbWFpbCI6ImJhY2sxQHNzYWZ5LmNvbSIsIm9yaWdfaWF0IjoxNTg4MTU5MzQyfQ.ypQbBJdU_ZMG16GPEC4heSly9jXLwk7XhbpsaJNAd8k`;
+  //   const token = sessionStorage.getItem("token");
+  //   const token = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NTAzNzksInVzZXJuYW1lIjoiYmFjazFAc3NhZnkuY29tIiwiZXhwIjoxNTg4NzY0MTQyLCJlbWFpbCI6ImJhY2sxQHNzYWZ5LmNvbSIsIm9yaWdfaWF0IjoxNTg4MTU5MzQyfQ.ypQbBJdU_ZMG16GPEC4heSly9jXLwk7XhbpsaJNAd8k`;
   //   console.log(token);
 
   useEffect(() => {
@@ -41,15 +41,9 @@ const MainRecommend = (props) => {
         setDatavalidate(false);
         setRecommends(null);
         setLoading(true);
-        const response = await axios.get(
-        // 배포할때 아래 주석 풀어주어야함...
-        //   url + "/stores/recommand/", 
-        //   { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
-
-        // 로컬환경은 아래 주석 풀어주어야함...
-            "http://127.0.0.1:8000/api/stores/recommand/",
-            { headers: { authorization: "jwt " + sessionStorage.getItem("token") } }
-        );
+        const response = await axios.get(url + "/stores/recommand/", {
+          headers: { authorization: "jwt " + sessionStorage.getItem("token") },
+        });
         // console.log(response)
         if (response.data.validation) {
           setRecommends(response.data.Recommand_Store);
@@ -85,7 +79,7 @@ const MainRecommend = (props) => {
               <Typography variant="h6">
                 category : {recommend.category_name}
               </Typography>
-              <SliderRecommend recommend={recommend} history={history}/>
+              <SliderRecommend recommend={recommend} history={history} />
             </div>
           ))}
         </div>
