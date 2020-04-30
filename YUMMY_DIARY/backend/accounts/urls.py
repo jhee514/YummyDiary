@@ -8,5 +8,4 @@ urlpatterns = [
 
     path('mypage/', views.user_page, name='user_page'),
     path('myposts/', views.user_posts, name='user_posts'),
-
 ]
