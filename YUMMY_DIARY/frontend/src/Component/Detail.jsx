@@ -5,6 +5,9 @@ import {
   Typography,
   Divider,
   Button,
+  Grid,
+  Paper,
+  Chip,
 } from "@material-ui/core";
 import { storedetail } from "../modules/dummy";
 import { Rating } from "@material-ui/lab";
@@ -51,6 +54,26 @@ const useStyles = makeStyles((theme) => ({
     padding: "4vh 1vw 4vh 1vw",
   },
   divider: {},
+  reviewBox: {
+    display: "flex",
+
+    justifyContent: "center",
+  },
+  reviewContent: {
+    display: "flex",
+    width: "100%",
+    margin: "3vh 15px 3vh 15px",
+    border: "1px solid rgba(0, 0, 0, 0.12)",
+    flexDirection: "column",
+    padding: theme.spacing(1),
+  },
+  rating: {
+    "&.MuiRating-root": {
+      fontSize: "1.2rem",
+      alignSelf: "center",
+    },
+    marginLeft: theme.spacing(1),
+  },
 }));
 const Detail = (props) => {
   const classes = useStyles();
@@ -83,6 +106,7 @@ const Detail = (props) => {
     watch
   );
   const date = new Date();
+  const colorIndex = ["red", "darkorange", "green", "blue", "aquamarine","deeppink","forrestgreen","magenta","maroon","mediumorchid"];
   return (
     <>
       {loading ? (
@@ -194,27 +218,57 @@ const Detail = (props) => {
                 )}
               </Box>
               <Divider variant="middle" />
-              <Box className={classes.content}>
+              <Box>
                 {store.review === undefined || store.review.length === 0 ? (
                   <Typography>리뷰가 없습니다</Typography>
                 ) : (
                   <>
                     {store.review.map((item, index) => (
-                      <Box key={index}>
-                        <Box display="flex">
+                      <Box key={index} className={classes.reviewBox}>
+                        <Box className={classes.reviewContent}>
                           {/* <Typography>
                             {item.writer.gender === 0 ? "남" : "여"} {date.getFullYear()-item.writer.birth_year} 세
                           </Typography> */}
-                          <Rating
-                            name={index + ""}
-                            value={Number(item.total_score)}
-                            disabled
-                            precision={0.1}
-                            size="small"
-                          />
-                          <Typography>{item.reg_time.substring(0,4)+"년 " + item.reg_time.substring(5,7)+"월 " + item.reg_time.substring(8,10)+ "일"}</Typography>
+                          <Box display="flex">
+                            {item.hashtag.map((tag, index) => (
+                              <Chip
+                                label={tag.content}
+                                style={{
+                                  backgroundColor:
+                                    colorIndex[
+                                      Math.round(Math.random() * 10) %
+                                        colorIndex.length
+                                    ],
+                                    color:"white"
+                                }}
+                              />
+                            ))}
+                          </Box>
+                          <Typography>
+                            {item.reg_time.substring(0, 4) +
+                              "년 " +
+                              item.reg_time.substring(5, 7) +
+                              "월 " +
+                              item.reg_time.substring(8, 10) +
+                              "일"}
+                          </Typography>
+                          <Box display="flex">
+                            <Typography>
+                              {"평점 :" +
+                                Number(item.total_score).toFixed(1) +
+                                " / 5.0"}
+                            </Typography>
+                            <Rating
+                              name={index + ""}
+                              value={Number(item.total_score)}
+                              readOnly
+                              precision={0.1}
+                              className={classes.rating}
+                            />
+                          </Box>
+
+                          <Typography>{item.content}</Typography>
                         </Box>
-                        <Typography>{item.content}</Typography>
                       </Box>
                     ))}
                   </>
