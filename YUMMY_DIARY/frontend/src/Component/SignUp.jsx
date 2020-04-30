@@ -7,6 +7,7 @@ import {
   withStyles,
   Chip
 } from "@material-ui/core";
+import {grey, yellow} from '@material-ui/core/colors';
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_PwCheck, a_AgeCheck, a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
@@ -127,7 +128,14 @@ const SignUp = props => {
   });
 
   const [tag_choices, setTagChoices] = useState([
-    {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
+  // const tag_choices = [
+    // [5963, "카페", true], [5897, "치킨", true], [5992, "커피", false], 
+    // [3764, "술집", false], [3060, "삼겹살", false], [5410, "족발", false],
+    // [1763, "떡볶이", false], [6430, "피자", false], [6897, "횟집", false], 
+    // [5581, "짬뽕", false], [1493, "돈까스", false], [6241, "파스타", false],
+    // [6528, "한우", false], [349, "고기집", false], [5972, "칼국수", false],
+    // [5481, "중국집", false], [2041, "맥주", false]
+    {tag_id: 5963, content: "카페", state:1}, {tag_id:5897, content:"치킨", state:1}, {tag_id:5992, content:"커피", state:0}, 
     {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
     {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
     {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
@@ -144,7 +152,23 @@ const SignUp = props => {
   // ])
 
   const handleTagClick = (tag_id) => {
-    console.info('You clicked the Chip.');
+    let temp = []
+    // for (let choice of tag_choices) {
+    //   if (choice[0] === tag_id) {
+    //     choice[2] = !choice[2]
+    //   }
+    //   temp += choice
+    // }
+
+    // for (let choice of tag_choices) {
+    //   if (choice.tag_id === tag_id) {
+    //     choice.state = !choice.state
+    //   }
+    //   temp += choice
+    // }
+    // console.log("temp")
+    // console.log(temp)
+    // setTagChoices({ ...tag_choices, temp});
   };
 
   const inputChangeEvent = event => {
@@ -305,18 +329,28 @@ const SignUp = props => {
         </Box>
         <Box
           display="flex"
-          margin={0}
-          justifyContent="flex-start"
+          margin={1}
+          justifyContent="center"
           width="95%"
           flexWrap="wrap"
         >
           {tag_choices.map((choice) => 
-            <Chip
-              variant={choice.state?"default":"outlined"}
-              label={choice.content}
-              id={choice.tag_id}
-              onClick={handleTagClick(choice.tag_id)}
-              margin="10px"/>
+            <Box margin="3px">
+              {/* <Chip
+                variant={choice[2]?"default":"outlined"}
+                color="primary"
+                label={choice[1]}
+                id={choice[0]}
+                onClick={handleTagClick(choice[0])}
+              /> */}
+              <Chip
+                variant={choice.state?"default":"outlined"}
+                color="primary"
+                label={choice.content}
+                id={choice.tag_id}
+                onClick={handleTagClick(choice.tag_id)}
+              />
+            </Box>
           )}
         </Box>
         <Button
