@@ -5,7 +5,7 @@ import { useState } from "react";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import { top100Tags } from "../../modules/dummy";
-import { setWord, getWord } from "../../modules/searchword";
+import { setWord } from "../../modules/searchword";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiAutocomplete-root .MuiInput-underline:after": {
@@ -89,8 +89,6 @@ const MainSearch = (props) => {
       />
       <Button
         onClick={() => {
-          console.log(setWord(input.searchWord,input.searchTags))
-          console.log(props)
           props.history.push("/searchResult/"+setWord(input.searchWord,input.searchTags))
           
         }}
