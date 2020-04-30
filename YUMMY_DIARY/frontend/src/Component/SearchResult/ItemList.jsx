@@ -40,7 +40,6 @@ const MainRecommend = (props) => {
     slidesToShow: 4,
     slidesToScroll: 2,
   };
-  console.log(stores)
   return (
     <Box className={classes.searchResult_Box}>
       

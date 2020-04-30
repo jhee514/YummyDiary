@@ -89,8 +89,6 @@ const MainSearch = (props) => {
       />
       <Button
         onClick={() => {
-          console.log(setWord(input.searchWord,input.searchTags))
-          console.log(props)
           props.history.push("/searchResult/"+setWord(input.searchWord,input.searchTags))
           
         }}

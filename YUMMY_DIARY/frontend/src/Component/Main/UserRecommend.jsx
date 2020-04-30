@@ -17,7 +17,6 @@ const MainRecommend = (props) => {
         const response = await axios.get(url + "/stores/recommand/", {
           headers: { authorization: "jwt " + sessionStorage.getItem("token") },
         });
-        // console.log(response)
         if (response.data.validation) {
           setRecommends(response.data.Recommand_Store);
         } else {

@@ -58,7 +58,6 @@ const MyPage = (props) => {
         const response = await axios.get(url + "/accounts/myposts/", {
           headers: { authorization: "jwt " + sessionStorage.getItem("token") },
         });
-        console.log(response.data);
         setPosts(response.data);
       } catch (e) {
         props.history.push("/");
@@ -67,7 +66,6 @@ const MyPage = (props) => {
     fetchData();
   }, []);
   const handleOpen = () => {
-    console.log("open!")
     setOpen(true);
   };
   const handleClose = () =>{

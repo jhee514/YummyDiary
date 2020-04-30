@@ -22,8 +22,6 @@ const Layout = props => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const history = useHistory();
-  // console.log('history', history)
-  // // location: {pathname: "/", ...}
 
   return (
     <Fragment>

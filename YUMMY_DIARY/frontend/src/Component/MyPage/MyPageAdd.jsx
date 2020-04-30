@@ -69,7 +69,6 @@ const MyPageAdd = (props) => {
       const response = await axios.post(url + "/posts/post", value, {
         headers: { authorization: "jwt " + sessionStorage.getItem("token") },
       });
-      console.log(response);
       setOpen(false);
     } catch (e) {
       console.error(e);

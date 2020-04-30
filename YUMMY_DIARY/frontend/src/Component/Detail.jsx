@@ -97,7 +97,6 @@ const Detail = (props) => {
   const foldEvent = (event) => {
     setUnfold(!unfold);
   };
-  // console.log(props.match.params)
   const watch = true;
   const { latitude, longitude, timestamp, accuracy, error } = usePosition(
     watch

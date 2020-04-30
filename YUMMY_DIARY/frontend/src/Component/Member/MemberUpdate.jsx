@@ -87,7 +87,6 @@ const MemberUpdate = (props) => {
   const { user, setUser } = props;
   const inputChangeEvent = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
-    console.log(user);
   };
   const checkChangeEvent = (event) => {
     setUser({ ...user, gender: event.currentTarget.value });
