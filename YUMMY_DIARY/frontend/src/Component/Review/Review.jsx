@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  makeStyles,
-  Container,
-  Grid,
-  Box,
-  Button,
-} from "@material-ui/core";
+import { makeStyles, Container, Grid, Box, Button } from "@material-ui/core";
 import ReviewScore from "./ReviewScore";
 import ReviewTextField from "./ReviewTextField";
 import ReviewHash from "./ReviewHash";
@@ -14,10 +8,6 @@ import axios from "axios";
 import { url } from "../../modules/config";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: "10px", // "top , left"
-    marginLeft: "10%",
-  },
   title: {
     fontSize: "30px",
     textAlign: "center",
@@ -42,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginTop: "15px",
     alignItems: "center",
+    justifyContent:"center"
   },
   score_Div: {
     marginLeft: "25vh",
@@ -67,12 +58,14 @@ const useStyles = makeStyles((theme) => ({
     // margin: "25px 500px"
   },
   h2_Name: {
-    marginTop: "20px",
-    marginLeft: "25vh",
+    // marginTop: "20px",
+    // marginLeft: "25vh",
     width: "30vh",
   },
   score_Box: {
-    width: "90%",
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
     alignItems: "center",
   },
   divHash: {
@@ -80,8 +73,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "25px",
     marginBottom: "25px",
     alignItems: "center",
-    marginLeft: "20%",
-    width: "70%",
   },
   subStoreScore_starPoint: {
     display: "flex",
@@ -94,10 +85,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "27vh",
   },
   sendButtonBox: {
-    width: "10vh",
-    alignItems: "center",
     marginTop: "5vw",
-    marginLeft: "82vh",
+    display:"flex",
+    justifyContent:"center"
   },
   sendButton: {
     backgroundColor: "#FAC60E",
@@ -110,14 +100,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   outerBox: {
-    marginLeft: "2vw",
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "column",
   },
   line: {
     marginTop: "4vw",
-    marginLeft: "27vh",
     borderColor: "#FAC60E",
     border: "solid 1px",
-    width: "68%",
+    width:"70%"
   },
 }));
 
@@ -190,65 +182,62 @@ function CustomizedReview(props) {
   };
   return (
     <Box className={classes.outerBox}>
-      <Container className={classes.container}>
-        <h1 className={classes.title}>Review Page</h1>
+      <h1 className={classes.title}>Review Page</h1>
 
-        <Box className={classes.score_Box}>
-          {reviewList.scores.map((rating) => (
-            <Grid className={classes.subStoreScore_starPoint} key={rating.id}>
-              <div className={classes.h2_Name}>
-                <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
-              </div>
-              <div className={classes.score_Div}>
-                <ReviewScore
-                  rating={rating}
-                  id={rating.id}
-                  reviewList={reviewList}
-                  setReviewList={setReviewList}
-                />
-              </div>
-            </Grid>
-          ))}
-        </Box>
+      <Box className={classes.score_Box}>
+        {reviewList.scores.map((rating) => (
+          <Box display="flex" justifyContent="space-between" width="60%">
+            <Box className={classes.h2_Name}>
+              <h2 className={classes.storeScore_subTitle}>{rating.label}</h2>
+            </Box>
+            <Box className={classes.score_Div}>
+              <ReviewScore
+                rating={rating}
+                id={rating.id}
+                reviewList={reviewList}
+                setReviewList={setReviewList}
+              />
+            </Box>
+          </Box>
+        ))}
+      </Box>
 
-        <Box>
-          <Grid className={classes.subStoreScore}>
-            <ReviewTextField
-              className={classes.ReviewTextField1}
-              reviewList={reviewList}
-              setReviewList={setReviewList}
-            />
-          </Grid>
-        </Box>
-
-        <Box>
-          <h2 className={classes.addTag_h2}>원하는 태그를 골라주세요!</h2>
-          <Grid className={classes.subStoreScore}>
-            <div className={classes.divHash}>
-              {hashs.map((hash, index) => (
-                <ReviewHash
-                  id={hash.id}
-                  hashs={hashs}
-                  reviewList={reviewList}
-                  setReviewList={setReviewList}
-                  customHashs={customHashs}
-                  key={index}
-                />
-                // <ReviewHash id={hash.id} hashs={hashs} setHashs={setHashs} />
-              ))}
-            </div>
-          </Grid>
-          <hr className={classes.line}></hr>
-          <h2 className={classes.addTag_h2}>
-            원하는 태그가 없으면 만들어주세요!
-          </h2>
-          <MainSearch
-            customHashs={customHashs}
-            setCustomHashs={setCustomHashs}
+      <Box justifyContent="center" display="flex">
+          <ReviewTextField
+            className={classes.ReviewTextField}
             reviewList={reviewList}
+            setReviewList={setReviewList}
           />
+      </Box>
+
+      <Box justifyContent="center" display="flex" flexDirection="column">
+        <h2 className={classes.addTag_h2}>원하는 태그를 골라주세요!</h2>
+        <Box className={classes.subStoreScore}>
+          <div className={classes.divHash}>
+            {hashs.map((hash, index) => (
+              <ReviewHash
+                id={hash.id}
+                hashs={hashs}
+                reviewList={reviewList}
+                setReviewList={setReviewList}
+                customHashs={customHashs}
+                key={index}
+              />
+            ))}
+          </div>
         </Box>
-      </Container>
+        <hr className={classes.line}></hr>
+        <h2 className={classes.addTag_h2}>
+          원하는 태그가 없으면 만들어주세요!
+        </h2>
+        <Box display="flex" justifyContent="center">
+        <MainSearch
+          customHashs={customHashs}
+          setCustomHashs={setCustomHashs}
+          reviewList={reviewList}
+        />
+        </Box>
+      </Box>
       <Box className={classes.sendButtonBox}>
         <Button className={classes.sendButton} onClick={SendReviewData}>
           리뷰 올리기

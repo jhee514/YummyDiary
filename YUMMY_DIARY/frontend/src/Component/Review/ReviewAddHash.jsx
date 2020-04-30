@@ -16,8 +16,9 @@ import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "68%",
-    marginLeft: "27vh",
+    width: "70%",
+    display:"flex",
+    flexDirection:"column"
   },
   textfield: {
     marginBottom: "1vw",

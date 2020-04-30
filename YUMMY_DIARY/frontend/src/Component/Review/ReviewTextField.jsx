@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   textField_container: {
-    alignItems: "center",
-    marginLeft: "13%",
+    // alignItems: "center",
+    // marginLeft: "13%",
   },
   textfield: {
     marginBottom: "1vw",
