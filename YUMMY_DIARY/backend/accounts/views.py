@@ -44,13 +44,7 @@ def user_page(request):
     user = request.user
     if request.method == 'GET':
         serializer = UserSerializer(user)
-        # return Response(serializer.data)
-        posts = Post.objects.filter(user=user.id)
-        user_posts = serializers.serialize('json', posts)
-        user_with_posts = serializer.data
-        user_with_posts["posts"] = user_posts
-        return HttpResponse(user_posts, content_type="text/json-comment-filtered")
-
+        return Response(serializer.data)
 
     if request.method == 'PATCH':
         serializer = UserSerializer(instance=user, data=request.data, partial=True)
@@ -78,3 +72,14 @@ def user_page(request):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=204)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_posts(request):
+    user = request.user
+    posts = Post.objects.filter(user=user.id)
+    from django.core import serializers
+    from django.http import HttpResponse
+    user_posts = serializers.serialize('json', posts)
+    return HttpResponse(user_posts, content_type="text/json-comment-filtered")
