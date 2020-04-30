@@ -10,6 +10,8 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+import copy
+
 User = get_user_model()
 
 class StoreViewSet(viewsets.ModelViewSet):
@@ -73,9 +75,11 @@ def reviewcreate(request):
 @permission_classes([AllowAny])
 def Recommend_User(request):
     list = {
-        "category_name": [],
-        "store_list": []
+        
     }
+    array = [
+
+    ]
     user = get_object_or_404(User, id=request.user.id)
     # print(user.tags.count())
     # print(user.tags)
@@ -83,10 +87,12 @@ def Recommend_User(request):
         for tag in user.tags.all():
             temp = tag.content # temp: tags[]에 담겨있는 카테고리
             result = Store.objects.filter(category__contains=temp)[:5]
-            print(result.values())
-            list["category_name"].append(temp)
-            list["store_list"].append(result.values())
-        return Response(status=200, data={'Recommand_Store': list, "validation": True})
+            print(temp)
+            # print(result.values())
+            list["category_name"] = temp
+            list["store_list"] = result.values()
+            array.append(copy.deepcopy(list))
+        return Response(status=200, data={'Recommand_Store': array, "validation": True})
     else:
         return Response(status=200, data={'msg': 'tag를 정해주세연~', "validation": False})
 
