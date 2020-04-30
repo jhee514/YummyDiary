@@ -79,7 +79,5 @@ def user_page(request):
 def user_posts(request):
     user = request.user
     posts = Post.objects.filter(user=user.id).order_by('-created_at')
-    from django.core import serializers
-    from django.http import HttpResponse
     user_posts = serializers.serialize('json', posts)
     return HttpResponse(user_posts, content_type="text/json-comment-filtered")
