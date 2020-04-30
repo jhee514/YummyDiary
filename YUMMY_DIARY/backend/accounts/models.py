@@ -2,7 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.utils.translation import ugettext_lazy as _
+
+from stores.models import Tag
 
 import datetime
 
@@ -20,7 +21,8 @@ class User(AbstractUser):
         Female = 0
         Male = 1
     
-    gender = models.IntegerField(choices=Gender.choices)
+    gender = models.IntegerField(null=False, blank=True, choices=Gender.choices)
+    tags = models.ManyToManyField(Tag, through='UserTag')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -28,8 +30,6 @@ class User(AbstractUser):
     class Meta:
         ordering = ['email']
 
-    # def create_user(self, email, date_of_birth, password=None):
-    #     pass
 
     def get_absolute_url(self):
         return reverse("accounts:user_page", kwargs={"user_id": self.pk})
@@ -71,3 +71,10 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
+
+class UserTag(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag = models.ForeignKey('stores.Tag', on_delete=models.CASCADE)
+    
+    class Meta:
+        db_table='accounts_user_tags'

@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  makeStyles,
-  Button,
-  Typography,
-  Box,
-  withStyles,
-  Link,
-} from "@material-ui/core";
-import { carddata } from "../../modules/dummy";
+import { makeStyles, Typography, Link } from "@material-ui/core";
 import Slider from "react-slick";
 import "./style.scss";
 import axios from "axios";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import {url} from "../../modules/config"
 
 const useStyles = makeStyles((theme) => ({
   gridList: {
@@ -38,7 +31,7 @@ const MainRecommend = (props) => {
         setStores(null);
         setLoading(true);
         const response = await axios.get(
-          "http://localhost:8000/stores/stores/"
+          url+"/stores/stores/"
         );
         setStores(response.data.results);
       } catch (e) {
@@ -86,24 +79,6 @@ const MainRecommend = (props) => {
               </div>
             ))
           )}
-          {/* <GridList cols={2.5} className={classes.gridList}>
-          {carddata.map((data) => (
-            <GridListTile key={data.no} className={classes.gridListTile}>
-              <Typography variant="h5">{data.storeName}</Typography>
-              <Typography variant="body2">{data.content}</Typography>
-              <Typography variant="h6">{data.rating}</Typography>
-              {data.url ? (
-                
-                  <Button onClick={(event) => {
-                    props.history.push(data.url)
-                  }}>상세보기</Button>
-                
-              ) : (
-                <></>
-              )}
-            </GridListTile>
-          ))}
-        </GridList> */}
         </Slider>
       }
     </div>

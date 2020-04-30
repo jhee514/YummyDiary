@@ -5,11 +5,9 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Avatar,
   Box
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link } from "react-router-dom";
 import Menulist from "../modules/Menulist"
 
 const useStyles = makeStyles(theme => ({

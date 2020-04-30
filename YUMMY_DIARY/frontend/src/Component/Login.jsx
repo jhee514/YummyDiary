@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { a_EmailCheck } from "../modules/regCheck";
 import axios from "axios";
+import { url } from "../modules/config";
 
 const CssTextField = withStyles({
   root: {
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px"
   },
   subtitle: {
-    fontSize: "18px",
     margin: "0vh 0vw 2vh 0vw"
   },
   textbox: {
@@ -76,9 +76,6 @@ const useStyles = makeStyles((theme) => ({
         color: '#fafafa'
       },
     },
-    // '&:hover': {
-    //   borderColor: "rgb(117, 122, 122)",
-    // }
   },
   submitbutton: {
     marginBottom: "1vw",
@@ -93,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
   signupbutton: {
     marginBottom: "1vw",
-    width: "95%",
+    width: "85%",
     color: "#FAC60E",
     borderColor: "#FAC60E",
     border: "solid 2px",
@@ -120,9 +117,9 @@ const Login = (props) => {
       a_EmailCheck(input.email)
     ) {
     const result = await axios
-      .post("http://localhost:8000/token/", input)
-      .then((data) => {
-        sessionStorage.setItem("token", data.token);
+      .post(url+"/token/", input)
+      .then((resposne) => {
+        sessionStorage.setItem("token", resposne.data.token);
         props.history.push("/");
       })
       .catch((error) => {
@@ -133,12 +130,18 @@ const Login = (props) => {
     }
   };
 
+  const pressEnter = (e) => {
+    if (e.key === 'Enter') {
+      submitClickEvent();
+    }
+  };
+
   const signupClickEvent = (event) => {
     props.history.push("/signup");
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onKeyPress={pressEnter}>
       <b className={classes.title}>LOGIN</b>
       <p className={classes.subtitle}>오늘은 어떤 식사가 기다리고 있을까요? :)</p>
       <Box className={classes.textbox} boxShadow={3}>
@@ -170,16 +173,14 @@ const Login = (props) => {
         <Button
           className={classes.submitbutton}
           onClick={submitClickEvent}
-          variant="outlined"
         >
-          login
+          LOGIN
         </Button>
         
       </Box>
       <Box className={classes.textboxNoLine}>
-      <b>아직 YUMMY DIARY의 회원이 아니신가요?</b>
-      <p className={classes.subtitle}>회원가입을 통해 더 많은 정보와 혜택을 받아가세요!</p>
-
+        <b>아직 YUMMY DIARY의 회원이 아니신가요?</b>
+        <p className={classes.subtitle}>회원가입을 통해 더 많은 정보와 혜택을 받아가세요!</p>
         <Button
           className={classes.signupbutton}
           onClick={signupClickEvent}
