@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const MainRecommend = (props) => {
+  const {history} = props;
   const classes = useStyles();
   const [recommends, setRecommends] = useState([]);
   const [storenames, setStorenames] = useState([]);
@@ -84,7 +85,7 @@ const MainRecommend = (props) => {
               <Typography variant="h6">
                 category : {recommend.category_name}
               </Typography>
-              <SliderRecommend recommend={recommend} />
+              <SliderRecommend recommend={recommend} history={history}/>
             </div>
           ))}
         </div>
