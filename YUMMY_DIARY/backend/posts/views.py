@@ -4,13 +4,12 @@ from .serializers import PostSerializer
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
+from rest_framework.decorators import action, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from rest_framework.decorators import permission_classes
-
-from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 class SmallPagination(PageNumberPagination):
@@ -25,3 +24,10 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     pagination_class = SmallPagination
 
+    def create(self, request):
+        user = request.user
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=user)
+            return Response(serializer.data)
+        return Response(status=400, data=serializer.errors)

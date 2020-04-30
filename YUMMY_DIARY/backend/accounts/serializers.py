@@ -34,7 +34,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     tags = serializers.StringRelatedField(many=True, read_only=True)
-    
+
     class Meta:
         model = User
         fields = [
