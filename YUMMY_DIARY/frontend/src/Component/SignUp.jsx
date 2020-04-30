@@ -114,6 +114,19 @@ const useStyles = makeStyles(theme => ({
       color: "white"
     }
   },
+  // chip css 조정
+  chip : {
+    // outlined 일 때 css
+    "&.MuiChip-outlinedPrimary":{
+      backgroundColor:"white",
+      color :"black"
+    },
+    // default 일 때 css
+    "&.MuiChip-colorSecondary":{
+      backgroundColor : "green",
+      color : "black"
+    }
+  }
 }));
 
 const SignUp = props => {
@@ -135,12 +148,12 @@ const SignUp = props => {
     // [5581, "짬뽕", false], [1493, "돈까스", false], [6241, "파스타", false],
     // [6528, "한우", false], [349, "고기집", false], [5972, "칼국수", false],
     // [5481, "중국집", false], [2041, "맥주", false]
-    {tag_id: 5963, content: "카페", state:1}, {tag_id:5897, content:"치킨", state:1}, {tag_id:5992, content:"커피", state:0}, 
-    {tag_id:3764, content:"술집", state:0}, {tag_id:3060, content:"삼겹살", state:0}, {tag_id:5410, content:"족발", state:0},
-    {tag_id:1763, content:"떡볶이", state:0}, {tag_id:6430, content:"피자", state:0}, {tag_id: 6897, content:"횟집", state:0}, 
-    {tag_id:5581, content:"짬뽕", state:0}, {tag_id:1493, content:"돈까스", state:0}, {tag_id:6241, content:"파스타", state:0},
-    {tag_id:6528, content:"한우", state:0}, {tag_id:349, content:"고기집", state:0}, {tag_id:5972, content:"칼국수", state:0},
-    {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
+    {tag_id: 5963, content: "카페"}, {tag_id:5897, content:"치킨"}, {tag_id:5992, content:"커피"}, 
+    {tag_id:3764, content:"술집"}, {tag_id:3060, content:"삼겹살"}, {tag_id:5410, content:"족발"},
+    {tag_id:1763, content:"떡볶이"}, {tag_id:6430, content:"피자"}, {tag_id: 6897, content:"횟집"}, 
+    {tag_id:5581, content:"짬뽕"}, {tag_id:1493, content:"돈까스"}, {tag_id:6241, content:"파스타"},
+    {tag_id:6528, content:"한우"}, {tag_id:349, content:"고기집"}, {tag_id:5972, content:"칼국수"},
+    {tag_id:5481, content:"중국집"}, {tag_id:2041, content:"맥주"}
   ])
   // const [tag_choices, setTagChoices] = useState([
   //   {tag_id: 5963, content: "카페", state:0}, {tag_id:5897, content:"치킨", state:0}, {tag_id:5992, content:"커피", state:0}, 
@@ -151,8 +164,17 @@ const SignUp = props => {
   //   {tag_id:5481, content:"중국집", state:0}, {tag_id:2041, content:"맥주", state:0}
   // ])
 
-  const handleTagClick = (tag_id) => {
-    let temp = []
+  const handleTagClick = (newTag)=>() => {
+    let temp = input.tags;
+    const matched = (tag) => tag.content === newTag.content;
+    const matchedIndex = temp.findIndex(matched);
+    
+    if(matchedIndex == -1){
+      temp.push(newTag)
+    }else{
+      temp.splice(matchedIndex,1)
+    }
+    setInput({...input,tags : temp})
     // for (let choice of tag_choices) {
     //   if (choice[0] === tag_id) {
     //     choice[2] = !choice[2]
@@ -344,11 +366,12 @@ const SignUp = props => {
                 onClick={handleTagClick(choice[0])}
               /> */}
               <Chip
-                variant={choice.state?"default":"outlined"}
-                color="primary"
+                variant={input.tags.findIndex((tag)=>tag.content === choice.content) != -1 ? "default":"outlined"}
+                color={input.tags.findIndex((tag)=>tag.content === choice.content) != -1 ? "secondary":"primary"}
                 label={choice.content}
                 id={choice.tag_id}
-                onClick={handleTagClick(choice.tag_id)}
+                onClick={handleTagClick(choice)}
+                className={classes.chip}
               />
             </Box>
           )}
