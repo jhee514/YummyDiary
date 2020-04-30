@@ -69,15 +69,16 @@ def reviewcreate(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def Recommend_User(request):
     list = {
         "category_name": [],
         "store_list": []
     }
     user = get_object_or_404(User, id=request.user.id)
-    print(user.tags.count())
-    print(user.tags)
+    # print(user.tags.count())
+    # print(user.tags)
     if user.tags.count() > 0:
         for tag in user.tags.all():
             temp = tag.content # temp: tags[]에 담겨있는 카테고리
@@ -87,6 +88,6 @@ def Recommend_User(request):
             list["store_list"].append(result.values())
         return Response(status=200, data={'Recommand_Store': list, "validation": True})
     else:
-        return Response(statue=200, data={'msg': 'tag를 정해주세연~', "validation": False})
+        return Response(status=200, data={'msg': 'tag를 정해주세연~', "validation": False})
 
         

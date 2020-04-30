@@ -3,7 +3,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import MainBanner from "./Main/MainBanner";
 import MainSearch from "./Main/MainSearch";
 import MainRecommend from "./Main/MainRecommend";
-
+import UserRecommend from "./Main/UserRecommend";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +57,10 @@ const Main = (props) => {
       {/* 추천 */}
       <Box className={classes.recommendbox}>
         <MainRecommend history={props.history} />
+      </Box>
+
+      <Box className={classes.recommendbox}>
+        <UserRecommend history={props.history} />
       </Box>
     </Box>
   );
