@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   makeStyles,
-  Button,
   Typography,
   Box,
-  withStyles,
   Link,
 } from "@material-ui/core";
 // import { carddata } from "../../modules/dummy";
 import Slider from "react-slick";
 import "../Main/style.scss";
-import axios from "axios";
-import ScaleLoader from "react-spinners/ScaleLoader";
-import { url } from "../../modules/config";
 
 const useStyles = makeStyles((theme) => ({
   gridList: {

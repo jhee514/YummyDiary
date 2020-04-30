@@ -1,11 +1,7 @@
-import React, { useState } from "react";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import { makeStyles, Box, TextField, Button } from "@material-ui/core";
+import React from "react";
+import { makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import Checkbox from "@material-ui/core/Checkbox";
-import parse from "autosuggest-highlight/parse";
-import match from "autosuggest-highlight/match";
-import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -59,32 +55,27 @@ const useStyles = makeStyles({
     width: 50,
     height: 16,
     marginTop: "6%",
-    // marginRight: "2vh"
   },
 });
 
 // Inspired by blueprintjs
 export default function StyledCheckbox(props) {
   const classes = useStyles();
-  const { id, hashs, reviewList, setReviewList,customHashs } = props;
-  // const { id, hashs, add_hashs, setAdd_Hashs } = props;
-
+  const { id, hashs, reviewList, setReviewList, customHashs } = props;
   const changeHandler = (event) => {
-    // console.log('변화감지!');
-
     let temp = reviewList.hashtag;
     let current_value = event.target.value;
     const matchTarget = (tag) => tag.content === current_value;
     const result = temp.findIndex(matchTarget);
-    const resultCustom = customHashs.findIndex(matchTarget)
+    const resultCustom = customHashs.findIndex(matchTarget);
     if (result == -1 && resultCustom == -1) {
-      temp.push({content : current_value});
-    } else if(result != -1 && resultCustom == -1){
+      temp.push({ content: current_value });
+    } else if (result != -1 && resultCustom == -1) {
       temp.splice(result, 1);
-    } else{
-      alert("이미 추가된 태그입니다")
+    } else {
+      alert("이미 추가된 태그입니다");
     }
-    setReviewList({...reviewList, hashtag : temp})
+    setReviewList({ ...reviewList, hashtag: temp });
   };
 
   return (
@@ -95,7 +86,11 @@ export default function StyledCheckbox(props) {
           disableRipple
           color="default"
           value={hashs[id].tagName}
-          checked={reviewList.hashtag.findIndex((tag)=>tag.content ===hashs[id].tagName) != -1}
+          checked={
+            reviewList.hashtag.findIndex(
+              (tag) => tag.content === hashs[id].tagName
+            ) != -1
+          }
           checkedIcon={
             <span className={clsx(classes.icon, classes.checkedIcon)} />
           }

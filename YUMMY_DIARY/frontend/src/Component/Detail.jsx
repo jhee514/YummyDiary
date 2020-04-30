@@ -5,11 +5,8 @@ import {
   Typography,
   Divider,
   Button,
-  Grid,
-  Paper,
   Chip,
 } from "@material-ui/core";
-import { storedetail } from "../modules/dummy";
 import { Rating } from "@material-ui/lab";
 import KakaoMap from "./KakaoMap";
 import { usePosition } from "use-position";
@@ -105,7 +102,6 @@ const Detail = (props) => {
   const { latitude, longitude, timestamp, accuracy, error } = usePosition(
     watch
   );
-  const date = new Date();
   const colorIndex = ["red", "darkorange", "green", "blue", "aquamarine","deeppink","forrestgreen","magenta","maroon","mediumorchid"];
   return (
     <>
