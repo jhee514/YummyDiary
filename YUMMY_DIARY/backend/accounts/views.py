@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from django.contrib.auth import login as auth_login, logout as auth_log_out
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from rest_framework.response import Response  # JSON 응답 생성기
 from rest_framework.decorators import api_view, permission_classes
@@ -9,11 +8,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .models import UserTag
 from .serializers import UserCreationSerializer, UserSerializer, UserTagSerializer
+from posts.models import Post
+from posts.serializers import PostSerializer
 from stores.models import Tag
 
 from django.contrib.auth import get_user_model
-
-
 User = get_user_model()
 
 
@@ -25,7 +24,6 @@ def signup(request):
         user = serializer.save()
         user.set_password(user.password)
         user.save()
-        print(request.data)
         if "tags" in request.data.keys():
             for tags in request.data["tags"]:
                 tag = get_object_or_404(Tag, id=tags)
@@ -36,6 +34,7 @@ def signup(request):
     return Response(status=400, data=serializer.errors)
 
 
+
 @api_view(['GET', 'PATCH', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def user_page(request):
@@ -43,6 +42,7 @@ def user_page(request):
     if request.method == 'GET':
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
 
     if request.method == 'PATCH':
         serializer = UserSerializer(instance=user, data=request.data, partial=True)
@@ -70,3 +70,14 @@ def user_page(request):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=204)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_posts(request):
+    user = request.user
+    posts = Post.objects.filter(user=user.id)
+    from django.core import serializers
+    from django.http import HttpResponse
+    user_posts = serializers.serialize('json', posts)
+    return HttpResponse(user_posts, content_type="text/json-comment-filtered")

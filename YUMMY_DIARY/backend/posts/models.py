@@ -19,4 +19,4 @@ class Post(models.Model):
     score = models.FloatField(max_length=10)
 
     def __str__(self):
-        return '%s | %s | %s' % (self.writer, self.menus, self.created_at)
+        return '%s | %s | %s' % (self.user, self.menus, self.created_at)
