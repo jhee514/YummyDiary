@@ -7,15 +7,17 @@ const MainBanner = (props) => {
     { url: "/banner1.png" },
     { url: "/banner2.png" },
     { url: "/banner3.png" },
+    { url: "/banner4.png" },
+    { url: "/banner5.png" },
   ];
   const settings = {
     //dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1500,
+    autoplaySpeed: 2500,
     arrows:false
   };
   return (
