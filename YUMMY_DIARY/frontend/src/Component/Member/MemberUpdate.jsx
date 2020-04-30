@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { makeStyles, Box, Button, withStyles } from "@material-ui/core";
+import { makeStyles, Box, Button, withStyles, Chip } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { a_AgeCheck, a_EmailCheck } from "../../modules/regCheck";
 import axios from "axios";
@@ -15,7 +15,25 @@ const CssToggleButton = withStyles({
     },
   },
 })(ToggleButton);
-
+const tag_choices = [
+  { tag_id: 5963, content: "카페" },
+  { tag_id: 5897, content: "치킨" },
+  { tag_id: 5992, content: "커피" },
+  { tag_id: 3764, content: "술집" },
+  { tag_id: 3060, content: "삼겹살" },
+  { tag_id: 5410, content: "족발" },
+  { tag_id: 1763, content: "떡볶이" },
+  { tag_id: 6430, content: "피자" },
+  { tag_id: 6897, content: "횟집" },
+  { tag_id: 5581, content: "짬뽕" },
+  { tag_id: 1493, content: "돈까스" },
+  { tag_id: 6241, content: "파스타" },
+  { tag_id: 6528, content: "한우" },
+  { tag_id: 349, content: "고기집" },
+  { tag_id: 5972, content: "칼국수" },
+  { tag_id: 5481, content: "중국집" },
+  { tag_id: 2041, content: "맥주" },
+];
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -79,6 +97,20 @@ const useStyles = makeStyles((theme) => ({
       color: "rgb(117, 122, 122)",
     },
   },
+  // chip css 조정
+  chip : {
+    // outlined 일 때 css
+    "&.MuiChip-colorPrimary":{
+      color : "#7A6107",
+      border: "1px solid #BA940B"
+    },
+    // default 일 때 css
+    "&.MuiChip-colorSecondary":{
+      backgroundColor : "#FBD85A",
+      color : "#3B2F04",
+      border: "1px solid #3B2F04"
+    },
+  }
 }));
 
 const MemberUpdate = (props) => {
@@ -94,6 +126,7 @@ const MemberUpdate = (props) => {
   const submitClickEvent = async (event) => {
     if (a_AgeCheck(user.birth_year) && user.gender !== "") {
       try {
+        console.log(user)
         const response = await axios.post(url + "/token/", {
           email: user.email,
           password: user.password,
@@ -108,6 +141,7 @@ const MemberUpdate = (props) => {
             email: user.email,
             gender: user.gender,
             birth_year: user.birth_year,
+            tags : user.tags
           },
           {
             headers: {
@@ -121,7 +155,6 @@ const MemberUpdate = (props) => {
           "입력된 정보를 수정하는 중 오류가 발생했습니다 잠시후에 다시 시도해주세요"
         );
       }
-      alert("수정되었습니다");
     } else {
       alert("정확히 입력해주세요");
     }
@@ -138,6 +171,23 @@ const MemberUpdate = (props) => {
       user.password != user.password_check,
     [user]
   );
+  const handleTagClick = (newTag) => () => {
+    let temp = user.tags;
+    const matched = (tag) => tag === newTag.tag_id;
+    const matchedIndex = temp.findIndex(matched);
+
+    if (matchedIndex == -1) {
+      if (temp.length === 5) {
+        alert("태그는 최대 5개까지만 선택 가능합니다");
+      } else {
+        temp.push(newTag.tag_id);
+      }
+    } else {
+      temp.splice(matchedIndex, 1);
+    }
+    setUser({ ...user, tags: temp });
+  };
+
   return (
     <Box className={classes.root} onKeyPress={pressEnter}>
       <p className={classes.subtitle}>회원님의 정보를 수정해주세요 :)</p>
@@ -231,6 +281,39 @@ const MemberUpdate = (props) => {
             validatePasswordCheck ? "비밀번호가 일치하지 않습니다" : ""
           }
         />
+        <p className={classes.question}>
+          다음 중 좋아하는 카테고리를 선택해주세요
+          <br />
+          (최소 2개 이상 최대 5개 이하)
+        </p>
+        <Box
+          display="flex"
+          margin={1}
+          justifyContent="center"
+          width="95%"
+          flexWrap="wrap"
+        >
+          {tag_choices.map((choice) => (
+            <Box margin="3px">
+              <Chip
+                variant={
+                  user.tags.findIndex((tag) => tag === choice.tag_id) != -1
+                    ? "default"
+                    : "outlined"
+                }
+                color={
+                  user.tags.findIndex((tag) => tag === choice.tag_id) != -1
+                    ? "secondary"
+                    : "primary"
+                }
+                label={choice.content}
+                id={choice.tag_id}
+                onClick={handleTagClick(choice)}
+                className={classes.chip}
+              />
+            </Box>
+          ))}
+        </Box>
         <Button
           className={classes.submitbutton}
           size="large"

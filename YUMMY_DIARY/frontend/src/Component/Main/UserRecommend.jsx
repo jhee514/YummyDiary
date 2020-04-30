@@ -19,14 +19,15 @@ const MainRecommend = (props) => {
         });
         if (response.data.validation) {
           setRecommends(response.data.Recommand_Store);
+          setLoading(false);
         } else {
-          alert(response.data.msg);
-          // 한식 , 중식, 일식 dummydata 만들기!
+          alert("선호 태그를 추가하시면 더 많은 추천 정보를 볼 수 있습니다.");
+          setLoading(true);
         }
       } catch (e) {
         console.error(e);
       }
-      setLoading(false);
+      
     };
     fetchData();
   }, []);
@@ -38,7 +39,7 @@ const MainRecommend = (props) => {
         <>
           <Typography variant="h5">사용자 기반 추천 목록</Typography>
           {loading ? (
-            <div>정보를 불러오는 중입니다.....</div>
+            <div>선호 태그를 추가해주세요!</div>
           ) : (
             <div>
               {recommends.map((recommend) => (
