@@ -113,7 +113,6 @@ function DraggableCategories() {
       ...searchInput,
       keyword : event.target.value
     })
-    console.log(searchInput)
   }
   const onDragEnd = (result) => {
     const { source, destination } = result;

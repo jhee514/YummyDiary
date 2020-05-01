@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import InputText from "../Member/InputText";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   textField_container: {
-    alignItems: "center",
-    marginLeft: "13%",
+    // alignItems: "center",
+    // marginLeft: "13%",
   },
   textfield: {
     marginBottom: "1vw",
@@ -54,10 +53,8 @@ export default function MultilineTextFields(props) {
           variant="outlined"
           fullWidth={true}
           value={reviewList.contents}
-          // handleChange={handleChange()}
           onChange={(event) => {
             setReviewList({ ...reviewList, contents: event.target.value });
-            // console.log(reviews)
           }}
         />
       </div>

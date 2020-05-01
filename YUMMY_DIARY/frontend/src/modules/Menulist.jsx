@@ -70,7 +70,7 @@ const Menulist = (props) => {
     "/signup": [0, 1],
     "/login": [0, 4],
     "/detail": token === null ? [0, 1, 4] : [0, 3, 5, 2],
-    "/mypage": [0, 2],
+    "/mypage": [0, 5, 2],
     "/member": [0, 3, 2],
     "/review": [0, 3, 2],
     "/searchResult": token === null ? [0, 1, 4] : [0, 3, 2],

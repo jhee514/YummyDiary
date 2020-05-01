@@ -9,6 +9,8 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+import copy
+
 User = get_user_model()
 
 
@@ -68,22 +70,28 @@ def reviewcreate(request):
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
+# @permission_classes([AllowAny])
 def Recommend_User(request):
     list = {
-        "category_name": [],
-        "store_list": []
+        
     }
+    array = [
+
+    ]
     user = get_object_or_404(User, id=request.user.id)
     if user.tags.count() > 0:
         for tag in user.tags.all():
             temp = tag.content # temp: tags[]에 담겨있는 카테고리
-            result = Store.objects.filter(category__contains=temp)[:10]
-            list["category_name"].append(temp)
-            list["store_list"].append(result.values())
-        return Response(status=200, data={'Recommand_Store': list, "validation": True})
+            result = Store.objects.filter(category__contains=temp)[:5]
+            print(temp)
+            # print(result.values())
+            list["category_name"] = temp
+            list["store_list"] = result.values()
+            array.append(copy.deepcopy(list))
+        return Response(status=200, data={'Recommand_Store': array, "validation": True})
     else:
-        return Response(status=200, data={'msg': '선호하는 tag를 정해주세요~', "validation": False})
+        return Response(status=200, data={'msg': '로그인을 하시면 더 자세한 정보를 받으실 수 있습니다.', "validation": False})
 
 
 @api_view(['GET'])
@@ -144,5 +152,6 @@ def search_store(request):
         else:
             temp_data["validation"] = False
         res_data["store_by_tag"].append(temp_data)
+    
 
     return Response(status=200, data=res_data)

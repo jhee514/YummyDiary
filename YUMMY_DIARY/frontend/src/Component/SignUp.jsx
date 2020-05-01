@@ -169,16 +169,12 @@ const SignUp = props => {
       temp.splice(matchedIndex,1)
     }
     setInput({...input,tags : temp})
-    // console.log("input.tags")
-    // console.log(input.tags)
-    // console.log(input)
   };
 
   const inputChangeEvent = event => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
   const checkChangeEvent = event => {
-    console.log(event.currentTarget.value)
     setInput({ ...input, gender: event.currentTarget.value });
   };
   const submitClickEvent = async event => {

@@ -16,8 +16,9 @@ import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "68%",
-    marginLeft: "27vh",
+    width: "70%",
+    display:"flex",
+    flexDirection:"column"
   },
   textfield: {
     marginBottom: "1vw",
@@ -56,7 +57,6 @@ const MainSearch = (props) => {
       let temp = customHashs;
       const matched = (tag) => tag.content === newValue;
       const matchedTagNumber = temp.findIndex(matched);
-      console.log(reviewList)
       const matchedOldTag = reviewList.hashtag.findIndex(matched);
       if (matchedTagNumber == -1 && matchedOldTag == -1) {
         temp.push({ content: newValue });
